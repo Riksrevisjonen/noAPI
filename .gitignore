@@ -41,3 +41,7 @@ vignettes/*.pdf
 # Dev folders
 dev/
 tmp/
+docs
+
+# Other files
+.DS_Store
