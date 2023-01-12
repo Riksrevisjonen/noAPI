@@ -1,5 +1,5 @@
 Package: noAPI
-Title: R Client For Public Norwegian APIs 
+Title: R Client For Public Norwegian APIs
 Version: 0.0.0.9000
 Authors@R: c(
     person("Ove Haugland", "Jakobsen", role = c("aut", "cre"), email = "ohj@riksrevisjonen.no"),
@@ -15,14 +15,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://riksrevisjonen.github.io/noAPI/
 BugReports: https://github.com/worldbank/pipr/issues
-Suggests: 
+Suggests:
     knitr,
     markdown,
     rmarkdown,
     testthat (>= 3.0.0)
-Imports: 
+Imports:
+    cli,
     httr2,
-    jsonlite
+    purrr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-
+Depends:
+    R (>= 4.1)
