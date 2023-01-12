@@ -16,6 +16,8 @@ RoxygenNote: 7.2.3
 URL: https://riksrevisjonen.github.io/noAPI/
 BugReports: https://github.com/worldbank/pipr/issues
 Suggests:
+    covr,
+    callr,
     knitr,
     markdown,
     rmarkdown,
@@ -23,7 +25,9 @@ Suggests:
 Imports:
     cli,
     httr2,
-    purrr
+    purrr,
+    memoise,
+    cachem
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends:
