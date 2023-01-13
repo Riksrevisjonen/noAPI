@@ -57,7 +57,7 @@ get_municipalities <- function(raw_response = FALSE) {
 #' Get entity (single method)
 #' @inheritParams get_entity
 #' @noRd
-get_entity_ <- function(entity, raw_response = FALSE) {
+get_entity_single <- function(entity, raw_response = FALSE) {
   resp <- request_brreg('enheter', entity)
   parsed <- parse_response(resp, simplifyVector = FALSE)
   if (raw_response) {
@@ -73,4 +73,4 @@ get_entity_ <- function(entity, raw_response = FALSE) {
 #' @inheritParams get_entity
 #' @noRd
 get_entity_safe <-
-  purrr::possibly(get_entity_, quiet = FALSE)
+  purrr::possibly(get_entity_single, quiet = FALSE)

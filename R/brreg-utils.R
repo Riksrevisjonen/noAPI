@@ -35,14 +35,14 @@ request_brreg <- function(type = c('enheter', 'kommuner'), entity = NULL) {
 #' @noRd
 parse_brreg_entity <- function(parsed) {
   if ('organisasjonsnummer' %in% names(parsed)) {
-    df <- parse_brreg_entity_(parsed)
+    df <- parse_brreg_entity_single(parsed)
   } else if ('_embedded' %in% names(parsed)) {
     # NOTE: Old code from riksrevR. Not sure this is needed.
     # if (length(parsed$`_embedded`$enheter) == 0) {
     #   cli::cli_warn('No entities found.')
     #   return(invisible(NULL))
     # }
-    dl <- lapply(parsed$`_embedded`$enheter, parse_brreg_entity_)
+    dl <- lapply(parsed$`_embedded`$enheter, parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
     cli::cli_warn('No entities found.')
@@ -51,9 +51,9 @@ parse_brreg_entity <- function(parsed) {
   df
 }
 
-#' parse_brreg_entity_
+#' parse_brreg_entity_single
 #' @noRd
-parse_brreg_entity_ <- function(p) {
+parse_brreg_entity_single <- function(p) {
 
   # Create data.frame
   data.frame(

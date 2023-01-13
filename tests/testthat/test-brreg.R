@@ -78,23 +78,23 @@ test_that('get_entity() returns NULL on failures', {
   # Number not found (Brreg error)
   expect_null(get_entity(123456789))
   # Name not found (internal warning)
-  expect_null(get_entity_('QW124'))
+  expect_null(get_entity_single('QW124'))
 })
 
-# ---- get_entity_() ----
+# ---- get_entity_single() ----
 
-test_that('get_entity_() fails correctly', {
+test_that('get_entity_single() fails correctly', {
   # Not 9-digit number (internal error)
-  expect_error(get_entity_(99999))
-  expect_error(get_entity_(12345678))
+  expect_error(get_entity_single(99999))
+  expect_error(get_entity_single(12345678))
   # Number not found (Brreg error)
-  expect_error(get_entity_(123456789))
+  expect_error(get_entity_single(123456789))
   # Name not found (internal warning)
-  expect_warning(get_entity_('QW124'))
+  expect_warning(get_entity_single('QW124'))
 })
 
-test_that('get_entity_() works when raw_response = TRUE', {
-  res <- get_entity_(974760843, raw_response = TRUE)
+test_that('get_entity_single() works when raw_response = TRUE', {
+  res <- get_entity_single(974760843, raw_response = TRUE)
   expect_true(is.list(res))
   expect_equal(names(res), c('url', 'status', 'content', 'response'))
   expect_identical(class(res), "noAPI")
