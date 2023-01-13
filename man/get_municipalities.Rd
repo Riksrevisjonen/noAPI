@@ -14,7 +14,7 @@ returned, including the raw \code{httr2_response}.}
 data.frame or list
 }
 \description{
-Collect the names and keys for Norwegian municipalities from the
+Fetch the names and keys for Norwegian municipalities from the
 \emph{Central Coordinating Register for Legal Entities} (Enhetsregisteret).
 }
 \examples{

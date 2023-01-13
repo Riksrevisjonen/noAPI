@@ -1,6 +1,15 @@
 #' @import httr2
 NULL
 
+#' check_api
+#' @param u URL
+#' @noRd
+check_api <- function(u) {
+  request(u) |>
+    req_perform() |>
+    resp_is_error()
+}
+
 #' send_query
 #' @param req A httr2 request
 #' @param max_tries Maximum number of retries
@@ -57,4 +66,3 @@ print.noapi <- function(x, ...) {
   utils::str(x$content)
   invisible(x)
 }
-

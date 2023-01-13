@@ -1,12 +1,13 @@
 #' Get entity
 #'
-#' Collect basic information about an entity from the \emph{Central Coordinating
+#' Fetch information about an entity from the \emph{Central Coordinating
 #' Register for Legal Entities} (Enhetsregisteret) based on the entity's
-#' organisation number.
+#' name or organisation number.
 #'
-#' See the API documentation for further details
-#' \url{https://data.brreg.no/enhetsregisteret/api/docs/index.html} (in
-#' Norwegian only).
+#' @details
+#' See the
+#' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
+#' for further details (in Norwegian only).
 #'
 #' @param entity A Norwegian organisation number or company name.
 #' @param raw_response  If TRUE a list of class `noAPI` is
@@ -16,9 +17,11 @@
 #' @examples
 #' # Get entity by number
 #' df <- get_entity(974760843)
+#'
 #' # Get entity by name
 #' df <- get_entity('Riksrevisjonen')
-#' # Get multiple entites
+#'
+#' # Get multiple entities
 #' df <- get_entity(c(974760843, 971524960))
 #'
 get_entity <- function(entity, raw_response = FALSE) {
@@ -29,7 +32,7 @@ get_entity <- function(entity, raw_response = FALSE) {
 
 #' Get municipalities
 #'
-#' Collect the names and keys for Norwegian municipalities from the
+#' Fetch the names and keys for Norwegian municipalities from the
 #' \emph{Central Coordinating Register for Legal Entities} (Enhetsregisteret).
 #'
 #' @inheritParams get_entity
@@ -40,10 +43,8 @@ get_entity <- function(entity, raw_response = FALSE) {
 #' df <- get_municipalities()
 #'
 get_municipalities <- function(raw_response = FALSE) {
-
   resp <- request_brreg('kommuner')
   parsed <- resp_body_json(resp, simplifyVector = TRUE)
-
   if (raw_response) {
     out <- make_api_object(resp, parsed)
   }
@@ -51,7 +52,6 @@ get_municipalities <- function(raw_response = FALSE) {
     out <- parsed$`_embedded`$kommuner[,1:2]
   }
   return(out)
-
 }
 
 #' Get entity (single method)
@@ -69,8 +69,8 @@ get_entity_single <- function(entity, raw_response = FALSE) {
   return(out)
 }
 
-# Get entity (safe)
+#' Get entity (safe method)
 #' @inheritParams get_entity
 #' @noRd
 get_entity_safe <-
-  purrr::possibly(get_entity_single, quiet = FALSE)
+  purrr::possibly(get_entity_single, otherwise = NULL, quiet = FALSE)

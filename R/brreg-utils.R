@@ -8,13 +8,10 @@ request_brreg <- function(type = c('enheter', 'kommuner'), entity = NULL) {
   type <- match.arg(type)
   req <- request(brreg_url)
   if (type == 'enheter') {
-    is_valid_number <- grepl('\\d{9}', entity)
-    #
-    if (nchar(entity) != 9 && !grepl('\\D', entity) ) { #grepl('\\d', entity) && grepl('\\D', entity)
-      msg = '{entity} is not a 9-digit organization number'
-      cli::cli_abort(msg)
-    }
-    if (is_valid_number) {
+    entity <- clean_entity_input(entity)
+    is_number <- grepl('\\d+', entity) && !grepl('\\D', entity)
+    if (is_number) {
+      verify_entity_number(entity)
       req <- req |>
         req_url_path_append('enheter') |>
         req_url_path_append(entity)
@@ -85,6 +82,37 @@ parse_brreg_entity_single <- function(p) {
   )
 }
 
+#' clean_entity_input
+#' @noRd
+clean_entity_input <- function(x) {
+  # Get all digits
+  d <- regmatches(x, gregexpr('\\d+', x)) |>
+    unlist() |>
+    paste(collapse = '')
+  # Remove non-digit characters if
+  # 'x' contains a nine-digit string
+  if (grepl('\\d{9}', d)) {
+    x <- gsub('\\D', '', x)
+    return(x)
+  }
+  # Remove leading/trailing whitespace
+  x <- trimws(x)
+  # Remove extra whitespace
+  x <- gsub('  +', ' ', x)
+  x
+}
+
+#' verify_entity_number
+#' @noRd
+verify_entity_number <- function(x) {
+  msg <- '{x} is not a valid organization number'
+  if (grepl('\\d{9}', x)) {
+    if (!mod11(x)) return(cli::cli_abort(msg))
+  } else {
+    return(cli::cli_abort(msg))
+  }
+  invisible(TRUE)
+}
 
 #' mod11
 #' Check validity of Norwegian organization numbers

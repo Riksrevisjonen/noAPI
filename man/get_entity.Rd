@@ -16,21 +16,23 @@ returned, including the raw \code{httr2_response}.}
 data.frame or list
 }
 \description{
-Collect basic information about an entity from the \emph{Central Coordinating
+Fetch information about an entity from the \emph{Central Coordinating
 Register for Legal Entities} (Enhetsregisteret) based on the entity's
-organisation number.
+name or organisation number.
 }
 \details{
-See the API documentation for further details
-\url{https://data.brreg.no/enhetsregisteret/api/docs/index.html} (in
-Norwegian only).
+See the
+\href{https://data.brreg.no/enhetsregisteret/api/docs/index.html}{API documentation}
+for further details (in Norwegian only).
 }
 \examples{
 # Get entity by number
 df <- get_entity(974760843)
+
 # Get entity by name
 df <- get_entity('Riksrevisjonen')
-# Get multiple entites
+
+# Get multiple entities
 df <- get_entity(c(974760843, 971524960))
 
 }
