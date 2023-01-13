@@ -54,13 +54,12 @@ parse_brreg_entity <- function(parsed) {
 #' parse_brreg_entity_single
 #' @noRd
 parse_brreg_entity_single <- function(p) {
-
   # Create data.frame
   data.frame(
     organisasjonsnummer = p$organisasjonsnummer,
     navn = p$navn,
-    organisasjonsform.kode = null2na(p$organisasjonsform$kode),
-    organisasjonsform.beskrivelse = null2na(p$organisasjonsform$beskrivelse),
+    organisasjonsform_kode = null2na(p$organisasjonsform$kode),
+    organisasjonsform_beskrivelse = null2na(p$organisasjonsform$beskrivelse),
     forretningsadresse = null2na(sprintf(
       '%s, %s %s', unlist(p$forretningsadresse$adresse),
       p$forretningsadresse$postnummer, p$forretningsadresse$poststed)),
@@ -71,10 +70,10 @@ parse_brreg_entity_single <- function(p) {
     internettadresse = null2na(p$hjemmeside),
     antall_ansatte = null2na(p$antallAnsatte),
     registeringsdato = null2na(p$registreringsdatoEnhetsregisteret),
-    naeringskode.kode = null2na(p$naeringskode1$kode),
-    naeringskode.beskrivelse = null2na(p$naeringskode1$beskrivelse),
-    sektorkode.kode = null2na(p$institusjonellSektorkode$kode),
-    sektorkode.beskrivelse = null2na(p$institusjonellSektorkode$beskrivelse),
+    naeringskode_kode = null2na(p$naeringskode1$kode),
+    naeringskode_beskrivelse = null2na(p$naeringskode1$beskrivelse),
+    sektorkode_kode = null2na(p$institusjonellSektorkode$kode),
+    sektorkode_beskrivelse = null2na(p$institusjonellSektorkode$beskrivelse),
     registrert_mvaregisteret = null2na(p$registrertIMvaregisteret),
     registrert_foretaksregisteret = null2na(p$registrertIForetaksregisteret),
     registrert_stiftelsesregisteret = null2na(p$registrertIStiftelsesregisteret),
@@ -84,4 +83,15 @@ parse_brreg_entity_single <- function(p) {
     under_avvikling = null2na(p$underAvvikling),
     stringsAsFactors = FALSE
   )
+}
+
+
+#' mod11
+#' Check validity of Norwegian organization numbers
+#' @noRd
+mod11 <- function(x, n = 8, weights = c(3,2,7,6,5,4,3,2)) {
+  x <- as.character(x)
+  x <- as.integer(unlist(strsplit(x, '')))
+  k <- sum(weights * x[1:n]) %% 11
+  if (k == 0) k == x[n+1] else (11 - k) == x[n+1]
 }
