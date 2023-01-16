@@ -2,4 +2,5 @@
 
 export(get_entity)
 export(get_municipalities)
+export(get_roles)
 import(httr2)

@@ -4,10 +4,10 @@ null2na <- function(x) if (is.null(x) || length(x) == 0) NA else x
 
 #' request_brreg
 #' @noRd
-request_brreg <- function(type = c('enheter', 'kommuner'), entity = NULL) {
+request_brreg <- function(type = c('enheter', 'roller','kommuner'), entity = NULL) {
   type <- match.arg(type)
   req <- request(brreg_url)
-  if (type == 'enheter') {
+  if (type %in% c('enheter', 'roller')) {
     entity <- clean_entity_input(entity)
     is_number <- grepl('\\d+', entity) && !grepl('\\D', entity)
     if (is_number) {
@@ -15,6 +15,10 @@ request_brreg <- function(type = c('enheter', 'kommuner'), entity = NULL) {
       req <- req |>
         req_url_path_append('enheter') |>
         req_url_path_append(entity)
+      if (type == 'roller')  {
+        req <- req |>
+          req_url_path_append('roller')
+      }
     } else {
       req <- req |>
         req_url_path_append('enheter') |>
@@ -29,6 +33,7 @@ request_brreg <- function(type = c('enheter', 'kommuner'), entity = NULL) {
 }
 
 #' parse_brreg_entity
+#' @param parsed Output of `parse_response()`
 #' @noRd
 parse_brreg_entity <- function(parsed) {
   if ('organisasjonsnummer' %in% names(parsed)) {
@@ -80,6 +85,54 @@ parse_brreg_entity_single <- function(p) {
     under_avvikling = null2na(p$underAvvikling),
     stringsAsFactors = FALSE
   )
+}
+
+#' parse_brreg_roles
+#' @param parsed Output of `parse_response()`
+#' @inheritParams get_roles
+#' @noRd
+parse_brreg_roles <- function(parsed, entity) {
+  p <- lapply(parsed$rollegrupper, function(x) x$roller[[1]])
+  dl <- purrr::map2(p, entity, parse_brreg_roles_single)
+  dl_entities <- lapply(dl, function(x) {
+    if ('organisasjonsnummer' %in% names(x)) x else NULL
+  })
+  dl_persons <- lapply(dl, function(x) {
+    if (!'organisasjonsnummer' %in% names(x)) x else NULL
+  })
+  list(persons = do.call('rbind', dl_persons),
+       entities = do.call('rbind', dl_entities))
+}
+
+#' parse_brreg_roles_single
+#' @noRd
+parse_brreg_roles_single <- function(p, entity) {
+  if (any(grepl('person', names(p)))) {
+    data.frame(
+      aktornummer = entity,
+      type_kode = p$type$kode,
+      type_beskrivelse = p$type$beskrivelse,
+      navn = paste(p$person$navn$fornavn,
+                   p$person$navn$etternavn),
+      fodselsdato = p$person$fodselsdato,
+      er_doed = p$person$erDoed,
+      fratraadt = p$fratraadt,
+      rekkefolge = p$rekkefolge
+    )
+  } else {
+    data.frame(
+      aktornummer = entity,
+      type_kode = p$type$kode,
+      type_beskrivelse = p$type$beskrivelse,
+      organisasjonsnummer = p$enhet$organisasjonsnummer,
+      navn = paste(unlist(p$enhet$navn), collapse = ' '),
+      organisasjonsform_kode = p$enhet$organisasjonsform$kode,
+      organisasjonsform_beskrivelse = p$enhet$organisasjonsform$beskrivelse,
+      er_slettet = p$enhet$erSlettet,
+      fratraadt = p$fratraadt,
+      rekkefolge = p$rekkefolge
+    )
+  }
 }
 
 #' clean_entity_input

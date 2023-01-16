@@ -16,9 +16,9 @@ returned, including the raw \code{httr2_response}.}
 data.frame or list
 }
 \description{
-Fetch information about an entity from the \emph{Central Coordinating
-Register for Legal Entities} (Enhetsregisteret) based on the entity's
-name or organisation number.
+Fetch information about an entity from the
+\emph{Central Coordinating Register for Legal Entities} (Enhetsregisteret)
+based on the entity's name or organisation number.
 }
 \details{
 See the
