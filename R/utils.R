@@ -6,6 +6,7 @@ NULL
 #' @noRd
 check_api <- function(u) {
   request(u) |>
+    req_error(is_error = function(resp) FALSE) |>
     req_perform() |>
     resp_is_error()
 }
@@ -32,7 +33,7 @@ send_query <- function(req, max_tries = 3, throttle_rate = 1) {
 #' parse_response
 #' @param resp A httr2 response
 #' @noRd
-parse_response <- function(resp, simplifyVector = TRUE, raw_response = FALSE){
+parse_response <- function(resp, simplifyVector = TRUE){
   # Parse response based on content type
   type <- resp_content_type(resp)
   resp_error <- resp_is_error(resp)
