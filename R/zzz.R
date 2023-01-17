@@ -10,7 +10,7 @@
 }
 
 .onAttach <- function(libname, pkgname) {
-  if (!Sys.getenv("PIPR_DISABLE_CACHING") == "TRUE") {
+  if (!Sys.getenv("NOAPI_DISABLE_CACHING") == "TRUE") {
     packageStartupMessage("Info: Session based caching is enabled.")
   }
 }
