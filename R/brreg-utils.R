@@ -111,26 +111,26 @@ parse_brreg_roles_single <- function(p, entity) {
     data.frame(
       aktornummer = entity,
       type_kode = p$type$kode,
-      type_beskrivelse = p$type$beskrivelse,
+      type_beskrivelse = null2na(p$type$beskrivelse),
       navn = paste(p$person$navn$fornavn,
                    p$person$navn$etternavn),
-      fodselsdato = p$person$fodselsdato,
-      er_doed = p$person$erDoed,
-      fratraadt = p$fratraadt,
-      rekkefolge = p$rekkefolge
+      fodselsdato = null2na(p$person$fodselsdato),
+      er_doed = null2na(p$person$erDoed),
+      fratraadt = null2na(p$fratraadt),
+      rekkefolge = null2na(p$rekkefolge)
     )
   } else {
     data.frame(
       aktornummer = entity,
       type_kode = p$type$kode,
-      type_beskrivelse = p$type$beskrivelse,
+      type_beskrivelse = null2na(p$type$beskrivelse),
       organisasjonsnummer = p$enhet$organisasjonsnummer,
       navn = paste(unlist(p$enhet$navn), collapse = ' '),
-      organisasjonsform_kode = p$enhet$organisasjonsform$kode,
-      organisasjonsform_beskrivelse = p$enhet$organisasjonsform$beskrivelse,
-      er_slettet = p$enhet$erSlettet,
-      fratraadt = p$fratraadt,
-      rekkefolge = p$rekkefolge
+      organisasjonsform_kode = null2na(p$enhet$organisasjonsform$kode),
+      organisasjonsform_beskrivelse = null2na(p$enhet$organisasjonsform$beskrivelse),
+      er_slettet = null2na(p$enhet$erSlettet),
+      fratraadt = null2na(p$fratraadt),
+      rekkefolge = null2na(p$rekkefolge)
     )
   }
 }
