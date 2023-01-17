@@ -17,6 +17,15 @@ data.frame or list
 Fetch the names and keys for Norwegian municipalities from the
 \emph{Central Coordinating Register for Legal Entities} (Enhetsregisteret).
 }
+\details{
+The function returns a data.frame by default. If you set \code{raw_response} to
+\code{TRUE}, the raw response from the API will be returned instead. Note that the
+response will then be returned silently.
+
+See the
+\href{https://data.brreg.no/enhetsregisteret/api/docs/index.html}{API documentation}
+for further details (in Norwegian only).
+}
 \examples{
 # Get municipalities
 df <- get_municipalities()

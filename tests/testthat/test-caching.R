@@ -10,6 +10,8 @@ test_that("Caching is enabled by default", {
   expect_true(tmp)
   tmp <- r$run(function() memoise::is.memoised(get_municipalities))
   expect_true(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_roles))
+  expect_true(tmp)
   r$kill()
 })
 
@@ -22,6 +24,8 @@ test_that("Caching can be disabled", {
   tmp <- r$run(function() memoise::is.memoised(get_entity))
   expect_false(tmp)
   tmp <- r$run(function() memoise::is.memoised(get_municipalities))
+  expect_false(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_roles))
   expect_false(tmp)
   r$kill()
 })

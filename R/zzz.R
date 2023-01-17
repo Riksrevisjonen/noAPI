@@ -4,6 +4,7 @@
     # BRREG functions
     get_entity <<- memoise::memoise(get_entity, cache = cm)
     get_municipalities <<- memoise::memoise(get_municipalities, cache = cm)
+    get_roles <<- memoise::memoise(get_roles, cache = cm)
     # ...
   }
 }

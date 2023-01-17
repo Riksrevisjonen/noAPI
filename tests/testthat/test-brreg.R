@@ -1,4 +1,5 @@
 entity_resp <- readRDS('../testdata/brreg-entity-resp.rds')
+roles_resp <- readRDS('../testdata/brreg-roles-resp.rds')
 
 # ---- get_entity() ----
 
@@ -71,7 +72,7 @@ test_that('get_entity() works for multitiple name queries', {
 test_that('get_entity() works when raw_response = TRUE', {
   skip_if(check_api(brreg_url))
 
-  res <- get_entity(974760843, raw_response = TRUE)
+  res <- expect_invisible(get_entity(974760843, raw_response = TRUE))
   expect_true(is.list(res))
   expect_true(is.list(res[[1]]))
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))
@@ -86,30 +87,75 @@ test_that('get_entity() returns NULL on failures', {
   expect_null(get_entity(123456789))
   # Name not found (internal warning)
   skip_if(check_api(brreg_url))
-  expect_null(get_entity('QW124'))
+  expect_warning(expect_null(get_entity('QW124')))
 })
 
-# ---- get_entity_single() ----
+# ---- get_roles() ----
 
-test_that('get_entity_single() fails correctly', {
-  # Not valid 9-digit number (internal error)
-  expect_error(get_entity_single(99999))
-  expect_error(get_entity_single(12345678))
-  expect_error(get_entity_single(123456789))
-  # Name not found (internal warning)
-  skip_if(check_api(brreg_url))
-  expect_warning(get_entity_single('QW124'))
-})
-
-test_that('get_entity_single() works when raw_response = TRUE', {
+test_that('get_roles() works for single queries', {
   skip_if(check_api(brreg_url))
 
-  res <- get_entity_single(974760843, raw_response = TRUE)
+  # Check structure
+  res <- get_roles(974760843)
   expect_true(is.list(res))
-  expect_equal(names(res), c('url', 'status', 'content', 'response'))
-  expect_identical(class(res), "noAPI")
-  expect_true(is.list(res$content))
+  # expect_true(names(res) == '974760843')
+  expect_equal(names(res), c('persons', 'entities'))
+  # Check column names
+  expect_true(all(names(res$persons) ==
+                    names(roles_resp$persons)))
+  expect_true(all(names(res$entities) ==
+                    names(roles_resp$entities)))
+  # Check column classes
+  expect_true(all(sapply(res$persons, class) ==
+                    sapply(roles_resp$persons, class)))
+  expect_true(all(sapply(res$entities, class) ==
+                    sapply(roles_resp$entities, class)))
+
 })
+
+test_that('get_roles() works for mulitiple queries', {
+  skip_if(check_api(brreg_url))
+
+  # Check structure
+  res <- get_roles(c(974760843, 971524960))
+  expect_true(is.list(res))
+  # expect_true(all(names(res) == c('974760843', '971524960')))
+  expect_equal(names(res), c('persons', 'entities'))
+
+  # Check column names
+  expect_true(all(names(res$persons) ==
+                    names(roles_resp$persons)))
+  expect_true(all(names(res$entities) ==
+                    names(roles_resp$entities)))
+
+  # Check column classes
+  expect_true(all(sapply(res$persons, class) ==
+                    sapply(roles_resp$persons, class)))
+  expect_true(all(sapply(res$entities, class) ==
+                    sapply(roles_resp$entities, class)))
+
+})
+
+
+test_that('get_roles() works when raw_response = TRUE', {
+  skip_if(check_api(brreg_url))
+
+  res <- expect_invisible(get_roles(974760843, raw_response = TRUE))
+
+  expect_true(is.list(res))
+  expect_true(is.list(res[[1]]))
+  expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))
+  expect_identical(class(res[[1]]), "noAPI")
+  expect_true(is.list(res[[1]]$content))
+})
+
+test_that('get_roles() returns NULL on failures', {
+  # Not valid 9-digit number (internal error)
+  expect_null(get_roles(99999))
+  expect_null(get_roles(12345678))
+  expect_null(get_roles(123456789))
+})
+
 
 # ----- get_municipalities() ----
 
@@ -127,9 +173,50 @@ test_that('get_municipalities works', {
 test_that('get_municipalities works when raw_response = TRUE', {
   skip_if(check_api(brreg_url))
 
-  res <- get_municipalities(raw_response = TRUE)
+  res <- expect_invisible(get_municipalities(raw_response = TRUE))
   expect_true(is.list(res))
   expect_equal(names(res), c('url', 'status', 'content', 'response'))
   expect_identical(class(res), "noAPI")
   expect_true(is.list(res$content))
+})
+
+
+# ---- get_brreg_single() ----
+
+get_brreg_single(974760843)
+
+get_brreg_single(974760843, 'roller')
+
+test_that('get_brreg_single() fails correctly', {
+  # Not valid 9-digit number (internal error)
+  expect_error(get_brreg_single(99999, type = 'enheter'))
+  expect_error(get_brreg_single(12345678, type = 'enheter'))
+  expect_error(get_brreg_single(123456789, type = 'enheter'))
+  # Name not found (internal warning)
+  skip_if(check_api(brreg_url))
+  expect_warning(get_brreg_single('QW124', type = 'enheter'))
+
+  # Not valid 9-digit number (internal error)
+  expect_error(get_brreg_single(99999, type = 'roller'))
+  expect_error(get_brreg_single(12345678, type = 'roller'))
+  expect_error(get_brreg_single(123456789, type = 'roller'))
+})
+
+test_that('get_brreg_single() works when raw_response = TRUE', {
+  skip_if(check_api(brreg_url))
+
+  # Entities
+  res <- get_brreg_single(974760843, type = 'enheter', raw_response = TRUE)
+  expect_true(is.list(res))
+  expect_equal(names(res), c('url', 'status', 'content', 'response'))
+  expect_identical(class(res), "noAPI")
+  expect_true(is.list(res$content))
+
+  # Roles
+  res <- get_brreg_single(974760843, type = 'roller', raw_response = TRUE)
+  expect_true(is.list(res))
+  expect_equal(names(res), c('url', 'status', 'content', 'response'))
+  expect_identical(class(res), "noAPI")
+  expect_true(is.list(res$content))
+
 })
