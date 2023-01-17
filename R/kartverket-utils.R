@@ -102,7 +102,7 @@ create_params_kartverket <- function(
     ascii_compatible = TRUE,
     page = 0,
     size = 1000,
-    crs = 4326
+    crs = 4258
 ) {
 
   search_mode <- match.arg(search_mode)
