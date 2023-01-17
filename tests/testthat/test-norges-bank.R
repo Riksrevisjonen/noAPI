@@ -41,6 +41,7 @@ test_that('get_exchange_rate() works when raw_response = TRUE', {
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))
   expect_identical(class(res[[1]]), 'noAPI')
   expect_true(is.list(res[[1]]$content))
+  expect_invisible(get_exchange_rate('EUR', n_obs = 1, raw_response = TRUE))
 })
 
 test_that('get_exchange_rate() returns error if wrong currency is given', {

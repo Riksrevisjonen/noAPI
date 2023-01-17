@@ -16,7 +16,8 @@ request_sdmx <- function(currency, frequency, start, end) {
     'data/EXR/%s.%s.NOK.SP?format=sdmx-json&startPeriod=%s&endPeriod=%s&locale=en',
     frequency, currency, start, end
   )
-  req <- request(nbank_url) |> req_url_path_append(api_path)
+  req <- request(nbank_url) |>
+    req_url_path_append(api_path)
   send_query(req)
 }
 

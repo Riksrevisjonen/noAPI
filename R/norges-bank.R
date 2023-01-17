@@ -45,7 +45,7 @@ get_exchange_rate <- function(currency, frequency = c('daily', 'monthly', 'annua
                               raw_response = FALSE) {
   frequency <- match.arg(frequency)
   dynamic <- if (any(is.null(start), is.null(end))) TRUE else FALSE
-  dl <- lapply(toupper(currency), get_exchange_rate_,
+  dl <- lapply(toupper(currency), get_exchange_rate_single,
     frequency = frequency, start = start,
     end = end, dynamic = dynamic, n_obs = n_obs, raw_response = raw_response
   )
@@ -54,12 +54,16 @@ get_exchange_rate <- function(currency, frequency = c('daily', 'monthly', 'annua
   dl
 }
 
-#' get_exchange_rate_
+#' get_exchange_rate_single
 #' @noRd
-get_exchange_rate_ <- function(currency, frequency, dynamic, n_obs, start,
-                               end, raw_response) {
+get_exchange_rate_single <- function(currency, frequency, dynamic, n_obs, start,
+                                     end, raw_response) {
   if (!grepl('^[A-Z4]{3}$', currency)) {
-    msg <- '{currency} is not a valid currency code. Must be a 3 letter code.'
+    msg <- c(
+      '{.var currency} is not valid.',
+      'i' = '{currency} does not conform to the required regex pattern.',
+      'x' = 'The country code must be exactly 3 letters with regex pattern [A-Z4].'
+    )
     cli::cli_abort(msg)
   }
   frequency <- switch(
@@ -85,8 +89,7 @@ get_exchange_rate_ <- function(currency, frequency, dynamic, n_obs, start,
   parsed <- parse_response(resp, simplifyVector = FALSE)
   if (raw_response) {
     out <- make_api_object(resp, parsed)
-  }
-  else {
+  } else {
     out <- parse_sdmx(parsed)
   }
   return(out)
