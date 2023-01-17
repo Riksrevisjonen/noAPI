@@ -27,7 +27,7 @@ create_params_kartverket(
   ascii_compatible = TRUE,
   page = 0,
   size = 1000,
-  crs = 4326
+  crs = 4258
 )
 }
 \arguments{

@@ -37,7 +37,7 @@ response will then be returned silently.
 # A simple query
 df <- get_address_info('munkegata 1 trondheim')
 
-# Use the advanced parameters to more specific
+# Use the advanced parameters to be more specific
 df <- get_address_info(address_name = 'Munkegata', address_number = 1,
          mun_name = 'Trondheim')
 
