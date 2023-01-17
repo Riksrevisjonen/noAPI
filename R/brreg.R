@@ -5,6 +5,11 @@
 #' based on the entity's name or organisation number.
 #'
 #' @details
+#'
+#' The function returns a data.frame by default. If you set `raw_response` to
+#' `TRUE`, the raw response from the API will be returned instead. Note that the
+#' response will then be returned silently.
+#'
 #' See the
 #' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
 #' for further details (in Norwegian only).
@@ -34,18 +39,26 @@ get_entity <- function(entity, raw_response = FALSE) {
 #' Get roles
 #'
 #' Fetch information about entity roles from the
-#' _Central Coordinating Register for Legal Entities_
-#' (Enhetsregisteret) based on the organisation number.
+#' _Central Coordinating Register for Legal Entities_ (Enhetsregisteret) based
+#' on the organisation number.
 #'
 #' @details
+#' The function returns a list with two data frames by default, one for
+#' individual roles and one for entity based roles.  If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned instead. Note that the
+#' response will then be returned silently.
+#'
 #' See the
 #' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
 #' for further details (in Norwegian only).
-#'
 #' @param entity A Norwegian organisation number.
 #' @inheritParams get_entity
 #' @return list
 #' @export
+#' @seealso `get_entity()`. It's not possible to get roles for an entity using a
+#'   name search. If you do not have an organisation number, you should first do
+#'   a call to `get_entity()` and then call `get_roles()` using the response from
+#'   the first call.
 #' @examples
 #' # Get roles for a single entity
 #' res <- get_roles(974760843)
@@ -70,6 +83,15 @@ get_roles <- function(entity, raw_response = FALSE) {
 #'
 #' Fetch the names and keys for Norwegian municipalities from the
 #' _Central Coordinating Register for Legal Entities_ (Enhetsregisteret).
+#'
+#' @details
+#' The function returns a data.frame by default. If you set `raw_response` to
+#' `TRUE`, the raw response from the API will be returned instead. Note that the
+#' response will then be returned silently.
+#'
+#' See the
+#' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
+#' for further details (in Norwegian only).
 #'
 #' @inheritParams get_entity
 #' @return data.frame or list

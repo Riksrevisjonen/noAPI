@@ -17,10 +17,15 @@ list
 }
 \description{
 Fetch information about entity roles from the
-\emph{Central Coordinating Register for Legal Entities}
-(Enhetsregisteret) based on the organisation number.
+\emph{Central Coordinating Register for Legal Entities} (Enhetsregisteret) based
+on the organisation number.
 }
 \details{
+The function returns a list with two data frames by default, one for
+individual roles and one for entity based roles.  If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned instead. Note that the
+response will then be returned silently.
+
 See the
 \href{https://data.brreg.no/enhetsregisteret/api/docs/index.html}{API documentation}
 for further details (in Norwegian only).
@@ -32,4 +37,10 @@ res <- get_roles(974760843)
 # Get roles for a mulitiple enities
 res <- get_roles(c(974760843, 971524960))
 
+}
+\seealso{
+\code{get_entity()}. It's not possible to get roles for an entity using a
+name search. If you do not have an organisation number, you should first do
+a call to \code{get_entity()} and then call \code{get_roles()} using the response from
+the first call.
 }
