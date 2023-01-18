@@ -9,7 +9,7 @@ get_address_info(search = NULL, ..., raw_response = FALSE)
 \arguments{
 \item{search}{A Norwegian address. For example: 'munkegata 1 trondheim'.}
 
-\item{...}{Additional arguments to send to the API call. See details.}
+\item{...}{Additional arguments passed to the API call. See details.}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}

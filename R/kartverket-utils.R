@@ -147,7 +147,6 @@ create_params_kv_sok <- function(
   return(params)
 }
 
-
 #' Query parameters for Find Address
 #'
 #' Accepted query parameters for Kartverket's endpoint `/punktsok`.

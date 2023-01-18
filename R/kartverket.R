@@ -16,7 +16,7 @@
 #' response will then be returned silently.
 #'
 #' @param search A Norwegian address. For example: 'munkegata 1 trondheim'.
-#' @param ... Additional arguments to send to the API call. See details.
+#' @param ... Additional arguments passed to the API call. See details.
 #' @inheritParams get_entity
 #'
 #' @return data.frame or list
@@ -42,9 +42,11 @@
 get_address_info <- function(search = NULL, ..., raw_response = FALSE) {
   if (!is.null(search)) {
     dl <- mapply(get_address_info_safe, search = search, ...,
+                 raw_response = raw_response,
                  SIMPLIFY = FALSE, USE.NAMES = FALSE)
   } else {
     dl <- mapply(get_address_info_safe, ...,
+                 raw_response = raw_response,
                  SIMPLIFY = FALSE, USE.NAMES = FALSE)
   }
   if (raw_response) return(invisible(dl))
@@ -66,7 +68,7 @@ get_address_info_single <- function(search = NULL, ..., raw_response = FALSE) {
   n_total <- parsed$metadata$totaltAntallTreff
   if (n_total > nrow(parsed$adresser)) {
     msg <- 'There are more addresses than was returned on the first page by the API.'
-    cli::cli_warn(c(msg, i = 'Try increasing the `size` parameter.'))
+    cli::cli_warn(c(msg, i = 'Found {n_total} addresses'))
   }
   if (raw_response) {
     out <- make_api_object(resp, parsed)
@@ -103,7 +105,8 @@ get_address_info_safe <-
 #'   meters.
 #' @param crs The coordinate reference system used for the coordinates given to
 #'   the function. Default value is ETRS 89 for latitude and longitude data
-#'   (EPSG:4258). Can be omitted if `x` is a simple features object.
+#'   (EPSG:4258).
+#' @inheritParams get_address_info
 #' @inheritParams get_entity
 #'
 #' @return data.frame or list
@@ -115,18 +118,20 @@ get_address_info_safe <-
 #' # Using a list
 #' dl <- find_address_from_point(
 #'   list(c(lat = 59.91364, lon = 10.7508),
-#'        c(lat = 63.42805, lon = 10.39679))))
+#'        c(lat = 63.42805, lon = 10.39679)))
 #'
 #' # Using a data.frame
 #' dl <- find_address_from_point(
 #'     data.frame(lat = c(59.91364, 63.42805),
 #'                lon = c(10.7508, 10.39679)))
+#'
 find_address_from_point <- function(x, radius = 50, crs = 4258, ...,
                                     raw_response = FALSE) {
   UseMethod('find_address_from_point')
 }
 
 #' find_address_from_point (numeric)
+#' @inheritParams find_address_from_point
 #' @export
 find_address_from_point.numeric <- function(x, radius = 50, crs = 4258, ...,
                                             raw_response = FALSE) {
@@ -137,6 +142,7 @@ find_address_from_point.numeric <- function(x, radius = 50, crs = 4258, ...,
 }
 
 #' find_address_from_point (list)
+#' @inheritParams find_address_from_point
 #' @export
 find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
                                          raw_response = FALSE) {
@@ -149,14 +155,12 @@ find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
 }
 
 #' find_address_from_point (data.frame)
+#' @inheritParams find_address_from_point
 #' @export
 find_address_from_point.data.frame <- function(x, radius = 50, crs = 4258, ...){
 
   if (!all(c('lat', 'lon') %in% colnames(x)))
     cli::cli_abort('data.frame must have columns with names lat and lon')
-
-  if (!is.numeric(x$lat)) cli::cli_abort('Variable lat must be numeric')
-  if (!is.numeric(x$lon)) cli::cli_abort('Variable lon must be numeric')
 
   lapply(1:nrow(x), function(i) {
     coords <- c(x[i, 'lat'], x[i, 'lon'])
@@ -189,7 +193,7 @@ find_address_from_point_single <- function(x, radius, crs, ...,
   n_total <- parsed$metadata$totaltAntallTreff
   if (n_total > nrow(parsed$adresser)) {
     msg <- 'There are more addresses than was returned on the first page by the API.'
-    cli::cli_warn(c(msg, i = 'Try increasing the `size` parameter.'))
+    cli::cli_warn(c(msg, i = 'Found {n_total} addresses'))
   }
   if (raw_response) {
     out <- make_api_object(resp, parsed)
@@ -203,5 +207,6 @@ find_address_from_point_single <- function(x, radius, crs, ...,
 #' @inheritParams find_address_from_point
 #' @noRd
 find_address_from_point_safe <-
-  purrr::possibly(find_address_from_point_single, otherwise = NULL, quiet = FALSE)
+  purrr::possibly(find_address_from_point_single, otherwise = NULL,
+                  quiet = FALSE)
 

@@ -6,6 +6,21 @@
 \usage{
 \method{find_address_from_point}{list}(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 }
+\arguments{
+\item{x}{A vector or list with latitude and longitude coordinates.}
+
+\item{radius}{An integer value with the radius for the query, in whole
+meters.}
+
+\item{crs}{The coordinate reference system used for the coordinates given to
+the function. Default value is ETRS 89 for latitude and longitude data
+(EPSG:4258).}
+
+\item{...}{Additional arguments passed to the API call. See details.}
+
+\item{raw_response}{If TRUE a list of class \code{noAPI} is
+returned, including the raw \code{httr2_response}.}
+}
 \description{
 find_address_from_point (list)
 }

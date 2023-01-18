@@ -14,7 +14,9 @@ meters.}
 
 \item{crs}{The coordinate reference system used for the coordinates given to
 the function. Default value is ETRS 89 for latitude and longitude data
-(EPSG:4258). Can be omitted if \code{x} is a simple features object.}
+(EPSG:4258).}
+
+\item{...}{Additional arguments passed to the API call. See details.}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
@@ -44,10 +46,11 @@ df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 # Using a list
 dl <- find_address_from_point(
   list(c(lat = 59.91364, lon = 10.7508),
-       c(lat = 63.42805, lon = 10.39679))))
+       c(lat = 63.42805, lon = 10.39679)))
 
 # Using a data.frame
 dl <- find_address_from_point(
     data.frame(lat = c(59.91364, 63.42805),
                lon = c(10.7508, 10.39679)))
+
 }
