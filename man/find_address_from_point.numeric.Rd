@@ -4,7 +4,7 @@
 \alias{find_address_from_point.numeric}
 \title{find_address_from_point (numeric)}
 \usage{
-\method{find_address_from_point}{numeric}(x, radius = 50, crs = 4258, raw_response = FALSE, ...)
+\method{find_address_from_point}{numeric}(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 }
 \description{
 find_address_from_point (numeric)

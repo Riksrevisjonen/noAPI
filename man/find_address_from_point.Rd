@@ -4,7 +4,7 @@
 \alias{find_address_from_point}
 \title{Find addresses within a geographical area}
 \usage{
-find_address_from_point(x, radius = 50, crs = 4258, raw_response = FALSE, ...)
+find_address_from_point(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 }
 \arguments{
 \item{x}{A vector or list with latitude and longitude coordinates.}
@@ -38,11 +38,16 @@ The function returns a data.frame or list by default. If you set
 instead. Note that the response will then be returned silently.
 }
 \examples{
-# A simple query
+# Using a vector
 df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 
-# A list query
-df <- find_address_from_point(
+# Using a list
+dl <- find_address_from_point(
   list(c(lat = 59.91364, lon = 10.7508),
        c(lat = 63.42805, lon = 10.39679))))
+
+# Using a data.frame
+dl <- find_address_from_point(
+    data.frame(lat = c(59.91364, 63.42805),
+               lon = c(10.7508, 10.39679)))
 }

@@ -4,7 +4,7 @@
 \alias{find_address_from_point.list}
 \title{find_address_from_point (list)}
 \usage{
-\method{find_address_from_point}{list}(x, radius = 50, crs = 4258, raw_response = FALSE, ...)
+\method{find_address_from_point}{list}(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 }
 \description{
 find_address_from_point (list)

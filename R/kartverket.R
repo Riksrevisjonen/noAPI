@@ -109,13 +109,18 @@ get_address_info_safe <-
 #' @return data.frame or list
 #' @export
 #' @examples
-#' # A simple query
+#' # Using a vector
 #' df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 #'
-#' # A list query
-#' df <- find_address_from_point(
+#' # Using a list
+#' dl <- find_address_from_point(
 #'   list(c(lat = 59.91364, lon = 10.7508),
 #'        c(lat = 63.42805, lon = 10.39679))))
+#'
+#' # Using a data.frame
+#' dl <- find_address_from_point(
+#'     data.frame(lat = c(59.91364, 63.42805),
+#'                lon = c(10.7508, 10.39679)))
 find_address_from_point <- function(x, radius = 50, crs = 4258, ...,
                                     raw_response = FALSE) {
   UseMethod('find_address_from_point')
@@ -141,6 +146,22 @@ find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
   if (length(dl) == 1) dl <- dl[[1]]
   dl <- dl[lengths(dl) != 0]
   dl
+}
+
+#' find_address_from_point (data.frame)
+#' @export
+find_address_from_point.data.frame <- function(x, radius = 50, crs = 4258, ...){
+
+  if (!all(c('lat', 'lon') %in% colnames(x)))
+    cli::cli_abort('data.frame must have columns with names lat and lon')
+
+  if (!is.numeric(x$lat)) cli::cli_abort('Variable lat must be numeric')
+  if (!is.numeric(x$lon)) cli::cli_abort('Variable lon must be numeric')
+
+  lapply(1:nrow(x), function(i) {
+    coords <- c(x[i, 'lat'], x[i, 'lon'])
+    find_address_from_point_safe(coords, radius = radius, crs = crs)
+  })
 }
 
 #' find_address_from_point (single method)
