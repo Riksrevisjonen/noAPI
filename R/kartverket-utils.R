@@ -1,11 +1,20 @@
 #' request_kartverket
 #' @noRd
-request_kartverket <- function(type = c('sok', 'punktsok'), search, ...) {
+request_kartverket <- function(
+    type = c('sok', 'punktsok'),
+    search = NULL,
+    lat = NULL,
+    lon = NULL,
+    radius = NULL,
+    ...) {
 
   type <- match.arg(type)
 
   # Create query parameters
-  params <- create_params_kartverket(search = search, ...)
+  if (type == 'sok')
+    params <- create_params_kv_sok(search = search, ...)
+  else
+    params <- create_params_kv_punktsok(lat = lat, lon = lon, radius = radius, ...)
 
   # Create query
   req <- request(kv_url) %>%
@@ -17,9 +26,9 @@ request_kartverket <- function(type = c('sok', 'punktsok'), search, ...) {
 
 }
 
-#' Query parameters for Kartverket
+#' Query parameters for Get Address
 #'
-#' Accepted query parameters for Kartverket.
+#' Accepted query parameters for Kartverket's endpoint `/sok`.
 #'
 #' @inheritParams get_address_info
 #' @param fuzzy If TRUE a fuzzy search on the provided addresses is conducted.
@@ -70,16 +79,16 @@ request_kartverket <- function(type = c('sok', 'punktsok'), search, ...) {
 #' @param postal_town A character string with the name of a Norwegian postal
 #'   town (place).
 #' @param postal_code A character string with a Norwegian postal code.
+#' @param crs_out The desired coordinate reference system.
 #' @param ascii_compatible If TRUE (default) the returned data is ASCII
 #'  compatible.
 #' @param page An integer value with the page to query. Defaults to 0 (the first
 #'   page).
-#' @param size An integer value with the size for each page. Defaults to 100.
-#' @param crs The desired coordinate reference system.
+#' @param size An integer value with the size for each page. Defaults to 1000.
 #'
 #' @keywords internal
 #'
-create_params_kartverket <- function(
+create_params_kv_sok <- function(
     search = NULL,
     fuzzy = FALSE,
     search_mode = c('AND', 'OR'),
@@ -99,10 +108,10 @@ create_params_kartverket <- function(
     unit_number = NULL,
     postal_town = NULL,
     postal_code = NULL,
+    crs_out = 4258,
     ascii_compatible = TRUE,
     page = 0,
-    size = 1000,
-    crs = 4258
+    size = 1000
 ) {
 
   search_mode <- match.arg(search_mode)
@@ -129,11 +138,44 @@ create_params_kartverket <- function(
     bruksenhetsnummer = unit_number,
     poststed = postal_town,
     postnummer = postal_code,
-    utkoordsys = crs,
+    utkoordsys = crs_out,
     treffPerSide = size,
     side = page,
     asciiKompatibel = ascii_compatible
   )
 
   return(params)
+}
+
+
+#' Query parameters for Find Address
+#'
+#' Accepted query parameters for Kartverket's endpoint `/punktsok`.
+#'
+#' @inheritParams find_address_from_point
+#' @inheritParams create_params_kv_sok
+#' @param crs_in Coordinate system for the point you are searching for.
+#' @keywords internal
+create_params_kv_punktsok <- function(
+    lat, lon, radius,
+    crs_in = 4258,
+    crs_out = 4258,
+    ascii_compatible = TRUE,
+    size = 1000,
+    page = 0
+    ) {
+
+  params <- list(
+    lat = lat,
+    lon = lon,
+    radius = radius,
+    koordsys = crs_in,
+    utkoordsys = crs_out,
+    treffPerSide = size,
+    side = page,
+    asciiKompatibel = ascii_compatible
+  )
+
+  return(params)
+
 }

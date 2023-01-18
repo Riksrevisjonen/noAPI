@@ -24,7 +24,7 @@ Search for Norwegian addresses in
 \details{
 Many users will get by with using the regular \code{search} parameter, but more
 advanced users might want to look into the wide range of possible parameters.
-For a list of all accepted query parameters see \code{\link[=create_params_kartverket]{create_params_kartverket()}}
+For a list of all accepted query parameters see \code{\link[=create_params_kv_sok]{create_params_kv_sok()}}
 or refer to the
 \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation}
 for further details (in Norwegian only).

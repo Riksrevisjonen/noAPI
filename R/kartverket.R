@@ -6,7 +6,7 @@
 #' @details
 #' Many users will get by with using the regular `search` parameter, but more
 #' advanced users might want to look into the wide range of possible parameters.
-#' For a list of all accepted query parameters see [create_params_kartverket()]
+#' For a list of all accepted query parameters see [create_params_kv_sok()]
 #' or refer to the
 #' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
 #' for further details (in Norwegian only).
@@ -60,8 +60,7 @@ get_address_info_single <- function(search = NULL, ..., raw_response = FALSE) {
   resp <- request_kartverket('sok', search, ...)
   parsed <- parse_response(resp, simplifyVector = TRUE)
   if (length(parsed$adresser) == 0) {
-    cli::cli_warn('No addresses found.')
-    # cli::cli_warn(c(msg, i = 'Check your spelling.'))
+    cli::cli_warn('No addresses found. Returning NULL.')
     return(NULL)
   }
   n_total <- parsed$metadata$totaltAntallTreff
@@ -82,3 +81,106 @@ get_address_info_single <- function(search = NULL, ..., raw_response = FALSE) {
 #' @noRd
 get_address_info_safe <-
   purrr::possibly(get_address_info_single, otherwise = NULL, quiet = FALSE)
+
+#' Find addresses within a geographical area
+#'
+#' Search for Norwegian addresses within a certain radius from a geographical
+#' point.
+#'
+#' @details
+#' Advanced users might want to look into the additional possible parameters.
+#' For a list of all accepted query parameters see [create_params_kv_punktsok()]
+#' or refer to the
+#' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
+#' for further details (in Norwegian only).
+#'
+#' The function returns a data.frame or list by default. If you set
+#' `raw_response` to `TRUE`, the raw response from the API will be returned
+#' instead. Note that the response will then be returned silently.
+#'
+#' @param x A vector or list with latitude and longitude coordinates.
+#' @param radius An integer value with the radius for the query, in whole
+#'   meters.
+#' @param crs The coordinate reference system used for the coordinates given to
+#'   the function. Default value is ETRS 89 for latitude and longitude data
+#'   (EPSG:4258). Can be omitted if `x` is a simple features object.
+#' @inheritParams get_entity
+#'
+#' @return data.frame or list
+#' @export
+#' @examples
+#' # A simple query
+#' df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
+#'
+#' # A list query
+#' df <- find_address_from_point(
+#'   list(c(lat = 59.91364, lon = 10.7508),
+#'        c(lat = 63.42805, lon = 10.39679))))
+find_address_from_point <- function(x, radius = 50, crs = 4258, ...,
+                                    raw_response = FALSE) {
+  UseMethod('find_address_from_point')
+}
+
+#' find_address_from_point (numeric)
+#' @export
+find_address_from_point.numeric <- function(x, radius = 50, crs = 4258, ...,
+                                            raw_response = FALSE) {
+  res <- find_address_from_point_safe(x, radius = radius, crs = crs,
+                                      raw_response = raw_response)
+  if (raw_response) return(invisible(res))
+  res
+}
+
+#' find_address_from_point (list)
+#' @export
+find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
+                                         raw_response = FALSE) {
+  dl <- lapply(x, find_address_from_point.numeric, radius = radius, crs = crs,
+               ..., raw_response = raw_response)
+  if (raw_response) return(invisible(dl))
+  if (length(dl) == 1) dl <- dl[[1]]
+  dl <- dl[lengths(dl) != 0]
+  dl
+}
+
+#' find_address_from_point (single method)
+#' @inheritParams find_address_from_point
+#' @noRd
+find_address_from_point_single <- function(x, radius, crs, ...,
+                                           raw_response = FALSE) {
+  if (length(x) != 2)
+    cli::cli_abort('`x` must be of length 2 (latitude, longitude)')
+
+  if (all(c('lat', 'lon') %in% names(x))) {
+    resp <- request_kartverket('punktsok', lat = x[['lat']], lon = x[['lon']],
+                               radius = radius, crs_in = crs, crs_out = crs,
+                               ...)
+  } else {
+    resp <- request_kartverket('punktsok', lat = x[1], lon = x[2],
+                               radius = radius, crs_in = crs, crs_out = crs,
+                               ...)
+  }
+  parsed <- parse_response(resp, simplifyVector = TRUE)
+  if (length(parsed$adresser) == 0) {
+    cli::cli_warn('No addresses found. Returning NULL.')
+    return(NULL)
+  }
+  n_total <- parsed$metadata$totaltAntallTreff
+  if (n_total > nrow(parsed$adresser)) {
+    msg <- 'There are more addresses than was returned on the first page by the API.'
+    cli::cli_warn(c(msg, i = 'Try increasing the `size` parameter.'))
+  }
+  if (raw_response) {
+    out <- make_api_object(resp, parsed)
+  } else {
+    out <- parsed$adresser
+  }
+  out
+}
+
+#' find_address_from_point (safe method)
+#' @inheritParams find_address_from_point
+#' @noRd
+find_address_from_point_safe <-
+  purrr::possibly(find_address_from_point_single, otherwise = NULL, quiet = FALSE)
+
