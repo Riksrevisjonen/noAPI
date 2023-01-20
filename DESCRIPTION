@@ -5,7 +5,7 @@ Authors@R: c(
     person("Ove Haugland", "Jakobsen", role = c("aut", "cre"), email = "ohj@riksrevisjonen.no"),
     person("Aleksander", "Eilertsen", role = "aut", email = "ale@riksrevisjonen.no"),
     person(family = "Riksrevisjonen", role = "cph"))
-Description: Retrives data from data from public Norwegian APIs through 
+Description: Retrive data from public Norwegian APIs through 
     easy-to-use functions.
 Encoding: UTF-8
 License: MIT + file LICENSE
@@ -14,7 +14,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://riksrevisjonen.github.io/noAPI/
-BugReports: https://github.com/worldbank/pipr/issues
+BugReports: https://riksrevisjonen.github.io/noAPI/issues
 Suggests:
     bench,
     covr,
