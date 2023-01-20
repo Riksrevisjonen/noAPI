@@ -82,9 +82,9 @@ test_that('get_entity() works when raw_response = TRUE', {
 
 test_that('get_entity() returns NULL on failures', {
   # Not valid 9-digit number (internal error)
-  expect_null(get_entity(99999))
-  expect_null(get_entity(12345678))
-  expect_null(get_entity(123456789))
+  expect_null(suppressMessages(get_entity(99999)))
+  expect_null(suppressMessages(get_entity(12345678)))
+  expect_null(suppressMessages(get_entity(123456789)))
   # Name not found (internal warning)
   skip_if(check_api(brreg_url))
   expect_warning(expect_null(get_entity('QW124')))
@@ -136,7 +136,6 @@ test_that('get_roles() works for mulitiple queries', {
 
 })
 
-
 test_that('get_roles() works when raw_response = TRUE', {
   skip_if(check_api(brreg_url))
 
@@ -151,9 +150,9 @@ test_that('get_roles() works when raw_response = TRUE', {
 
 test_that('get_roles() returns NULL on failures', {
   # Not valid 9-digit number (internal error)
-  expect_null(get_roles(99999))
-  expect_null(get_roles(12345678))
-  expect_null(get_roles(123456789))
+  expect_null(suppressMessages(get_roles(99999)))
+  expect_null(suppressMessages(get_roles(12345678)))
+  expect_null(suppressMessages(get_roles(123456789)))
 })
 
 
