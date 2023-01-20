@@ -16,6 +16,8 @@
 #' response will then be returned silently.
 #'
 #' @param search A Norwegian address. For example: 'munkegata 1 trondheim'.
+#' @param crs The desired coordinate reference system for the output. Default
+#'   value is ETRS 89 for latitude and longitude data (EPSG:4258).
 #' @param ... Additional arguments passed to the API call. See details.
 #' @inheritParams get_entity
 #'
@@ -39,14 +41,14 @@
 #'    mun_code = c(NULL, '5001'))
 #'
 #' }
-get_address_info <- function(search = NULL, ..., raw_response = FALSE) {
+get_address_info <- function(search = NULL, crs = 4258, ..., raw_response = FALSE) {
   if (!is.null(search)) {
-    dl <- mapply(get_address_info_safe, search = search, ...,
-                 raw_response = raw_response,
+    dl <- mapply(get_address_info_safe, search = search,
+                 crs = crs, ..., raw_response = raw_response,
                  SIMPLIFY = FALSE, USE.NAMES = FALSE)
   } else {
-    dl <- mapply(get_address_info_safe, ...,
-                 raw_response = raw_response,
+    dl <- mapply(get_address_info_safe, crs = crs,
+                 ..., raw_response = raw_response,
                  SIMPLIFY = FALSE, USE.NAMES = FALSE)
   }
   if (raw_response) return(invisible(dl))
@@ -58,22 +60,20 @@ get_address_info <- function(search = NULL, ..., raw_response = FALSE) {
 #' Get address info (single)
 #' @inheritParams get_address_info
 #' @noRd
-get_address_info_single <- function(search = NULL, ..., raw_response = FALSE) {
-  resp <- request_kartverket('sok', search, ...)
+get_address_info_single <- function(search = NULL, crs = 4258,
+                                    ..., raw_response = FALSE) {
+  resp <- request_kartverket('sok', search, crs = crs, ...)
   parsed <- parse_response(resp, simplifyVector = TRUE)
   if (length(parsed$adresser) == 0) {
     cli::cli_warn('No addresses found. Returning NULL.')
     return(NULL)
   }
-  n_total <- parsed$metadata$totaltAntallTreff
-  if (n_total > nrow(parsed$adresser)) {
-    msg <- 'There are more addresses than was returned on the first page by the API.'
-    cli::cli_warn(c(msg, i = 'Found {n_total} addresses'))
-  }
+  # Parse results again (and check for remaining results)
+  res <- parse_kartverket(resp, parsed, crs = crs, ...)
   if (raw_response) {
-    out <- make_api_object(resp, parsed)
+    out <- make_api_object(res$resp, res$parsed)
   } else {
-    out <- parsed$adresser
+    out <- res$parsed
   }
   out
 }
@@ -89,12 +89,11 @@ get_address_info_safe <-
 #' Search for Norwegian addresses within a certain radius from a geographical
 #' point.
 #'
-#' @details
-#' Advanced users might want to look into the additional possible parameters.
-#' For a list of all accepted query parameters see [create_params_kv_punktsok()]
-#' or refer to the
-#' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
-#' for further details (in Norwegian only).
+#' @details Advanced users might want to look into the additional possible
+#' parameters. For a list of all accepted query parameters see
+#' [create_params_kv_punktsok()] or refer to the [API
+#' documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok) for
+#' further details (in Norwegian only).
 #'
 #' The function returns a data.frame or list by default. If you set
 #' `raw_response` to `TRUE`, the raw response from the API will be returned
@@ -103,8 +102,8 @@ get_address_info_safe <-
 #' @param x A vector or list with latitude and longitude coordinates.
 #' @param radius An integer value with the radius for the query, in whole
 #'   meters.
-#' @param crs The coordinate reference system used for the coordinates given to
-#'   the function. Default value is ETRS 89 for latitude and longitude data
+#' @param crs An integer or vector with the input and output coordinate
+#'   reference system. Default value is ETRS 89 for latitude and longitude data
 #'   (EPSG:4258).
 #' @inheritParams get_address_info
 #' @inheritParams get_entity
@@ -177,28 +176,28 @@ find_address_from_point_single <- function(x, radius, crs, ...,
     cli::cli_abort('`x` must be of length 2 (latitude, longitude)')
 
   if (all(c('lat', 'lon') %in% names(x))) {
-    resp <- request_kartverket('punktsok', lat = x[['lat']], lon = x[['lon']],
-                               radius = radius, crs_in = crs, crs_out = crs,
-                               ...)
-  } else {
-    resp <- request_kartverket('punktsok', lat = x[1], lon = x[2],
-                               radius = radius, crs_in = crs, crs_out = crs,
-                               ...)
+    x <- c(x[['lat']], lon = x[['lon']])
   }
+
+  # Call API
+  resp <- request_kartverket(
+    'punktsok', lat = x[1], lon = x[2],
+    radius = radius, crs = crs, ...)
+
+  # Parse response
   parsed <- parse_response(resp, simplifyVector = TRUE)
   if (length(parsed$adresser) == 0) {
     cli::cli_warn('No addresses found. Returning NULL.')
     return(NULL)
   }
-  n_total <- parsed$metadata$totaltAntallTreff
-  if (n_total > nrow(parsed$adresser)) {
-    msg <- 'There are more addresses than was returned on the first page by the API.'
-    cli::cli_warn(c(msg, i = 'Found {n_total} addresses'))
-  }
+
+  # Parse results again (and check for remaining results)
+  res <- parse_kartverket(resp, parsed, x, radius, crs, ...)
+
   if (raw_response) {
-    out <- make_api_object(resp, parsed)
+    out <- make_api_object(res$resp, res$parsed)
   } else {
-    out <- parsed$adresser
+    out <- res$parsed
   }
   out
 }

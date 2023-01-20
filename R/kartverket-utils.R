@@ -6,15 +6,18 @@ request_kartverket <- function(
     lat = NULL,
     lon = NULL,
     radius = NULL,
+    crs = NULL,
     ...) {
 
   type <- match.arg(type)
 
   # Create query parameters
   if (type == 'sok')
-    params <- create_params_kv_sok(search = search, ...)
+    params <- create_params_kv_sok(search = search, crs = crs, ...)
   else
-    params <- create_params_kv_punktsok(lat = lat, lon = lon, radius = radius, ...)
+    params <- create_params_kv_punktsok(
+      lat = lat, lon = lon,
+      crs = crs, radius = radius, ...)
 
   # Create query
   req <- request(kv_url) %>%
@@ -79,7 +82,6 @@ request_kartverket <- function(
 #' @param postal_town A character string with the name of a Norwegian postal
 #'   town (place).
 #' @param postal_code A character string with a Norwegian postal code.
-#' @param crs_out The desired coordinate reference system.
 #' @param ascii_compatible If TRUE (default) the returned data is ASCII
 #'  compatible.
 #' @param page An integer value with the page to query. Defaults to 0 (the first
@@ -108,7 +110,7 @@ create_params_kv_sok <- function(
     unit_number = NULL,
     postal_town = NULL,
     postal_code = NULL,
-    crs_out = 4258,
+    crs = 4258,
     ascii_compatible = TRUE,
     page = 0,
     size = 1000
@@ -138,7 +140,7 @@ create_params_kv_sok <- function(
     bruksenhetsnummer = unit_number,
     poststed = postal_town,
     postnummer = postal_code,
-    utkoordsys = crs_out,
+    utkoordsys = crs,
     treffPerSide = size,
     side = page,
     asciiKompatibel = ascii_compatible
@@ -153,23 +155,25 @@ create_params_kv_sok <- function(
 #'
 #' @inheritParams find_address_from_point
 #' @inheritParams create_params_kv_sok
-#' @param crs_in Coordinate system for the point you are searching for.
 #' @keywords internal
 create_params_kv_punktsok <- function(
-    lat, lon, radius,
-    crs_in = 4258,
-    crs_out = 4258,
+    lat, lon,
+    radius,
+    crs,
     ascii_compatible = TRUE,
     size = 1000,
     page = 0
-    ) {
+) {
+
+  # Split CRS
+  crs <- handle_crs(crs)
 
   params <- list(
     lat = lat,
     lon = lon,
     radius = radius,
-    koordsys = crs_in,
-    utkoordsys = crs_out,
+    koordsys = crs$crs_in,
+    utkoordsys = crs$crs_out,
     treffPerSide = size,
     side = page,
     asciiKompatibel = ascii_compatible
@@ -178,3 +182,68 @@ create_params_kv_punktsok <- function(
   return(params)
 
 }
+
+#' parse_kartverket
+#' @noRd
+parse_kartverket <- function(resp, parsed, x, radius, crs, ...) {
+  parsed_adresser <- parsed$adresser
+  n_total <- parsed$metadata$totaltAntallTreff
+  n <- nrow(parsed_adresser)
+  if (n_total > n) {
+    msg <- 'Found more addresses than was returned on the first page by the API.'
+    if (rlang::is_interactive()) { #interactive()
+      cli::cli_alert_warning(msg)
+      user_yes <- kv_ask()
+      # if (is.null(user_yes)) cli::cli_alert_danger('A value is needed')
+      if (user_yes) {
+        # n_remaining = n_total - n
+        iter <- ceiling((n_total - n) / n)
+        tmp_resp <- vector('list', iter+1)
+        tmp_parsed <- vector('list', iter+1)
+        tmp_resp[[1]] <- resp
+        tmp_parsed[[1]] <- parsed
+        for (i in seq_len(iter)) {
+          tmp_resp[[i+1]] <-
+            request_kartverket(
+              'punktsok', lat = x[1], lon = x[2], radius = radius,
+              crs = crs, page = i, ...)
+          tmp_parsed[[i+1]] <-
+            parse_response(tmp_resp[[i+1]], simplifyVector = TRUE)
+        }
+        resp <- tmp_resp
+        parsed_adresser <- purrr::map_df(tmp_parsed, function(x) x$adresser)
+      }
+    } else {
+      bullet <- 'Found {n_total} addresses in total, while {n} are currently retrieved.'
+      cli::cli_warn(c(msg, i = bullet))
+    }
+  }
+  list(resp = resp, parsed = parsed_adresser)
+}
+
+
+#' handle_crs
+#' @noRd
+handle_crs <- function(crs) {
+  if (length(crs) == 1) {
+    crs_in <- crs_out <- crs
+  } else if (length(crs) == 2){
+    crs_in <- crs[1]
+    crs_out <- crs[2]
+  } else {
+    cli::cli_abort('`crs` has incorrect length')
+  }
+  list(crs_in = crs_in, crs_out = crs_out)
+}
+
+#' kv_ask
+#' @noRd
+kv_ask <- function() {
+  if (testthat::is_testing()) return(TRUE)
+  switch(
+    utils::menu(c('Yes', 'No'), title = 'Do you wish to retrieve the remaining results?'),
+    TRUE, FALSE
+  )
+}
+
+

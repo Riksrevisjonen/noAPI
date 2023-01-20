@@ -12,8 +12,8 @@ find_address_from_point(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 \item{radius}{An integer value with the radius for the query, in whole
 meters.}
 
-\item{crs}{The coordinate reference system used for the coordinates given to
-the function. Default value is ETRS 89 for latitude and longitude data
+\item{crs}{An integer or vector with the input and output coordinate
+reference system. Default value is ETRS 89 for latitude and longitude data
 (EPSG:4258).}
 
 \item{...}{Additional arguments passed to the API call. See details.}
@@ -29,11 +29,10 @@ Search for Norwegian addresses within a certain radius from a geographical
 point.
 }
 \details{
-Advanced users might want to look into the additional possible parameters.
-For a list of all accepted query parameters see \code{\link[=create_params_kv_punktsok]{create_params_kv_punktsok()}}
-or refer to the
-\href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation}
-for further details (in Norwegian only).
+Advanced users might want to look into the additional possible
+parameters. For a list of all accepted query parameters see
+\code{\link[=create_params_kv_punktsok]{create_params_kv_punktsok()}} or refer to the \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation} for
+further details (in Norwegian only).
 
 The function returns a data.frame or list by default. If you set
 \code{raw_response} to \code{TRUE}, the raw response from the API will be returned

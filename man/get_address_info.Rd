@@ -4,10 +4,13 @@
 \alias{get_address_info}
 \title{Get address info}
 \usage{
-get_address_info(search = NULL, ..., raw_response = FALSE)
+get_address_info(search = NULL, crs = 4258, ..., raw_response = FALSE)
 }
 \arguments{
 \item{search}{A Norwegian address. For example: 'munkegata 1 trondheim'.}
+
+\item{crs}{The desired coordinate reference system for the output. Default
+value is ETRS 89 for latitude and longitude data (EPSG:4258).}
 
 \item{...}{Additional arguments passed to the API call. See details.}
 

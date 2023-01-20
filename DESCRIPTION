@@ -24,9 +24,11 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Imports:
+    utils,
     cli,
     httr2,
     purrr,
+    rlang,
     memoise,
     cachem
 VignetteBuilder: knitr

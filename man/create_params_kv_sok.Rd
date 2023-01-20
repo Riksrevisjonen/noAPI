@@ -24,7 +24,7 @@ create_params_kv_sok(
   unit_number = NULL,
   postal_town = NULL,
   postal_code = NULL,
-  crs_out = 4258,
+  crs = 4258,
   ascii_compatible = TRUE,
   page = 0,
   size = 1000
@@ -99,7 +99,8 @@ town (place).}
 
 \item{postal_code}{A character string with a Norwegian postal code.}
 
-\item{crs_out}{The desired coordinate reference system.}
+\item{crs}{The desired coordinate reference system for the output. Default
+value is ETRS 89 for latitude and longitude data (EPSG:4258).}
 
 \item{ascii_compatible}{If TRUE (default) the returned data is ASCII
 compatible.}

@@ -170,4 +170,17 @@ test_that('find_address_from_point_single() fails correctly', {
     c(lat = 59.91, lon = 10.8), crs = 4258, radius = 1))
 })
 
-
+test_that('find_address_from_point_single() works when mulitiple pages are found', {
+  res1 <- rlang::with_interactive({
+    suppressWarnings(
+      find_address_from_point_single(
+        c(lat = 59.91364, lon = 10.7508), radius = 100, crs = 4258, size = 10))
+  }, value = FALSE)
+  expect_equal(nrow(res1), 10)
+  res2 <- rlang::with_interactive({
+      find_address_from_point_single(
+        c(lat = 59.91364, lon = 10.7508), radius = 100, crs = 4258, size = 10)
+    }, value = TRUE)#)
+  # expect_equal(nrow(res2), 42)
+  expect_gt(nrow(res2), nrow(res1))
+})

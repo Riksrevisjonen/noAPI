@@ -8,8 +8,7 @@ create_params_kv_punktsok(
   lat,
   lon,
   radius,
-  crs_in = 4258,
-  crs_out = 4258,
+  crs,
   ascii_compatible = TRUE,
   size = 1000,
   page = 0
@@ -19,9 +18,9 @@ create_params_kv_punktsok(
 \item{radius}{An integer value with the radius for the query, in whole
 meters.}
 
-\item{crs_in}{Coordinate system for the point you are searching for.}
-
-\item{crs_out}{The desired coordinate reference system.}
+\item{crs}{An integer or vector with the input and output coordinate
+reference system. Default value is ETRS 89 for latitude and longitude data
+(EPSG:4258).}
 
 \item{ascii_compatible}{If TRUE (default) the returned data is ASCII
 compatible.}
