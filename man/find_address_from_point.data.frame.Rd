@@ -4,7 +4,7 @@
 \alias{find_address_from_point.data.frame}
 \title{find_address_from_point (data.frame)}
 \usage{
-\method{find_address_from_point}{data.frame}(x, radius = 50, crs = 4258, ...)
+\method{find_address_from_point}{data.frame}(x, radius = 50, crs = 4258, closest = FALSE, ...)
 }
 \arguments{
 \item{x}{A vector or list with latitude and longitude coordinates.}
@@ -13,10 +13,13 @@
 meters.}
 
 \item{crs}{An integer or vector with the input and output coordinate
-reference system. Default value is ETRS 89 for latitude and longitude data
+reference system. Default value is ETRS89 for latitude and longitude data
 (EPSG:4258).}
 
-\item{...}{Additional arguments passed to the API call. See details.}
+\item{closest}{If TRUE only the address that is closest to the geographical
+point is returned.}
+
+\item{...}{Additional arguments passed to the API call.}
 }
 \description{
 find_address_from_point (data.frame)

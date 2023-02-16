@@ -4,7 +4,14 @@
 \alias{find_address_from_point.list}
 \title{find_address_from_point (list)}
 \usage{
-\method{find_address_from_point}{list}(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
+\method{find_address_from_point}{list}(
+  x,
+  radius = 50,
+  crs = 4258,
+  closest = FALSE,
+  ...,
+  raw_response = FALSE
+)
 }
 \arguments{
 \item{x}{A vector or list with latitude and longitude coordinates.}
@@ -13,10 +20,13 @@
 meters.}
 
 \item{crs}{An integer or vector with the input and output coordinate
-reference system. Default value is ETRS 89 for latitude and longitude data
+reference system. Default value is ETRS89 for latitude and longitude data
 (EPSG:4258).}
 
-\item{...}{Additional arguments passed to the API call. See details.}
+\item{closest}{If TRUE only the address that is closest to the geographical
+point is returned.}
+
+\item{...}{Additional arguments passed to the API call.}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}

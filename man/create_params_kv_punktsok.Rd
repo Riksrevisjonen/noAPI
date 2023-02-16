@@ -19,7 +19,7 @@ create_params_kv_punktsok(
 meters.}
 
 \item{crs}{An integer or vector with the input and output coordinate
-reference system. Default value is ETRS 89 for latitude and longitude data
+reference system. Default value is ETRS89 for latitude and longitude data
 (EPSG:4258).}
 
 \item{ascii_compatible}{If TRUE (default) the returned data is ASCII

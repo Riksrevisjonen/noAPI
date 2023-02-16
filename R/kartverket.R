@@ -4,21 +4,26 @@
 #' \emph{The Norwegian Mapping Authority's Cadastre and Land Registry}.
 #'
 #' @details
+#' For most use cases ETRS89 (EPSG:4258) and WSG84 (EPSG:4326) can be considered
+#' equal, but users should be aware hat there is a slight shift on both axes
+#' between the two coordinate systems. If high precision is needed `crs` should
+#' be set to 4326.
+#'
 #' Many users will get by with using the regular `search` parameter, but more
 #' advanced users might want to look into the wide range of possible parameters.
 #' For a list of all accepted query parameters see [create_params_kv_sok()]
 #' or refer to the
 #' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
 #' for further details (in Norwegian only).
-
+#'
 #' The function returns a data.frame or list by default. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned instead. Note that the
 #' response will then be returned silently.
 #'
 #' @param search A Norwegian address. For example: 'munkegata 1 trondheim'.
 #' @param crs The desired coordinate reference system for the output. Default
-#'   value is ETRS 89 for latitude and longitude data (EPSG:4258).
-#' @param ... Additional arguments passed to the API call. See details.
+#'   value is ETRS89 for latitude and longitude data (EPSG:4258). See details.
+#' @param ... Additional arguments passed to the API call.
 #' @inheritParams get_entity
 #'
 #' @return data.frame or list
@@ -70,6 +75,7 @@ get_address_info_single <- function(search = NULL, crs = 4258,
   }
   # Parse results again (and check for remaining results)
   res <- parse_kartverket(resp, parsed, crs = crs, ...)
+  res <- kv_flatten_res(res)
   if (raw_response) {
     out <- make_api_object(res$resp, res$parsed)
   } else {
@@ -89,7 +95,13 @@ get_address_info_safe <-
 #' Search for Norwegian addresses within a certain radius from a geographical
 #' point.
 #'
-#' @details Advanced users might want to look into the additional possible
+#' @details
+#' For most use cases ETRS89 (EPSG:4258) and WSG84 (EPSG:4326) can be considered
+#' equal, but users should be aware that there is a slight shift on both axes
+#' between the two coordinate systems. If high precision is needed `crs` should
+#' be set to 4326.
+#'
+#' Advanced users might want to look into the additional possible
 #' parameters. For a list of all accepted query parameters see
 #' [create_params_kv_punktsok()] or refer to the [API
 #' documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok) for
@@ -103,8 +115,10 @@ get_address_info_safe <-
 #' @param radius An integer value with the radius for the query, in whole
 #'   meters.
 #' @param crs An integer or vector with the input and output coordinate
-#'   reference system. Default value is ETRS 89 for latitude and longitude data
+#'   reference system. Default value is ETRS89 for latitude and longitude data
 #'   (EPSG:4258).
+#' @param closest If TRUE only the address that is closest to the geographical
+#'   point is returned.
 #' @inheritParams get_address_info
 #' @inheritParams get_entity
 #'
@@ -114,17 +128,18 @@ get_address_info_safe <-
 #' # Using a vector
 #' df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 #'
+#' # Using a data.frame
+#' df <- find_address_from_point(
+#'     data.frame(lat = c(59.91364, 63.42805),
+#'                lon = c(10.7508, 10.39679)))
+#'
 #' # Using a list
 #' dl <- find_address_from_point(
 #'   list(c(lat = 59.91364, lon = 10.7508),
 #'        c(lat = 63.42805, lon = 10.39679)))
 #'
-#' # Using a data.frame
-#' dl <- find_address_from_point(
-#'     data.frame(lat = c(59.91364, 63.42805),
-#'                lon = c(10.7508, 10.39679)))
-#'
-find_address_from_point <- function(x, radius = 50, crs = 4258, ...,
+find_address_from_point <- function(x, radius = 50, crs = 4258,
+                                    closest = FALSE, ...,
                                     raw_response = FALSE) {
   UseMethod('find_address_from_point')
 }
@@ -132,9 +147,11 @@ find_address_from_point <- function(x, radius = 50, crs = 4258, ...,
 #' find_address_from_point (numeric)
 #' @inheritParams find_address_from_point
 #' @export
-find_address_from_point.numeric <- function(x, radius = 50, crs = 4258, ...,
+find_address_from_point.numeric <- function(x, radius = 50, crs = 4258,
+                                            closest = FALSE, ...,
                                             raw_response = FALSE) {
   res <- find_address_from_point_safe(x, radius = radius, crs = crs,
+                                      closest = closest,
                                       raw_response = raw_response)
   if (raw_response) return(invisible(res))
   res
@@ -143,10 +160,11 @@ find_address_from_point.numeric <- function(x, radius = 50, crs = 4258, ...,
 #' find_address_from_point (list)
 #' @inheritParams find_address_from_point
 #' @export
-find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
+find_address_from_point.list <- function(x, radius = 50, crs = 4258,
+                                         closest = FALSE, ...,
                                          raw_response = FALSE) {
   dl <- lapply(x, find_address_from_point.numeric, radius = radius, crs = crs,
-               ..., raw_response = raw_response)
+               closest = closest, ..., raw_response = raw_response)
   if (raw_response) return(invisible(dl))
   if (length(dl) == 1) dl <- dl[[1]]
   dl <- dl[lengths(dl) != 0]
@@ -156,21 +174,25 @@ find_address_from_point.list <- function(x, radius = 50, crs = 4258, ...,
 #' find_address_from_point (data.frame)
 #' @inheritParams find_address_from_point
 #' @export
-find_address_from_point.data.frame <- function(x, radius = 50, crs = 4258, ...){
+find_address_from_point.data.frame <- function(
+    x, radius = 50, crs = 4258, closest = FALSE, ...){
 
   if (!all(c('lat', 'lon') %in% colnames(x)))
     cli::cli_abort('data.frame must have columns with names lat and lon')
 
-  lapply(1:nrow(x), function(i) {
+  dl <- lapply(1:nrow(x), function(i) {
     coords <- c(x[i, 'lat'], x[i, 'lon'])
-    find_address_from_point_safe(coords, radius = radius, crs = crs)
+    find_address_from_point_safe(coords, radius = radius, crs = crs,
+                                 closest = closest, ...)
   })
+  do.call('rbind', dl)
+
 }
 
 #' find_address_from_point (single method)
 #' @inheritParams find_address_from_point
 #' @noRd
-find_address_from_point_single <- function(x, radius, crs, ...,
+find_address_from_point_single <- function(x, radius, crs, closest, ...,
                                            raw_response = FALSE) {
   if (length(x) != 2)
     cli::cli_abort('`x` must be of length 2 (latitude, longitude)')
@@ -193,6 +215,17 @@ find_address_from_point_single <- function(x, radius, crs, ...,
 
   # Parse results again (and check for remaining results)
   res <- parse_kartverket(resp, parsed, x, radius, crs, ...)
+  res <- kv_flatten_res(res, x)
+
+  # Add input to result
+  res$parsed$punkt <- list(x)
+  res$parsed <- res$parsed[c(ncol(res$parsed), (1:ncol(res$parsed)-1))]
+
+  # Select the closest address
+  if (closest) {
+    res$parsed <- res$parsed[
+      which.min(res$parsed$meterDistanseTilPunkt),]
+  }
 
   if (raw_response) {
     out <- make_api_object(res$resp, res$parsed)

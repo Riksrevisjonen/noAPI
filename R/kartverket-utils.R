@@ -194,9 +194,7 @@ parse_kartverket <- function(resp, parsed, x, radius, crs, ...) {
     if (rlang::is_interactive()) { #interactive()
       cli::cli_alert_warning(msg)
       user_yes <- kv_ask()
-      # if (is.null(user_yes)) cli::cli_alert_danger('A value is needed')
       if (user_yes) {
-        # n_remaining = n_total - n
         iter <- ceiling((n_total - n) / n)
         tmp_resp <- vector('list', iter+1)
         tmp_parsed <- vector('list', iter+1)
@@ -225,6 +223,11 @@ parse_kartverket <- function(resp, parsed, x, radius, crs, ...) {
 #' handle_crs
 #' @noRd
 handle_crs <- function(crs) {
+  if (suppressWarnings(any(is.na(as.integer(crs))))) {
+    cli::cli_abort(c(
+      'crs must be coercible to an integer',
+      x = 'You entered {crs}'))
+  }
   if (length(crs) == 1) {
     crs_in <- crs_out <- crs
   } else if (length(crs) == 2){
@@ -246,4 +249,21 @@ kv_ask <- function() {
   )
 }
 
+#' kv_flatten_res
+#' @noRd
+kv_flatten_res <- function(res, x) {
+
+  # Convert 'bruksenhetsnummer' to comma seperated string
+  res$parsed$bruksenhetsnummer <-
+    lapply(res$parsed$bruksenhetsnummer, \(x) paste0(x, collapse = ', ')) |>
+    unlist()
+
+  # Flatten nested list w/ 'representasjonspunkt'
+  res$parsed$epsg <- res$parsed$representasjonspunkt$epsg
+  res$parsed$lon <- res$parsed$representasjonspunkt$lon
+  res$parsed$lat <- res$parsed$representasjonspunkt$lat
+  res$parsed$representasjonspunkt <- NULL
+
+  res
+}
 

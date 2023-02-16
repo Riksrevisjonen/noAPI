@@ -4,7 +4,14 @@
 \alias{find_address_from_point}
 \title{Find addresses within a geographical area}
 \usage{
-find_address_from_point(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
+find_address_from_point(
+  x,
+  radius = 50,
+  crs = 4258,
+  closest = FALSE,
+  ...,
+  raw_response = FALSE
+)
 }
 \arguments{
 \item{x}{A vector or list with latitude and longitude coordinates.}
@@ -13,10 +20,13 @@ find_address_from_point(x, radius = 50, crs = 4258, ..., raw_response = FALSE)
 meters.}
 
 \item{crs}{An integer or vector with the input and output coordinate
-reference system. Default value is ETRS 89 for latitude and longitude data
+reference system. Default value is ETRS89 for latitude and longitude data
 (EPSG:4258).}
 
-\item{...}{Additional arguments passed to the API call. See details.}
+\item{closest}{If TRUE only the address that is closest to the geographical
+point is returned.}
+
+\item{...}{Additional arguments passed to the API call.}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
@@ -29,6 +39,11 @@ Search for Norwegian addresses within a certain radius from a geographical
 point.
 }
 \details{
+For most use cases ETRS89 (EPSG:4258) and WSG84 (EPSG:4326) can be considered
+equal, but users should be aware that there is a slight shift on both axes
+between the two coordinate systems. If high precision is needed \code{crs} should
+be set to 4326.
+
 Advanced users might want to look into the additional possible
 parameters. For a list of all accepted query parameters see
 \code{\link[=create_params_kv_punktsok]{create_params_kv_punktsok()}} or refer to the \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation} for
@@ -42,14 +57,14 @@ instead. Note that the response will then be returned silently.
 # Using a vector
 df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 
+# Using a data.frame
+df <- find_address_from_point(
+    data.frame(lat = c(59.91364, 63.42805),
+               lon = c(10.7508, 10.39679)))
+
 # Using a list
 dl <- find_address_from_point(
   list(c(lat = 59.91364, lon = 10.7508),
        c(lat = 63.42805, lon = 10.39679)))
-
-# Using a data.frame
-dl <- find_address_from_point(
-    data.frame(lat = c(59.91364, 63.42805),
-               lon = c(10.7508, 10.39679)))
 
 }

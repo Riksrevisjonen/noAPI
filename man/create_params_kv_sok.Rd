@@ -100,7 +100,7 @@ town (place).}
 \item{postal_code}{A character string with a Norwegian postal code.}
 
 \item{crs}{The desired coordinate reference system for the output. Default
-value is ETRS 89 for latitude and longitude data (EPSG:4258).}
+value is ETRS89 for latitude and longitude data (EPSG:4258). See details.}
 
 \item{ascii_compatible}{If TRUE (default) the returned data is ASCII
 compatible.}

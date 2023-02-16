@@ -10,9 +10,9 @@ get_address_info(search = NULL, crs = 4258, ..., raw_response = FALSE)
 \item{search}{A Norwegian address. For example: 'munkegata 1 trondheim'.}
 
 \item{crs}{The desired coordinate reference system for the output. Default
-value is ETRS 89 for latitude and longitude data (EPSG:4258).}
+value is ETRS89 for latitude and longitude data (EPSG:4258). See details.}
 
-\item{...}{Additional arguments passed to the API call. See details.}
+\item{...}{Additional arguments passed to the API call.}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
@@ -25,12 +25,18 @@ Search for Norwegian addresses in
 \emph{The Norwegian Mapping Authority's Cadastre and Land Registry}.
 }
 \details{
+For most use cases ETRS89 (EPSG:4258) and WSG84 (EPSG:4326) can be considered
+equal, but users should be aware hat there is a slight shift on both axes
+between the two coordinate systems. If high precision is needed \code{crs} should
+be set to 4326.
+
 Many users will get by with using the regular \code{search} parameter, but more
 advanced users might want to look into the wide range of possible parameters.
 For a list of all accepted query parameters see \code{\link[=create_params_kv_sok]{create_params_kv_sok()}}
 or refer to the
 \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation}
 for further details (in Norwegian only).
+
 The function returns a data.frame or list by default. If you set \code{raw_response}
 to \code{TRUE}, the raw response from the API will be returned instead. Note that the
 response will then be returned silently.

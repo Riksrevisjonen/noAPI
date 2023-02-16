@@ -1,5 +1,3 @@
-library(callr)
-
 test_that("Caching is enabled by default", {
   skip_if(Sys.getenv('NOAPI_DISABLE_CACHING') == 'TRUE')
   # Setup external R session
