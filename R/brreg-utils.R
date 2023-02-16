@@ -67,7 +67,7 @@ parse_brreg_entity_single <- function(p) {
       p$forretningsadresse$postnummer, p$forretningsadresse$poststed)),
     kommune = null2na(p$forretningsadresse$kommune),
     postadresse = null2na(sprintf(
-      '%s, %s %s', unlist(p$postadresse$adresse),
+      '%s, %s %s', unlist(paste0(p$postadresse$adresse, collapse = '; ')),
       p$postadresse$postnummer, p$postadresse$poststed)),
     internettadresse = null2na(p$hjemmeside),
     antall_ansatte = null2na(p$antallAnsatte),

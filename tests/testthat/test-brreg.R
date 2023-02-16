@@ -28,6 +28,14 @@ test_that('get_entity() works for single id queries', {
   # Check column classes
   expect_true(all(sapply(df, class) == sapply(entity_resp, class)))
 
+  # --- Entity w/ mulitiple postal addresses ---
+  df <- get_entity(989668137)
+  # Check type
+  expect_equal(class(df), 'data.frame')
+  # Check rows
+  expect_equal(nrow(df), 1)
+  expect_equal(length(unlist(strsplit(df$postadresse, ';'))), 2)
+
 })
 
 test_that('get_entity() works for multitiple id queries', {
