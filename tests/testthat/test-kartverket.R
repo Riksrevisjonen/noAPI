@@ -98,33 +98,6 @@ test_that('find_address_from_point() works for list inputs', {
 
 })
 
-test_that('find_address_from_point() works for data.frame inputs', {
-  skip_if(check_api(kv_url2))
-
-  # numeric input
-  res <- find_address_from_point(
-    data.frame(lat = c(59.91364, 63.42805),
-               lon = c(10.7508, 10.39679)))
-  expect_equal(class(res), 'data.frame')
-  expect_gte(nrow(res), 2)
-
-  # character input
-  res <- find_address_from_point(
-    data.frame(lat = c('59.91364', '63.42805'),
-               lon = c('10.7508', '10.39679')))
-  expect_equal(class(res), 'data.frame')
-  expect_gte(nrow(res), 2)
-
-  # only the closest address for each point
-  res <- find_address_from_point(
-    data.frame(lat = c(59.91364, 63.42805),
-               lon = c(10.7508, 10.39679)),
-    closest = TRUE)
-  expect_equal(class(res), 'data.frame')
-  expect_equal(nrow(res), 2)
-
-})
-
 test_that('find_address_from_point() works when raw_response = TRUE', {
   skip_if(check_api(kv_url2))
 

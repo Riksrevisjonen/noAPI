@@ -57,11 +57,6 @@ instead. Note that the response will then be returned silently.
 # Using a vector
 df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 
-# Using a data.frame
-df <- find_address_from_point(
-    data.frame(lat = c(59.91364, 63.42805),
-               lon = c(10.7508, 10.39679)))
-
 # Using a list
 dl <- find_address_from_point(
   list(c(lat = 59.91364, lon = 10.7508),

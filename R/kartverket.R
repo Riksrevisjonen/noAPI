@@ -128,11 +128,6 @@ get_address_info_safe <-
 #' # Using a vector
 #' df <- find_address_from_point(c(lat = 63.42805, lon = 10.39679))
 #'
-#' # Using a data.frame
-#' df <- find_address_from_point(
-#'     data.frame(lat = c(59.91364, 63.42805),
-#'                lon = c(10.7508, 10.39679)))
-#'
 #' # Using a list
 #' dl <- find_address_from_point(
 #'   list(c(lat = 59.91364, lon = 10.7508),
@@ -169,24 +164,6 @@ find_address_from_point.list <- function(x, radius = 50, crs = 4258,
   if (length(dl) == 1) dl <- dl[[1]]
   dl <- dl[lengths(dl) != 0]
   dl
-}
-
-#' find_address_from_point (data.frame)
-#' @inheritParams find_address_from_point
-#' @export
-find_address_from_point.data.frame <- function(
-    x, radius = 50, crs = 4258, closest = FALSE, ...){
-
-  if (!all(c('lat', 'lon') %in% colnames(x)))
-    cli::cli_abort('data.frame must have columns with names lat and lon')
-
-  dl <- lapply(1:nrow(x), function(i) {
-    coords <- c(x[i, 'lat'], x[i, 'lon'])
-    find_address_from_point_safe(coords, radius = radius, crs = crs,
-                                 closest = closest, ...)
-  })
-  do.call('rbind', dl)
-
 }
 
 #' find_address_from_point (single method)
