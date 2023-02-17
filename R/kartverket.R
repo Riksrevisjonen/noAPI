@@ -139,8 +139,7 @@ find_address_from_point <- function(x, radius = 50, crs = 4258,
   UseMethod('find_address_from_point')
 }
 
-#' find_address_from_point (numeric)
-#' @inheritParams find_address_from_point
+#' @method find_address_from_point numeric
 #' @export
 find_address_from_point.numeric <- function(x, radius = 50, crs = 4258,
                                             closest = FALSE, ...,
@@ -152,8 +151,7 @@ find_address_from_point.numeric <- function(x, radius = 50, crs = 4258,
   res
 }
 
-#' find_address_from_point (list)
-#' @inheritParams find_address_from_point
+#' @method find_address_from_point list
 #' @export
 find_address_from_point.list <- function(x, radius = 50, crs = 4258,
                                          closest = FALSE, ...,
