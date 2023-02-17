@@ -73,7 +73,9 @@ returned, including the raw <code>httr2_response</code>.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function returns a data.frame by default. If you set <code>raw_response</code> to
+    <p><code>get_entity()</code> will return a single row for each entity. If one or more columns
+return multiple values, the values will be separated with a semicolon <code>;</code>.</p>
+<p>The function returns a data.frame by default. If you set <code>raw_response</code> to
 <code>TRUE</code>, the raw response from the API will be returned instead. Note that the
 response will then be returned silently.</p>
 <p>See the
