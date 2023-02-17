@@ -21,6 +21,9 @@ Fetch information about an entity from the
 based on the entity's name or organisation number.
 }
 \details{
+\code{get_entity()} will return a single row for each entity. If one or more columns
+return multiple values, the values will be separated with a semicolon \verb{;}.
+
 The function returns a data.frame by default. If you set \code{raw_response} to
 \code{TRUE}, the raw response from the API will be returned instead. Note that the
 response will then be returned silently.
