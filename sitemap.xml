@@ -16,6 +16,18 @@
     <loc>https://riksrevisjonen.github.io/noAPI/news/index.html</loc>
   </url>
   <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_punktsok.html</loc>
+  </url>
+  <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_sok.html</loc>
+  </url>
+  <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/find_address_from_point.html</loc>
+  </url>
+  <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_address_info.html</loc>
+  </url>
+  <url>
     <loc>https://riksrevisjonen.github.io/noAPI/reference/get_entity.html</loc>
   </url>
   <url>
