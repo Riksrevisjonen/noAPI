@@ -1,6 +1,6 @@
 #' null2na
 #' @noRd
-null2na <- function(x) if (is.null(x) || length(x) == 0) NA else x
+null2na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
 
 #' request_brreg
 #' @noRd
@@ -64,6 +64,7 @@ parse_brreg_entity_single <- function(p) {
     organisasjonsform_beskrivelse = null2na(p$organisasjonsform$beskrivelse),
     forretningsadresse = null2na(paste_brreg_address(p$forretningsadresse)),
     kommune = null2na(p$forretningsadresse$kommune),
+    land = null2na(p$forretningsadresse$land),
     postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
     antall_ansatte = null2na(p$antallAnsatte),
