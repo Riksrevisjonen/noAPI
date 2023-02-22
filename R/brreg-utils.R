@@ -62,13 +62,9 @@ parse_brreg_entity_single <- function(p) {
     navn = p$navn,
     organisasjonsform_kode = null2na(p$organisasjonsform$kode),
     organisasjonsform_beskrivelse = null2na(p$organisasjonsform$beskrivelse),
-    forretningsadresse = null2na(sprintf(
-      '%s, %s %s', unlist(p$forretningsadresse$adresse),
-      p$forretningsadresse$postnummer, p$forretningsadresse$poststed)),
+    forretningsadresse = null2na(paste_brreg_address(p$forretningsadresse)),
     kommune = null2na(p$forretningsadresse$kommune),
-    postadresse = null2na(sprintf(
-      '%s, %s %s', unlist(paste0(p$postadresse$adresse, collapse = '; ')),
-      p$postadresse$postnummer, p$postadresse$poststed)),
+    postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
     antall_ansatte = null2na(p$antallAnsatte),
     registeringsdato = null2na(p$registreringsdatoEnhetsregisteret),
@@ -82,8 +78,7 @@ parse_brreg_entity_single <- function(p) {
     registrert_frivillinghetsregisteret = null2na(p$registrertIFrivillighetsregisteret),
     overordnet_enhet = null2na(p$overordnetEnhet),
     konkurs = null2na(p$konkurs),
-    under_avvikling = null2na(p$underAvvikling),
-    stringsAsFactors = FALSE
+    under_avvikling = null2na(p$underAvvikling)
   )
 }
 
@@ -175,4 +170,23 @@ mod11 <- function(x, n = 8, weights = c(3,2,7,6,5,4,3,2)) {
   x <- as.integer(unlist(strsplit(x, '')))
   k <- sum(weights * x[1:n]) %% 11
   if (k == 0) k == x[n+1] else (11 - k) == x[n+1]
+}
+
+#' paste_brreg_address
+#' @noRd
+paste_brreg_address <- function(x) {
+  address <- unlist(x$adresse)
+  n <- length(address)
+  if (!'postnummer' %in% names(x)) x$postnummer <- ''
+  if (!'poststed' %in% names(x)) x$poststed <- ''
+  if (is.null(address)) {
+    out <- sprintf('%s %s', x$postnummer, x$poststed)
+  } else if (n == 1) {
+    out <- sprintf('%s, %s %s', address, x$postnummer, x$poststed)
+  } else {
+    address <- paste(address, collapse = ', ')
+    out <- sprintf('%s, %s %s', address, x$postnummer, x$poststed)
+  }
+  out <- gsub('  +', ' ', out)
+  out
 }
