@@ -6,9 +6,6 @@
 #'
 #' @details
 #'
-#' `get_entity()` will return a single row for each entity. If one or more columns
-#' return multiple values, the values will be separated with a semicolon `;`.
-#'
 #' The function returns a data.frame by default. If you set `raw_response` to
 #' `TRUE`, the raw response from the API will be returned instead. Note that the
 #' response will then be returned silently.
