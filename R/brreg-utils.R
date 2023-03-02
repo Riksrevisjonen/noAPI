@@ -147,7 +147,7 @@ clean_entity_input <- function(x) {
   # Remove leading/trailing whitespace
   x <- trimws(x)
   # Remove extra whitespace
-  x <- gsub('  +', ' ', x)
+  x <- gsub('\\s+', ' ', x)
   x
 }
 
@@ -188,6 +188,6 @@ paste_brreg_address <- function(x) {
     address <- paste(address, collapse = ', ')
     out <- sprintf('%s, %s %s', address, x$postnummer, x$poststed)
   }
-  out <- gsub('  +', ' ', out)
+  out <- gsub('\\s+', ' ', out)
   out
 }
