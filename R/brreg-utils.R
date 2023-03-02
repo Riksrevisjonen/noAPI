@@ -156,21 +156,26 @@ clean_entity_input <- function(x) {
 verify_entity_number <- function(x) {
   msg <- '{x} is not a valid organization number'
   if (grepl('\\d{9}', x)) {
-    if (!mod11(x)) return(cli::cli_abort(msg))
+    if (!is_valid_entity(x)) return(cli::cli_abort(msg))
   } else {
     return(cli::cli_abort(msg))
   }
   invisible(TRUE)
 }
 
-#' mod11
+#' is_valid_entity
 #' Check validity of Norwegian organization numbers
 #' @noRd
-mod11 <- function(x, n = 8, weights = c(3,2,7,6,5,4,3,2)) {
-  x <- as.character(x)
+is_valid_entity <- function(x) {
+  weights <- c(3,2,7,6,5,4,3,2)
+  # Early return if number doesn't have 9 digits
+  if (nchar(x) != 9) return(FALSE)
+  # Early return if number doesn't start with 8 or 9
+  if (!grepl('^[8-9]', x)) return(FALSE)
+  # Calculate mod11 check
   x <- as.integer(unlist(strsplit(x, '')))
-  k <- sum(weights * x[1:n]) %% 11
-  if (k == 0) k == x[n+1] else (11 - k) == x[n+1]
+  k <- sum(weights * x[1:8]) %% 11
+  if (k == 0) k == x[9] else (11 - k) == x[9]
 }
 
 #' paste_brreg_address
