@@ -9,7 +9,7 @@
 <!-- badges: end -->
 
 The goal of noAPI is to make it easier for users to retrieve data from
-public Norwagian APIs.
+public Norwegian APIs.
 
 ## Installation
 
