@@ -1,9 +1,13 @@
+skip_if(Sys.getenv('NOAPI_SKIP_LIVE_API_TESTS') == 'TRUE')
+
+# Set globals
 entity_resp <- readRDS('../testdata/brreg-entity-resp.rds')
 roles_resp <- readRDS('../testdata/brreg-roles-resp.rds')
 
 # ---- get_entity() ----
 
 test_that('get_entity() works for single id queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   # --- Numeric input ---
@@ -43,6 +47,7 @@ test_that('get_entity() works for single id queries', {
 })
 
 test_that('get_entity() works for multitiple id queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   df <- get_entity(c(974760843, 971524960))
@@ -56,6 +61,7 @@ test_that('get_entity() works for multitiple id queries', {
 })
 
 test_that('get_entity() works for single names queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   df <- get_entity('Riksrevisjonen')
@@ -69,6 +75,7 @@ test_that('get_entity() works for single names queries', {
 })
 
 test_that('get_entity() works for multitiple name queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   df <- get_entity(c('Riksrevisjonen', 'Stortinget'))
@@ -82,6 +89,7 @@ test_that('get_entity() works for multitiple name queries', {
 })
 
 test_that('get_entity() works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   res <- expect_invisible(get_entity(974760843, raw_response = TRUE))
@@ -105,6 +113,7 @@ test_that('get_entity() returns NULL on failures', {
 # ---- get_roles() ----
 
 test_that('get_roles() works for single queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   # Check structure
@@ -126,6 +135,7 @@ test_that('get_roles() works for single queries', {
 })
 
 test_that('get_roles() works for mulitiple queries', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   # Check structure
@@ -149,6 +159,7 @@ test_that('get_roles() works for mulitiple queries', {
 })
 
 test_that('get_roles() works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   res <- expect_invisible(get_roles(974760843, raw_response = TRUE))
@@ -171,6 +182,7 @@ test_that('get_roles() returns NULL on failures', {
 # ----- get_municipalities() ----
 
 test_that('get_municipalities works', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   df <- get_municipalities()
@@ -182,6 +194,7 @@ test_that('get_municipalities works', {
 })
 
 test_that('get_municipalities works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   res <- expect_invisible(get_municipalities(raw_response = TRUE))
@@ -194,26 +207,25 @@ test_that('get_municipalities works when raw_response = TRUE', {
 
 # ---- get_brreg_single() ----
 
-get_brreg_single(974760843)
-
-get_brreg_single(974760843, 'roller')
-
 test_that('get_brreg_single() fails correctly', {
   # Not valid 9-digit number (internal error)
   expect_error(get_brreg_single(99999, type = 'enheter'))
   expect_error(get_brreg_single(12345678, type = 'enheter'))
   expect_error(get_brreg_single(123456789, type = 'enheter'))
-  # Name not found (internal warning)
-  skip_if(check_api(brreg_url))
-  expect_warning(get_brreg_single('QW124', type = 'enheter'))
 
   # Not valid 9-digit number (internal error)
   expect_error(get_brreg_single(99999, type = 'roller'))
   expect_error(get_brreg_single(12345678, type = 'roller'))
   expect_error(get_brreg_single(123456789, type = 'roller'))
+
+  # Name not found (internal warning)
+  skip_on_cran()
+  skip_if(check_api(brreg_url))
+  expect_warning(get_brreg_single('QW124', type = 'enheter'))
 })
 
 test_that('get_brreg_single() works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(brreg_url))
 
   # Entities
