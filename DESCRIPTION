@@ -9,7 +9,7 @@ Description: Retrive data from public Norwegian APIs through
     easy-to-use functions.
 Encoding: UTF-8
 License: MIT + file LICENSE
-Language: en-GB
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -22,7 +22,8 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    spelling
 Imports:
     utils,
     cli,
