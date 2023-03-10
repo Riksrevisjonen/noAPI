@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# noAPI
+# noAPI <a href="https://riksrevisjonen.github.io/noAPI/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -45,3 +45,11 @@ If you encounter a bug or want to submit a feature request please file
 an issue on [GitHub](https://github.com/Riksrevisjonen/noAPI/issues). We
 kindly ask you to include a minimal reproducible example when possible.
 For other questions please reach out to the package authors.
+
+## Acknowledgments
+
+The ship used in noAPIs logo is based on a 3D model of the Norwegian
+Oseberg Viking Ship originally created by Dane Ericksen. The conversion
+to a 2D black-and-white model was done by the package authors.
+Ericksen’s work is licensed under [CC BY
+4.0](https://creativecommons.org/licenses/by/4.0/).
