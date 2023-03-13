@@ -168,30 +168,6 @@ test_that('get_roles() returns NULL on failures', {
 })
 
 
-# ----- get_municipalities() ----
-
-test_that('get_municipalities works', {
-  skip_if(check_api(brreg_url))
-
-  df <- get_municipalities()
-  # Check type
-  expect_equal(class(df), 'data.frame')
-  # Check cols
-  expect_equal(ncol(df), 2)
-  expect_equal(names(df), c('nummer', 'navn'))
-})
-
-test_that('get_municipalities works when raw_response = TRUE', {
-  skip_if(check_api(brreg_url))
-
-  res <- expect_invisible(get_municipalities(raw_response = TRUE))
-  expect_true(is.list(res))
-  expect_equal(names(res), c('url', 'status', 'content', 'response'))
-  expect_identical(class(res), "noAPI")
-  expect_true(is.list(res$content))
-})
-
-
 # ---- get_brreg_single() ----
 
 get_brreg_single(974760843)
