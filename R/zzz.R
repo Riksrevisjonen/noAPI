@@ -8,6 +8,9 @@
     # Kartverket functions
     get_address_info <<- memoise::memoise(get_address_info, cache = cm)
     find_address_from_point <<- memoise::memoise(find_address_from_point, cache = cm)
+    # SSB Klass functions
+    get_municipalities <<- memoise::memoise(get_municipalities, cache = cm)
+    get_counties <<- memoise::memoise(get_counties, cache = cm)
   }
 }
 

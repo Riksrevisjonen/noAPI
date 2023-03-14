@@ -15,6 +15,7 @@
 #' @inheritParams get_entity
 #' @param year The year for which the codes should be valid for
 #' @param add_county If set to `TRUE`, add county name and number
+#' @param include_notes If notes should be included or not
 #'
 #' @return data.frame or list
 #'
@@ -22,15 +23,17 @@
 #'
 #' @export
 get_municipalities <- function(
-    year = format(Sys.Date(), '%Y'), add_county = FALSE, simplify = TRUE,
-    raw_response = FALSE)
+    year = format(Sys.Date(), '%Y'), add_county = FALSE, include_notes = FALSE,
+    simplify = TRUE, raw_response = FALSE)
 {
   if (raw_response) simplify <- FALSE
   if (add_county) {
     raw_response <- FALSE
-    x <- lapply(year, get_region_codes_single, type = 'both', raw_response = raw_response)
+    x <- lapply(year, get_klass_codes_single, type = 'both',
+                include_notes = include_notes, raw_response = raw_response)
   } else {
-    x <- lapply(year, get_region_codes_single, type = 'municipality', raw_response = raw_response)
+    x <- lapply(year, get_klass_codes_single, type = 'municipality',
+                include_notes = include_notes, raw_response = raw_response)
   }
   if (!raw_response & simplify) {
     x <- do.call('rbind', x)
@@ -57,38 +60,44 @@ get_municipalities <- function(
 #'
 #' @export
 get_counties <- function(
-    year = format(Sys.Date(), '%Y'), simplify = TRUE, raw_response = FALSE)
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
+    raw_response = FALSE)
 {
   if (raw_response) simplify <- FALSE
-  x <- lapply(year, get_region_codes_single, type = 'county', raw_response = raw_response)
+  x <- lapply(year, get_klass_codes_single, type = 'county', include_notes = include_notes, raw_response = raw_response)
   if (!raw_response & simplify) {
     x <- do.call('rbind', x)
   }
   x
 }
 
-#' get_region_codes_single
+#' get_klass_codes_single
 #' @noRd
-get_region_codes_single <- function(
-    year, type = c('municipality', 'county', 'both'), raw_response = FALSE)
+get_klass_codes_single <- function(
+    year, type = c('municipality', 'county', 'country', 'both'),
+    include_notes = FALSE, raw_response = FALSE)
 {
   if (type == 'both') {
-    r_m <- get_region_codes_single(year, 'municipality')
-    r_c <- get_region_codes_single(year, 'county')
+    r_m <- get_klass_codes_single(year, 'municipality')
+    r_c <- get_klass_codes_single(year, 'county')
     r_m$county <- substring(r_m$code, 1, 2)
     colnames(r_c) <- c('year', 'county', 'county_name')
     r_c <- r_c[, c('county', 'county_name')]
     ret <- merge(r_m, r_c, by = 'county')
     return(ret[,c('year', 'code', 'name', 'county', 'county_name')])
   }
-  x <- switch(type, 'municipality' = klass_municipalities, 'county' = klass_counties)
-  endpoint <- get_municipality_api_endpoint(
+  x <- switch(
+    type,
+    'municipality' = klass_municipalities,
+    'county' = klass_counties,
+    'country' = klass_countries)
+  endpoint <- get_klass_api_endpoint(
     year, type = type, links = x$endpoint, from = x$valid_from, to = x$valid_to
   )
-  req <- request(endpoint) %>%
+  req <- request(endpoint) |>
     req_headers(Accept = if (raw_response) 'application/json' else 'text/csv')
   resp <- send_query(req)
-  parsed <- parse_klass(resp, type, year)
+  parsed <- parse_klass(resp, type, year, include_notes)
   if (raw_response) {
     parsed <- make_api_object(resp, parsed)
   }

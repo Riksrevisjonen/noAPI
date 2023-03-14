@@ -6,12 +6,15 @@
 \usage{
 get_counties(
   year = format(Sys.Date(), "\%Y"),
+  include_notes = FALSE,
   simplify = TRUE,
   raw_response = FALSE
 )
 }
 \arguments{
 \item{year}{The year for which the codes should be valid for}
+
+\item{include_notes}{If notes should be included or not}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}

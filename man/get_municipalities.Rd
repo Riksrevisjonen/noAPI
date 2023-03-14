@@ -7,6 +7,7 @@
 get_municipalities(
   year = format(Sys.Date(), "\%Y"),
   add_county = FALSE,
+  include_notes = FALSE,
   simplify = TRUE,
   raw_response = FALSE
 )
@@ -15,6 +16,8 @@ get_municipalities(
 \item{year}{The year for which the codes should be valid for}
 
 \item{add_county}{If set to \code{TRUE}, add county name and number}
+
+\item{include_notes}{If notes should be included or not}
 
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}

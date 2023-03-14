@@ -1,6 +1,11 @@
-get_municipality_api_endpoint <- function(year, type, links, from, to) {
+get_klass_api_endpoint <- function(year, type, links, from, to) {
   if (is.character(year)) {
-    year <- as.integer(gsub('\\D', '', year))
+    year <- suppressWarnings(as.integer(gsub('\\D', '', year)))
+  } else {
+    year <- suppressWarnings(as.integer(year))
+  }
+  if (is.na(year)) {
+    cli::cli_abort('Unable to use year provided. Make sure you provide a valid integer number.')
   }
   if (year < 1977 & type == 'municipality') {
     cli::cli_abort(
@@ -21,18 +26,17 @@ get_municipality_api_endpoint <- function(year, type, links, from, to) {
   out
 }
 
-parse_klass <- function(resp, type, year) {
+parse_klass <- function(resp, type, year, include_notes) {
   ctype <- resp_content_type(resp)
   if (ctype == 'text/csv') {
     parsed <- resp |>
       resp_body_string() |>
       textConnection() |>
       read.csv2() |>
-      subset(select = c(code, name))
-    fmt <- switch(type, 'municipality' = '%04s', 'county' = '%02s')
+      subset(select = if (include_notes) c(code, name, notes) else c(code, name))
+    fmt <- switch(type, 'municipality' = '%04s', 'county' = '%02s', 'country' = '%s')
     parsed$code <- sprintf(fmt, parsed$code)
-    parsed$year <- year
-    parsed <- parsed[,c('year', 'code', 'name')]
+    parsed <- cbind(year = year, parsed)
   } else {
     parsed <- parse_response(resp)
   }
