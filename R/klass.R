@@ -71,6 +71,46 @@ get_counties <- function(
   x
 }
 
+#' Get countries
+#'
+#' Get all country codes (alpha-3) based on the ISO 3166-1 standard, but adjusted
+#' for data from Statistics Norway.
+#'
+#' Fetches all countries and country codes (alpha-3) for a given year based on the
+#' ISO 3166-1 standard. The list includes special codes XUK and XXX for unknown
+#' citizenship and stateless persons, respectively. These codes are used in official
+#' statistics from Statistics Norway.
+#'
+#' All years from 1974 until present are supported. The function will default to
+#' the current year. The function will return a data.frame with all countries
+#' If more than one year is given, a single data.frame will be returned with all
+#' codes and names for the given years, unless `simplify` is set to `FALSE`, then
+#' a list will be returned instead.
+#'
+#' If notes are enables with `include_notes`, a column `note` will be added to the
+#' data.frame. Notes are stated with a code reference that has the following order
+#' (alpha-2, alpha-3, num-3, SSB-3), for example Norway (NO, NOR, 578, 000). See
+#' [Statistics Norway's webpage](https://www.ssb.no/klass/klassifikasjoner/552) for
+#' more information on the code specification.
+#'
+#' @inheritParams get_municipalities
+#'
+#' @return data.frame or list
+#'
+#' @export
+get_countries <- function(
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
+    raw_response = FALSE)
+{
+  if (raw_response) simplify <- FALSE
+  x <- lapply(year, get_klass_codes_single, type = 'country',
+              include_notes = include_notes, raw_response = raw_response)
+  if (!raw_response & simplify) {
+    x <- do.call('rbind', x)
+  }
+  x
+}
+
 #' get_klass_codes_single
 #' @noRd
 get_klass_codes_single <- function(
