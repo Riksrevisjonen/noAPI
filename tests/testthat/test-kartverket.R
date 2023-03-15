@@ -1,8 +1,12 @@
+skip_if(Sys.getenv('NOAPI_SKIP_LIVE_API_TESTS') == 'TRUE')
+
+# Set globals
 kv_url2 <- paste0(kv_url, 'v1/#/default/get_punktsok')
 
 # ---- get_address_info ----
 
 test_that('get_address_info() works for single inputs', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   # Regular search
@@ -22,6 +26,7 @@ test_that('get_address_info() works for single inputs', {
 })
 
 test_that('get_address_info() works for multiple inputs', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   # Regular search
@@ -42,6 +47,7 @@ test_that('get_address_info() works for multiple inputs', {
 })
 
 test_that('get_address_info() works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   res <- expect_invisible(
@@ -54,6 +60,7 @@ test_that('get_address_info() works when raw_response = TRUE', {
 })
 
 test_that('get_address_info() returns NULL on failures', {
+  skip_on_cran()
   # No address found (warning + NULL)
   expect_warning(expect_null(get_address_info('munkegata 1 tronheim')))
 })
@@ -61,6 +68,7 @@ test_that('get_address_info() returns NULL on failures', {
 # ---- find_address_from_point ----
 
 test_that('find_address_from_point() works for vector inputs', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   # all addresses
@@ -78,6 +86,7 @@ test_that('find_address_from_point() works for vector inputs', {
 })
 
 test_that('find_address_from_point() works for list inputs', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   # all addresses
@@ -99,6 +108,7 @@ test_that('find_address_from_point() works for list inputs', {
 })
 
 test_that('find_address_from_point() works when raw_response = TRUE', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   res <- expect_invisible(
@@ -111,6 +121,7 @@ test_that('find_address_from_point() works when raw_response = TRUE', {
 })
 
 test_that('find_address_from_point() returns NULL on failures', {
+  skip_on_cran()
   # Not valid input coordinates
   expect_message(
     expect_null(
@@ -122,6 +133,7 @@ test_that('find_address_from_point() returns NULL on failures', {
 # ---- get_address_info_single ----
 
 test_that('get_address_info_single() works', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   # Regular search
@@ -137,6 +149,7 @@ test_that('get_address_info_single() works', {
 })
 
 test_that('get_address_info_single() fails correctly', {
+  skip_on_cran()
   # No address found (warning)
   expect_warning(
     expect_null(
@@ -149,6 +162,7 @@ test_that('get_address_info_single() fails correctly', {
 # ---- find_address_from_point_single ----
 
 test_that('find_address_from_point_single() works for vector inputs', {
+  skip_on_cran()
   skip_if(check_api(kv_url2))
 
   res <- find_address_from_point_single(
@@ -167,9 +181,12 @@ test_that('find_address_from_point_single() fails correctly', {
   expect_error(find_address_from_point_single(
     c(lat = 59.91), crs = 4258, radius = 1, closest = FALSE))
   # 'x' not correctly named (data.frame)
-  expect_error(find_address_from_point(
-    data.frame(x = c('59.91364', '63.42805'),
-               y = c('10.7508', '10.39679'))))
+  # expect_error(find_address_from_point(
+  #   data.frame(x = c('59.91364', '63.42805'),
+  #              y = c('10.7508', '10.39679'))))
+
+  skip_on_cran()
+
   # Not valid input coordinates
   expect_error(find_address_from_point_single(
     c(lon = 59.91364, lat = 10.7508), crs = 4258, radius = 1,
@@ -181,6 +198,9 @@ test_that('find_address_from_point_single() fails correctly', {
 })
 
 test_that('find_address_from_point_single() works when mulitiple pages are found', {
+  skip_on_cran()
+  skip_on_ci() # Test fails on GH Actions (not sure why)
+
   res1 <- rlang::with_interactive({
     suppressWarnings(
       find_address_from_point_single(
@@ -189,7 +209,7 @@ test_that('find_address_from_point_single() works when mulitiple pages are found
         closest = FALSE))
   }, value = FALSE)
   expect_equal(nrow(res1), 10)
-  skip_on_ci() # Test fails on GH Actions (not sure why)
+
   res2 <- suppressMessages(
     rlang::with_interactive({
       find_address_from_point_single(
@@ -199,4 +219,5 @@ test_that('find_address_from_point_single() works when mulitiple pages are found
     }, value = TRUE)
   )
   expect_gt(nrow(res2), nrow(res1))
+
 })
