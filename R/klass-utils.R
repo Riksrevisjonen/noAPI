@@ -1,3 +1,5 @@
+#' get_klass_api_endpoint
+#' @noRd
 get_klass_api_endpoint <- function(year, type, links, from, to) {
   if (is.character(year)) {
     year <- suppressWarnings(as.integer(gsub('\\D', '', year)))
@@ -26,14 +28,18 @@ get_klass_api_endpoint <- function(year, type, links, from, to) {
   out
 }
 
+#' parse_klass
+#' @importFrom utils read.csv2
+#' @noRd
 parse_klass <- function(resp, type, year, include_notes) {
   ctype <- resp_content_type(resp)
   if (ctype == 'text/csv') {
     parsed <- resp |>
       resp_body_string() |>
       textConnection() |>
-      read.csv2() |>
-      subset(select = if (include_notes) c(code, name, notes) else c(code, name))
+      read.csv2()
+    cols <- if (include_notes) c('code', 'name', 'notes') else c('code', 'name')
+    parsed <- parsed[, cols]
     fmt <- switch(type, 'municipality' = '%04s', 'county' = '%02s', 'country' = '%s')
     parsed$code <- sprintf(fmt, parsed$code)
     parsed <- cbind(year = year, parsed)

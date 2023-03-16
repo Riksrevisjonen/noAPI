@@ -7,7 +7,7 @@
 #' the current year. The function will return a data.frame with all municipalities.
 #' If more than one year is given, a single data.frame will be returned with all
 #' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list will be returned instead.
+#' a list of the same length of the input will be returned instead.
 #'
 #' You can add county numbers and names for each municipality by setting `add_county`
 #' to `TRUE`.
@@ -16,6 +16,7 @@
 #' @param year The year for which the codes should be valid for
 #' @param add_county If set to `TRUE`, add county name and number
 #' @param include_notes If notes should be included or not
+#' @param simplify If `TRUE` (default), a single data.frame is returned.
 #'
 #' @return data.frame or list
 #'

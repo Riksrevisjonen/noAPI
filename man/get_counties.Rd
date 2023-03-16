@@ -16,6 +16,8 @@ get_counties(
 
 \item{include_notes}{If notes should be included or not}
 
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned.}
+
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }

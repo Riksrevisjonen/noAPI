@@ -19,6 +19,8 @@ get_municipalities(
 
 \item{include_notes}{If notes should be included or not}
 
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned.}
+
 \item{raw_response}{If TRUE a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
@@ -34,7 +36,7 @@ All years from 1977 until present are supported. The function will default to
 the current year. The function will return a data.frame with all municipalities.
 If more than one year is given, a single data.frame will be returned with all
 codes and names for the given years, unless \code{simplify} is set to \code{FALSE}, then
-a list will be returned instead.
+a list of the same length of the input will be returned instead.
 
 You can add county numbers and names for each municipality by setting \code{add_county}
 to \code{TRUE}.

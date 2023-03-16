@@ -46,7 +46,7 @@ an issue on [GitHub](https://github.com/Riksrevisjonen/noAPI/issues). We
 kindly ask you to include a minimal reproducible example when possible.
 For other questions please reach out to the package authors.
 
-## Acknowledgments
+## Acknowledgements
 
 The ship used in noAPIs logo is based on a 3D model of the Norwegian
 Oseberg Viking Ship originally created by Dane Ericksen. The conversion
