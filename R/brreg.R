@@ -79,40 +79,6 @@ get_roles <- function(entity, raw_response = FALSE) {
   dl
 }
 
-#' Get municipalities
-#'
-#' Fetch the names and keys for Norwegian municipalities from the
-#' _Central Coordinating Register for Legal Entities_ (Enhetsregisteret).
-#'
-#' @details
-#' The function returns a data.frame by default. If you set `raw_response` to
-#' `TRUE`, the raw response from the API will be returned instead. Note that the
-#' response will then be returned silently.
-#'
-#' See the
-#' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
-#' for further details (in Norwegian only).
-#'
-#' @inheritParams get_entity
-#' @return data.frame or list
-#' @export
-#' @examples
-#' # Get municipalities
-#' df <- get_municipalities()
-#'
-get_municipalities <- function(raw_response = FALSE) {
-  resp <- request_brreg('kommuner')
-  parsed <- resp_body_json(resp, simplifyVector = TRUE)
-  if (raw_response) {
-    out <- make_api_object(resp, parsed)
-    return(invisible(out))
-  }
-  else {
-    out <- parsed$`_embedded`$kommuner[,1:2]
-    return(out)
-  }
-}
-
 #' Get brreg (single method)
 #' @inheritParams get_entity
 #' @noRd

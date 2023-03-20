@@ -39,6 +39,12 @@ test_that('parse_response() works for JSON-formats', {
   expect_identical(class(parsed$slideshow$slides), 'list')
 })
 
+test_that('parse_response() returns error for unknown formats', {
+  u <- 'https://httpbin.org/html'
+  resp <- request(u) |> req_perform()
+  expect_error(parse_response(resp))
+})
+
 test_that('make_api_object() works', {
   skip_on_cran()
   skip_on_ci()

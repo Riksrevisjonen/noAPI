@@ -40,8 +40,14 @@ parse_response <- function(resp, simplifyVector = TRUE){
   if (resp_error) {
     cli::cli_abort('The API returned an error: {resp$status_code} {resp_status_desc(resp)}')
   }
-  if (type == "application/json") {
+  if (type == 'application/json') {
     parsed <- resp_body_json(resp, simplifyVector = simplifyVector)
+  } else {
+    cli::cli_abort(c(
+      'The API returned an unknown content type',
+      'i' = 'Expected application/json',
+      'x' = 'Got {type}'
+    ))
   }
   return(parsed)
 }

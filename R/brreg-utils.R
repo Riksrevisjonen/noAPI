@@ -4,7 +4,7 @@ null2na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
 
 #' request_brreg
 #' @noRd
-request_brreg <- function(type = c('enheter', 'roller','kommuner'), entity = NULL) {
+request_brreg <- function(type = c('enheter', 'roller'), entity = NULL) {
   type <- match.arg(type)
   req <- request(brreg_url)
   if (type %in% c('enheter', 'roller')) {
@@ -24,10 +24,6 @@ request_brreg <- function(type = c('enheter', 'roller','kommuner'), entity = NUL
         req_url_path_append('enheter') |>
         req_url_query('navn' = entity)
     }
-  } else if (type == 'kommuner') {
-    req <- req |>
-      req_url_path_append('kommuner') |>
-      req_url_query(size = 450)
   }
   send_query(req)
 }
