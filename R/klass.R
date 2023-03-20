@@ -32,7 +32,7 @@
 #' # Get both
 #' get_adm_units()
 get_municipalities <- function(
-    year = format(Sys.Date(), '%Y'), add_county = FALSE, include_notes = FALSE,
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE,
     simplify = TRUE, raw_response = FALSE) {
 
   common_info(simplify, raw_response)

@@ -8,7 +8,6 @@
 \usage{
 get_municipalities(
   year = format(Sys.Date(), "\%Y"),
-  add_county = FALSE,
   include_notes = FALSE,
   simplify = TRUE,
   raw_response = FALSE
