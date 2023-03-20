@@ -67,15 +67,33 @@ get_address_info <- function(search = NULL, crs = 4258, ..., raw_response = FALS
 #' @noRd
 get_address_info_single <- function(search = NULL, crs = 4258,
                                     ..., raw_response = FALSE) {
+  # Get input params
+  p <- list(search = search, ...)
+  qp <- paste(sprintf('%s=%s', names(p), p), collapse = ',')
+
+  # Send query
   resp <- request_kartverket('sok', search, crs = crs, ...)
+
+  # Parse response
   parsed <- parse_response(resp, simplifyVector = TRUE)
   if (length(parsed$adresser) == 0) {
-    cli::cli_warn('No addresses found. Returning NULL.')
+    cli::cli_warn("Did not find any addresses for the following query: '{cli::col_br_yellow(qp)}'.")
     return(NULL)
   }
+
   # Parse results again (and check for remaining results)
   res <- parse_kartverket(resp, parsed, crs = crs, ...)
   res <- kv_flatten_res(res)
+
+  # Add input to result
+  if (all(names(p) == 'search')) {
+    res$parsed$sok <- search
+  } else {
+    res$parsed$sok <- qp
+  }
+  res$parsed <- res$parsed[c(ncol(res$parsed), (1:ncol(res$parsed)-1))]
+
+  # Return
   if (raw_response) {
     out <- make_api_object(res$resp, res$parsed)
   } else {
@@ -184,7 +202,8 @@ find_address_from_point_single <- function(x, radius, crs, closest, ...,
   # Parse response
   parsed <- parse_response(resp, simplifyVector = TRUE)
   if (length(parsed$adresser) == 0) {
-    cli::cli_warn('No addresses found. Returning NULL.')
+    x <- paste(x, collapse = ', ')
+    cli::cli_warn("Did not find any addresses for the following point: '{cli::col_br_yellow(x)}'.")
     return(NULL)
   }
 
