@@ -27,10 +27,18 @@ test_that('get_municipality() returns expected results', {
   expect_true(is.data.frame(df))
   expect_true(all(c('county', 'county_name') %in% colnames(df)))
 
+  expect_warning(df <- get_municipalities(add_county = TRUE, raw_response = TRUE))
+  expect_true(is.data.frame(df))
+
   # --- Tests for adding notes ---
   df <- get_municipalities(include_notes = TRUE)
   expect_true(is.data.frame(df))
   expect_equal(colnames(df), c('year', 'code', 'name', 'notes'))
+
+  # --- Tests for simplified data.frame ---
+  df <- get_municipalities(c(2019, 2022), simplify = TRUE)
+  expect_true(is.data.frame(df))
+  expect_true(length(unique(df$year)) == 2)
 
   # --- Tests for raw response ---
   df <- get_municipalities(raw_response = TRUE)
