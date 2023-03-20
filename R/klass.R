@@ -5,9 +5,13 @@
 #' Fetches all Norwegian municipalities and municipality codes for a given year.
 #' All years from 1977 until present are supported. The function will default to
 #' the current year. The function will return a data.frame with all municipalities.
+#'
 #' If more than one year is given, a single data.frame will be returned with all
 #' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list of the same length of the input will be returned instead.
+#' a list of the same length of the input will be returned instead. If `raw_response`
+#' is set to `TRUE`, a parsed data.frame will be returned along with each raw
+#' response from the API. It is not possible to return a single data.frame when
+#' `raw_response` is set to `TRUE`.
 #'
 #' You can add county numbers and names for each municipality by setting `add_county`
 #' to `TRUE`.
@@ -27,9 +31,11 @@ get_municipalities <- function(
     year = format(Sys.Date(), '%Y'), add_county = FALSE, include_notes = FALSE,
     simplify = TRUE, raw_response = FALSE)
 {
-  if (raw_response) simplify <- FALSE
   if (add_county) {
-    raw_response <- FALSE
+    if (raw_response) {
+      raw_response <- FALSE
+      cli::cli_warn('If add_county is set to `TRUE`, raw data cannot be returned')
+    }
     x <- lapply(year, get_klass_codes_single, type = 'both',
                 include_notes = include_notes, raw_response = raw_response)
   } else {
@@ -49,9 +55,13 @@ get_municipalities <- function(
 #' Fetches all Norwegian counties and county codes for a given year. All years
 #' from 1972 until present are supported. The function will default to
 #' the current year. The function will return a data.frame with all counties.
+#'
 #' If more than one year is given, a single data.frame will be returned with all
 #' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list will be returned instead.
+#' a list of the same length of the input will be returned instead. If `raw_response`
+#' is set to `TRUE`, a parsed data.frame will be returned along with each raw
+#' response from the API. It is not possible to return a single data.frame when
+#' `raw_response` is set to `TRUE`.
 #'
 #' @inheritParams get_municipalities
 #'
@@ -64,7 +74,6 @@ get_counties <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
     raw_response = FALSE)
 {
-  if (raw_response) simplify <- FALSE
   x <- lapply(year, get_klass_codes_single, type = 'county', include_notes = include_notes, raw_response = raw_response)
   if (!raw_response & simplify) {
     x <- do.call('rbind', x)
@@ -83,10 +92,13 @@ get_counties <- function(
 #' statistics from Statistics Norway.
 #'
 #' All years from 1974 until present are supported. The function will default to
-#' the current year. The function will return a data.frame with all countries
-#' If more than one year is given, a single data.frame will be returned with all
-#' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list will be returned instead.
+#' the current year. The function will return a data.frame with all countries and
+#' all country codes. If more than one year is given, a single data.frame will be
+#' returned with all codes and names for the given years, unless `simplify` is set
+#' to `FALSE`, then a list of the same length of the input will be returned instead.
+#' If `raw_response` is set to `TRUE`, a parsed data.frame will be returned along
+#' with each raw response from the API. It is not possible to return a single
+#' data.frame when `raw_response` is set to `TRUE`.
 #'
 #' If notes are enables with `include_notes`, a column `note` will be added to the
 #' data.frame. Notes are stated with a code reference that has the following order
@@ -103,7 +115,6 @@ get_countries <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
     raw_response = FALSE)
 {
-  if (raw_response) simplify <- FALSE
   x <- lapply(year, get_klass_codes_single, type = 'country',
               include_notes = include_notes, raw_response = raw_response)
   if (!raw_response & simplify) {

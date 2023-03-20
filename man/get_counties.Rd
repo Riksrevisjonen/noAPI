@@ -31,9 +31,13 @@ Get all Norwegian counties and county codes for a given year.
 Fetches all Norwegian counties and county codes for a given year. All years
 from 1972 until present are supported. The function will default to
 the current year. The function will return a data.frame with all counties.
+
 If more than one year is given, a single data.frame will be returned with all
 codes and names for the given years, unless \code{simplify} is set to \code{FALSE}, then
-a list will be returned instead.
+a list of the same length of the input will be returned instead. If \code{raw_response}
+is set to \code{TRUE}, a parsed data.frame will be returned along with each raw
+response from the API. It is not possible to return a single data.frame when
+\code{raw_response} is set to \code{TRUE}.
 }
 \seealso{
 \code{get_municipalities()} for municipality codes and names

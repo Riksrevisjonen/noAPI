@@ -34,9 +34,13 @@ Get all Norwegian municipalities and municipality codes for a given year.
 Fetches all Norwegian municipalities and municipality codes for a given year.
 All years from 1977 until present are supported. The function will default to
 the current year. The function will return a data.frame with all municipalities.
+
 If more than one year is given, a single data.frame will be returned with all
 codes and names for the given years, unless \code{simplify} is set to \code{FALSE}, then
-a list of the same length of the input will be returned instead.
+a list of the same length of the input will be returned instead. If \code{raw_response}
+is set to \code{TRUE}, a parsed data.frame will be returned along with each raw
+response from the API. It is not possible to return a single data.frame when
+\code{raw_response} is set to \code{TRUE}.
 
 You can add county numbers and names for each municipality by setting \code{add_county}
 to \code{TRUE}.

@@ -35,10 +35,13 @@ citizenship and stateless persons, respectively. These codes are used in officia
 statistics from Statistics Norway.
 
 All years from 1974 until present are supported. The function will default to
-the current year. The function will return a data.frame with all countries
-If more than one year is given, a single data.frame will be returned with all
-codes and names for the given years, unless \code{simplify} is set to \code{FALSE}, then
-a list will be returned instead.
+the current year. The function will return a data.frame with all countries and
+all country codes. If more than one year is given, a single data.frame will be
+returned with all codes and names for the given years, unless \code{simplify} is set
+to \code{FALSE}, then a list of the same length of the input will be returned instead.
+If \code{raw_response} is set to \code{TRUE}, a parsed data.frame will be returned along
+with each raw response from the API. It is not possible to return a single
+data.frame when \code{raw_response} is set to \code{TRUE}.
 
 If notes are enables with \code{include_notes}, a column \code{note} will be added to the
 data.frame. Notes are stated with a code reference that has the following order
