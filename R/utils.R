@@ -1,6 +1,14 @@
 #' @import httr2
 NULL
 
+#' common_info
+#' @noRd
+common_info <- function(simplify, raw_response){
+  if (simplify && raw_response)
+    cli::cli_inform('You set raw_response = TRUE, so simplify will be ignored.')
+
+}
+
 #' check_api
 #' @param u URL
 #' @noRd

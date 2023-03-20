@@ -10,6 +10,7 @@ find_address_from_point(
   crs = 4258,
   closest = FALSE,
   ...,
+  simplify = TRUE,
   raw_response = FALSE
 )
 }
@@ -28,7 +29,10 @@ point is returned.}
 
 \item{...}{Additional arguments passed to the API call.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
+
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{
@@ -49,9 +53,11 @@ parameters. For a list of all accepted query parameters see
 \code{\link[=create_params_kv_punktsok]{create_params_kv_punktsok()}} or refer to the \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation} for
 further details (in Norwegian only).
 
-The function returns a data.frame or list by default. If you set
-\code{raw_response} to \code{TRUE}, the raw response from the API will be returned
-instead. Note that the response will then be returned silently.
+The function returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
 }
 \examples{
 # Using a vector

@@ -4,12 +4,15 @@
 \alias{get_entity}
 \title{Get entity}
 \usage{
-get_entity(entity, raw_response = FALSE)
+get_entity(entity, simplify = TRUE, raw_response = FALSE)
 }
 \arguments{
 \item{entity}{A Norwegian organisation number or company name.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
+
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{
@@ -21,9 +24,11 @@ Fetch information about an entity from the
 based on the entity's name or organisation number.
 }
 \details{
-The function returns a data.frame by default. If you set \code{raw_response} to
-\code{TRUE}, the raw response from the API will be returned instead. Note that the
-response will then be returned silently.
+The function returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
 
 See the
 \href{https://data.brreg.no/enhetsregisteret/api/docs/index.html}{API documentation}

@@ -1,6 +1,8 @@
 #' null2na
 #' @noRd
-null2na <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else x
+null2na <- function(x, na_value = NA_character_ ) {
+  if (is.null(x) || length(x) == 0) na_value else x
+}
 
 #' request_brreg
 #' @noRd
@@ -35,11 +37,6 @@ parse_brreg_entity <- function(parsed) {
   if ('organisasjonsnummer' %in% names(parsed)) {
     df <- parse_brreg_entity_single(parsed)
   } else if ('_embedded' %in% names(parsed)) {
-    # NOTE: Old code from riksrevR. Not sure this is needed.
-    # if (length(parsed$`_embedded`$enheter) == 0) {
-    #   cli::cli_warn('No entities found.')
-    #   return(invisible(NULL))
-    # }
     dl <- lapply(parsed$`_embedded`$enheter, parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
@@ -86,14 +83,7 @@ parse_brreg_entity_single <- function(p) {
 parse_brreg_roles <- function(parsed, entity) {
   p <- lapply(parsed$rollegrupper, function(x) x$roller[[1]])
   dl <- purrr::map2(p, entity, parse_brreg_roles_single)
-  dl_entities <- lapply(dl, function(x) {
-    if ('organisasjonsnummer' %in% names(x)) x else NULL
-  })
-  dl_persons <- lapply(dl, function(x) {
-    if (!'organisasjonsnummer' %in% names(x)) x else NULL
-  })
-  list(persons = do.call('rbind', dl_persons),
-       entities = do.call('rbind', dl_entities))
+  do.call('rbind', dl)
 }
 
 #' parse_brreg_roles_single
@@ -107,20 +97,26 @@ parse_brreg_roles_single <- function(p, entity) {
       navn = paste(p$person$navn$fornavn,
                    p$person$navn$etternavn),
       fodselsdato = null2na(p$person$fodselsdato),
-      er_doed = null2na(p$person$erDoed),
-      fratraadt = null2na(p$fratraadt),
-      rekkefolge = null2na(p$rekkefolge)
+      er_doed = null2na(p$person$erDoed, NA),
+      organisasjonsnummer = NA_character_,
+      organisasjonsform_kode = NA_character_,
+      organisasjonsform_beskrivelse = NA_character_,
+      er_slettet = NA,
+      fratraadt = null2na(p$fratraadt, NA),
+      rekkefolge = null2na(p$rekkefolge, NA_integer_)
     )
   } else {
     data.frame(
       aktornummer = entity,
       type_kode = p$type$kode,
       type_beskrivelse = null2na(p$type$beskrivelse),
-      organisasjonsnummer = p$enhet$organisasjonsnummer,
       navn = paste(unlist(p$enhet$navn), collapse = ' '),
+      fodselsdato = NA_character_,
+      er_doed = NA,
+      organisasjonsnummer = p$enhet$organisasjonsnummer,
       organisasjonsform_kode = null2na(p$enhet$organisasjonsform$kode),
       organisasjonsform_beskrivelse = null2na(p$enhet$organisasjonsform$beskrivelse),
-      er_slettet = null2na(p$enhet$erSlettet),
+      er_slettet = null2na(p$enhet$erSlettet, NA),
       fratraadt = null2na(p$fratraadt),
       rekkefolge = null2na(p$rekkefolge)
     )

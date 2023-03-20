@@ -6,16 +6,20 @@
 #'
 #' @details
 #'
-#' The function returns a data.frame by default. If you set `raw_response` to
-#' `TRUE`, the raw response from the API will be returned instead. Note that the
-#' response will then be returned silently.
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' See the
 #' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
 #' for further details (in Norwegian only).
 #'
 #' @param entity A Norwegian organisation number or company name.
-#' @param raw_response  If TRUE a list of class `noAPI` is
+#' @param simplify If `TRUE` (default), a single data.frame is returned. Ignored
+#'   if `raw_response` is set to `TRUE`.
+#' @param raw_response  If `TRUE` a list of class `noAPI` is
 #'   returned, including the raw `httr2_response`.
 #' @return data.frame or list
 #' @export
@@ -29,11 +33,13 @@
 #' # Get multiple entities
 #' df <- get_entity(c(974760843, 971524960))
 #'
-get_entity <- function(entity, raw_response = FALSE) {
+get_entity <- function(entity, simplify = TRUE, raw_response = FALSE) {
+  common_info(simplify, raw_response)
   dl <- lapply(entity, function(x)
     get_brreg_safe(x, type = 'enheter', raw_response))
   if (raw_response) return(invisible(dl))
-  do.call('rbind', dl)
+  if (simplify) return(do.call('rbind', dl))
+  dl
 }
 
 #' Get roles
@@ -43,14 +49,16 @@ get_entity <- function(entity, raw_response = FALSE) {
 #' on the organisation number.
 #'
 #' @details
-#' The function returns a list with two data frames by default, one for
-#' individual roles and one for entity based roles.  If you set `raw_response`
-#' to `TRUE`, the raw response from the API will be returned instead. Note that the
-#' response will then be returned silently.
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' See the
 #' [API documentation](https://data.brreg.no/enhetsregisteret/api/docs/index.html)
 #' for further details (in Norwegian only).
+#'
 #' @param entity A Norwegian organisation number.
 #' @inheritParams get_entity
 #' @return list
@@ -66,16 +74,12 @@ get_entity <- function(entity, raw_response = FALSE) {
 #' # Get roles for a mulitiple enities
 #' res <- get_roles(c(974760843, 971524960))
 #'
-get_roles <- function(entity, raw_response = FALSE) {
+get_roles <- function(entity, simplify = TRUE, raw_response = FALSE) {
+  common_info(simplify, raw_response)
   dl <- lapply(entity, function(x)
     get_brreg_safe(x, type = 'roller', raw_response))
   if (raw_response) return(invisible(dl))
-  dl <- list(
-    persons = do.call('rbind', lapply(dl, function(x) x$persons)), #purrr::map_df(dl, function(x) x$persons),
-    entities = do.call('rbind', lapply(dl, function(x) x$entities)) # purrr::map_df(dl, function(x) x$entities)
-  )
-  if (is.null(dl$persons) && is.null(dl$entities))
-    return(NULL)
+  if (simplify) return(do.call('rbind', dl))
   dl
 }
 

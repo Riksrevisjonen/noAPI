@@ -16,9 +16,10 @@ get_countries(
 
 \item{include_notes}{If notes should be included or not}
 
-\item{simplify}{If \code{TRUE} (default), a single data.frame is returned.}
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{
@@ -34,18 +35,22 @@ ISO 3166-1 standard. The list includes special codes XUK and XXX for unknown
 citizenship and stateless persons, respectively. These codes are used in official
 statistics from Statistics Norway.
 
-All years from 1974 until present are supported. The function will default to
-the current year. The function will return a data.frame with all countries and
-all country codes. If more than one year is given, a single data.frame will be
-returned with all codes and names for the given years, unless \code{simplify} is set
-to \code{FALSE}, then a list of the same length of the input will be returned instead.
-If \code{raw_response} is set to \code{TRUE}, a parsed data.frame will be returned along
-with each raw response from the API. It is not possible to return a single
-data.frame when \code{raw_response} is set to \code{TRUE}.
+All years from 1974 until present are supported. The function defaults to
+the current year.
 
 If notes are enables with \code{include_notes}, a column \code{note} will be added to the
 data.frame. Notes are stated with a code reference that has the following order
 (alpha-2, alpha-3, num-3, SSB-3), for example Norway (NO, NOR, 578, 000). See
 \href{https://www.ssb.no/klass/klassifikasjoner/552}{Statistics Norway's webpage} for
 more information on the code specification.
+
+The function returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
+}
+\examples{
+# Get country for current year
+get_countries()
 }

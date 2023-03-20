@@ -4,7 +4,13 @@
 \alias{get_address_info}
 \title{Get address info}
 \usage{
-get_address_info(search = NULL, crs = 4258, ..., raw_response = FALSE)
+get_address_info(
+  search = NULL,
+  crs = 4258,
+  ...,
+  simplify = TRUE,
+  raw_response = FALSE
+)
 }
 \arguments{
 \item{search}{A Norwegian address. For example: 'munkegata 1 trondheim'.}
@@ -14,7 +20,10 @@ value is ETRS89 for latitude and longitude data (EPSG:4258). See details.}
 
 \item{...}{Additional arguments passed to the API call.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
+
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{
@@ -37,9 +46,11 @@ or refer to the
 \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation}
 for further details (in Norwegian only).
 
-The function returns a data.frame or list by default. If you set \code{raw_response}
-to \code{TRUE}, the raw response from the API will be returned instead. Note that the
-response will then be returned silently.
+The function returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
 }
 \examples{
 
@@ -52,11 +63,11 @@ df <- get_address_info(address_name = 'Munkegata', address_number = 1,
 
 \dontrun{
 # Multiple adresses
-res <- get_address_info(c('munkegata 1 trondheim', 'tromsø gate'))
+df <- get_address_info(c('munkegata 1 trondheim', 'tromsø gate'))
 
 # A more advanced query
-res <- get_address_info(c('munkegata 1 trondheim', 'munkegata 1'),
-   mun_code = c(NULL, '5001'))
+df <- get_address_info(c('munkegata 1 trondheim', 'storgata 1'),
+   mun_code = list(NULL, '0301'))
 
 }
 }

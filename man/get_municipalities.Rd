@@ -2,7 +2,9 @@
 % Please edit documentation in R/klass.R
 \name{get_municipalities}
 \alias{get_municipalities}
-\title{Get municipalities}
+\alias{get_counties}
+\alias{get_adm_units}
+\title{Get municipalities and counties}
 \usage{
 get_municipalities(
   year = format(Sys.Date(), "\%Y"),
@@ -11,40 +13,58 @@ get_municipalities(
   simplify = TRUE,
   raw_response = FALSE
 )
+
+get_counties(
+  year = format(Sys.Date(), "\%Y"),
+  include_notes = FALSE,
+  simplify = TRUE,
+  raw_response = FALSE
+)
+
+get_adm_units(
+  year = format(Sys.Date(), "\%Y"),
+  include_notes = FALSE,
+  simplify = TRUE
+)
 }
 \arguments{
 \item{year}{The year for which the codes should be valid for}
 
-\item{add_county}{If set to \code{TRUE}, add county name and number}
-
 \item{include_notes}{If notes should be included or not}
 
-\item{simplify}{If \code{TRUE} (default), a single data.frame is returned.}
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{
 data.frame or list
 }
 \description{
-Get all Norwegian municipalities and municipality codes for a given year.
+Get all Norwegian municipalities or counties, and their respective codes,
+for a given year.
 }
 \details{
-Fetches all Norwegian municipalities and municipality codes for a given year.
-All years from 1977 until present are supported. The function will default to
-the current year. The function will return a data.frame with all municipalities.
+\code{get_municipalities()} supports all years from 1977, while \code{get_counties()}
+supports all years from 1972. \code{get_adm_units()} is a wrapper function to get
+both municipality and county codes in the same function call. All three
+functions default to the current year.
 
-If more than one year is given, a single data.frame will be returned with all
-codes and names for the given years, unless \code{simplify} is set to \code{FALSE}, then
-a list of the same length of the input will be returned instead. If \code{raw_response}
-is set to \code{TRUE}, a parsed data.frame will be returned along with each raw
-response from the API. It is not possible to return a single data.frame when
-\code{raw_response} is set to \code{TRUE}.
-
-You can add county numbers and names for each municipality by setting \code{add_county}
-to \code{TRUE}.
+The functions returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
 }
-\seealso{
-\code{get_counties()} for county codes and names
+\examples{
+
+# Get municipality codes
+get_municipalities()
+
+# Get county codes
+get_municipalities()
+
+# Get both
+get_adm_units()
 }

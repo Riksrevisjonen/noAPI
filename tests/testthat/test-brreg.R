@@ -88,11 +88,26 @@ test_that('get_entity() works for multitiple name queries', {
   expect_true(all(sapply(df, class) == sapply(entity_resp, class)))
 })
 
+test_that('get_entity() works when simplify = FALSE', {
+  skip_on_cran()
+  skip_if(check_api(brreg_url))
+
+  res <- get_entity(c(999999999, 974760843, 971524960), simplify = FALSE)
+  expect_identical(class(res), 'list')
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_gte(nrow(res[[2]]), 1)
+  expect_gte(nrow(res[[3]]), 1)
+})
+
 test_that('get_entity() works when raw_response = TRUE', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  res <- expect_invisible(get_entity(974760843, raw_response = TRUE))
+  #expect_message(get_entity(974760843, raw_response = TRUE))
+  res <- suppressMessages(
+    expect_invisible(
+      get_entity(974760843, raw_response = TRUE)))
   expect_true(is.list(res))
   expect_true(is.list(res[[1]]))
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))
@@ -117,20 +132,14 @@ test_that('get_roles() works for single queries', {
   skip_if(check_api(brreg_url))
 
   # Check structure
-  res <- get_roles(974760843)
-  expect_true(is.list(res))
-  # expect_true(names(res) == '974760843')
-  expect_equal(names(res), c('persons', 'entities'))
+  df <- get_roles(974760843)
+  expect_equal(class(df), 'data.frame')
+  # Check rows
+  expect_gte(nrow(df), 1)
   # Check column names
-  expect_true(all(names(res$persons) ==
-                    names(roles_resp$persons)))
-  expect_true(all(names(res$entities) ==
-                    names(roles_resp$entities)))
+  expect_true(all(names(df) == names(roles_resp)))
   # Check column classes
-  expect_true(all(sapply(res$persons, class) ==
-                    sapply(roles_resp$persons, class)))
-  expect_true(all(sapply(res$entities, class) ==
-                    sapply(roles_resp$entities, class)))
+  expect_true(all(sapply(df, class) == sapply(roles_resp, class)))#
 
 })
 
@@ -139,31 +148,38 @@ test_that('get_roles() works for mulitiple queries', {
   skip_if(check_api(brreg_url))
 
   # Check structure
-  res <- get_roles(c(974760843, 971524960))
-  expect_true(is.list(res))
-  # expect_true(all(names(res) == c('974760843', '971524960')))
-  expect_equal(names(res), c('persons', 'entities'))
-
+  df <- get_roles(c(974760843, 971524960))
+  expect_equal(class(df), 'data.frame')
+  # Check rows
+  expect_gte(nrow(df), 1)
   # Check column names
-  expect_true(all(names(res$persons) ==
-                    names(roles_resp$persons)))
-  expect_true(all(names(res$entities) ==
-                    names(roles_resp$entities)))
-
+  expect_true(all(names(df) == names(roles_resp)))
   # Check column classes
-  expect_true(all(sapply(res$persons, class) ==
-                    sapply(roles_resp$persons, class)))
-  expect_true(all(sapply(res$entities, class) ==
-                    sapply(roles_resp$entities, class)))
+  expect_true(all(sapply(df, class) == sapply(roles_resp, class)))
 
+})
+
+test_that('get_roles() works when simplify = FALSE', {
+  skip_on_cran()
+  skip_if(check_api(brreg_url))
+
+  res <- get_roles(c(999999999, 974760843, 971524960), simplify = FALSE)
+  expect_identical(class(res), 'list')
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_gte(nrow(res[[2]]), 1)
+  expect_gte(nrow(res[[3]]), 1)
 })
 
 test_that('get_roles() works when raw_response = TRUE', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  res <- expect_invisible(get_roles(974760843, raw_response = TRUE))
-
+  # expect_message(get_roles(974760843, raw_response = TRUE))
+  res <- suppressMessages(
+    expect_invisible(
+      get_roles(974760843, raw_response = TRUE))
+  )
   expect_true(is.list(res))
   expect_true(is.list(res[[1]]))
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))

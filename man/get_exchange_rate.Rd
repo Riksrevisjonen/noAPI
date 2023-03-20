@@ -25,7 +25,7 @@ daily.}
 
 \item{end}{The last date to fetch data for.}
 
-\item{raw_response}{If TRUE a list of class \code{noAPI} is
+\item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
 \value{

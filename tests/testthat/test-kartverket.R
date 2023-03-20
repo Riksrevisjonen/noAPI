@@ -10,18 +10,18 @@ test_that('get_address_info() works for single inputs', {
   skip_if(check_api(kv_url2))
 
   # Regular search
-  res <- get_address_info('munkegata 1 trondheim')
-  expect_identical(class(res), 'data.frame')
-  expect_gte(nrow(res), 1)
-  expect_equal(ncol(res), 22)
+  df <- get_address_info('munkegata 1 trondheim')
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 1)
+  expect_equal(ncol(df), 23)
 
   # Advanced parameters
-  res <- get_address_info(
+  df <- get_address_info(
     address_name = 'Munkegata', address_number = 1,
     mun_name = 'Trondheim')
-  expect_identical(class(res), 'data.frame')
-  expect_equal(nrow(res), 1)
-  expect_equal(ncol(res), 22)
+  expect_identical(class(df), 'data.frame')
+  expect_equal(nrow(df), 1)
+  expect_equal(ncol(df), 23)
 
 })
 
@@ -30,19 +30,35 @@ test_that('get_address_info() works for multiple inputs', {
   skip_if(check_api(kv_url2))
 
   # Regular search
-  res <- get_address_info(c('munkegata 1 trondheim', 'tromsø gata'))
-  expect_identical(class(res), 'list')
-  expect_identical(class(res[[1]]), 'data.frame')
-  expect_identical(class(res[[2]]), 'data.frame')
+  df <- get_address_info(c('munkegata 1 trondheim', 'tromsø gata'))
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 2)
+  expect_equal(ncol(df), 23)
 
   # Advanced parameters
-  res <- get_address_info(
-    search = c('munkegata 1 trondheim', 'munkegata 1'),
-    mun_code = c(NULL, '5001')) # trondheim == 5001
+  df <- get_address_info(
+    search = c('munkegata 1 trondheim', 'storgata'),
+    mun_code = list(NULL, '0301'))
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 2)
+  expect_equal(ncol(df), 23)
+})
+
+test_that('get_address_info() works when simplify = FALSE', {
+  skip_on_cran()
+  skip_if(check_api(kv_url2))
+
+  # Regular search
+  res <- suppressWarnings(
+    get_address_info(
+      c('andeby 1', 'munkegata 1 trondheim', 'tromsø gata'),
+      simplify = FALSE)
+  )
   expect_identical(class(res), 'list')
-  expect_identical(class(res[[1]]), 'data.frame')
-  expect_identical(class(res[[2]]), 'data.frame')
-  expect_identical(res[[1]], res[[2]])
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_gte(nrow(res[[2]]), 1)
+  expect_gte(nrow(res[[3]]), 1)
 
 })
 
@@ -50,8 +66,10 @@ test_that('get_address_info() works when raw_response = TRUE', {
   skip_on_cran()
   skip_if(check_api(kv_url2))
 
-  res <- expect_invisible(
-    get_address_info('munkegata 1 trondheim', raw_response = TRUE))
+  res <- suppressMessages(
+    expect_invisible(
+      get_address_info('munkegata 1 trondheim', raw_response = TRUE))
+  )
   expect_true(is.list(res))
   expect_true(is.list(res[[1]]))
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))
@@ -72,16 +90,16 @@ test_that('find_address_from_point() works for vector inputs', {
   skip_if(check_api(kv_url2))
 
   # all addresses
-  res <- find_address_from_point(c(lat = 59.91364, lon = 10.7508))
-  expect_identical(class(res), 'data.frame')
-  expect_gte(nrow(res), 1)
-  expect_equal(ncol(res), 24)
+  df <- find_address_from_point(c(lat = 59.91364, lon = 10.7508))
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 1)
+  expect_equal(ncol(df), 24)
 
   # only the closest address for each point
-  res <- find_address_from_point(c(lat = 59.91364, lon = 10.7508), closest = TRUE)
-  expect_identical(class(res), 'data.frame')
-  expect_equal(nrow(res), 1)
-  expect_equal(ncol(res), 24)
+  df <- find_address_from_point(c(lat = 59.91364, lon = 10.7508), closest = TRUE)
+  expect_identical(class(df), 'data.frame')
+  expect_equal(nrow(df), 1)
+  expect_equal(ncol(df), 24)
 
 })
 
@@ -90,30 +108,74 @@ test_that('find_address_from_point() works for list inputs', {
   skip_if(check_api(kv_url2))
 
   # all addresses
-  res <- find_address_from_point(
+  df <- find_address_from_point(
     list(c(lat = 59.91364, lon = 10.7508),
          c(lat = 59.91364, lon = 10.7508)))
-  expect_identical(class(res), 'list')
-  expect_identical(class(res[[1]]), 'data.frame')
-  expect_identical(class(res[[2]]), 'data.frame')
+  expect_identical(class(df), 'data.frame')
 
   # only the closest address for each point
+  df <- find_address_from_point(
+    list(c(lat = 59.91364, lon = 10.7508),
+         c(lat = 59.91364, lon = 10.7508)),
+    closest = TRUE)
+  expect_equal(nrow(df), 2)
+
+  # only the closest address for each point (with )
   res <- find_address_from_point(
     list(c(lat = 59.91364, lon = 10.7508),
          c(lat = 59.91364, lon = 10.7508)),
+    simplify = FALSE,
     closest = TRUE)
   expect_equal(nrow(res[[1]]), 1)
   expect_equal(nrow(res[[2]]), 1)
 
 })
 
+test_that('find_address_from_point() works when simplify = FALSE', {
+  skip_on_cran()
+  skip_if(check_api(kv_url2))
+
+  # all addresses
+  res <- find_address_from_point(
+    list(
+      c(lat = 10.7508, lon = 59.91364),
+      c(lat = 59.91364, lon = 10.7508),
+      c(lat = 59.91364, lon = 10.7508)),
+    simplify = FALSE)
+  expect_identical(class(res), 'list')
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_gte(nrow(res[[2]]), 1)
+  expect_gte(nrow(res[[3]]), 1)
+
+  # only the closest address for each point
+  res <- find_address_from_point(
+    list(
+      c(lat = 10.7508, lon = 59.91364),
+      c(lat = 59.91364, lon = 10.7508),
+      c(lat = 59.91364, lon = 10.7508)),
+    simplify = FALSE, closest = TRUE)
+  expect_identical(class(res), 'list')
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_equal(nrow(res[[2]]), 1)
+  expect_equal(nrow(res[[3]]), 1)
+
+})
+
+
 test_that('find_address_from_point() works when raw_response = TRUE', {
   skip_on_cran()
   skip_if(check_api(kv_url2))
 
-  res <- expect_invisible(
-    find_address_from_point(c(lat = 59.91364, lon = 10.7508),
-                            raw_response = TRUE))
+  # expect_message(
+  #   find_address_from_point(c(lat = 59.91364, lon = 10.7508),
+  #                           raw_response = TRUE))
+  res <- suppressMessages(
+    expect_invisible(
+      find_address_from_point(c(lat = 59.91364, lon = 10.7508),
+                              raw_response = TRUE))
+  )
   expect_true(is.list(res))
   expect_equal(names(res), c('url', 'status', 'content', 'response'))
   expect_identical(class(res), "noAPI")
@@ -180,10 +242,6 @@ test_that('find_address_from_point_single() fails correctly', {
   # 'x' not correct length (vector)
   expect_error(find_address_from_point_single(
     c(lat = 59.91), crs = 4258, radius = 1, closest = FALSE))
-  # 'x' not correctly named (data.frame)
-  # expect_error(find_address_from_point(
-  #   data.frame(x = c('59.91364', '63.42805'),
-  #              y = c('10.7508', '10.39679'))))
 
   skip_on_cran()
 

@@ -16,9 +16,11 @@
 #' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
 #' for further details (in Norwegian only).
 #'
-#' The function returns a data.frame or list by default. If you set `raw_response`
-#' to `TRUE`, the raw response from the API will be returned instead. Note that the
-#' response will then be returned silently.
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' @param search A Norwegian address. For example: 'munkegata 1 trondheim'.
 #' @param crs The desired coordinate reference system for the output. Default
@@ -39,14 +41,17 @@
 #'
 #' \dontrun{
 #' # Multiple adresses
-#' res <- get_address_info(c('munkegata 1 trondheim', 'tromsø gate'))
+#' df <- get_address_info(c('munkegata 1 trondheim', 'tromsø gate'))
 #'
 #' # A more advanced query
-#' res <- get_address_info(c('munkegata 1 trondheim', 'munkegata 1'),
-#'    mun_code = c(NULL, '5001'))
+#' df <- get_address_info(c('munkegata 1 trondheim', 'storgata 1'),
+#'    mun_code = list(NULL, '0301'))
 #'
 #' }
-get_address_info <- function(search = NULL, crs = 4258, ..., raw_response = FALSE) {
+get_address_info <- function(search = NULL, crs = 4258, ...,
+                             simplify = TRUE,
+                             raw_response = FALSE) {
+  common_info(simplify, raw_response)
   if (!is.null(search)) {
     dl <- mapply(get_address_info_safe, search = search,
                  crs = crs, ..., raw_response = raw_response,
@@ -57,8 +62,7 @@ get_address_info <- function(search = NULL, crs = 4258, ..., raw_response = FALS
                  SIMPLIFY = FALSE, USE.NAMES = FALSE)
   }
   if (raw_response) return(invisible(dl))
-  if (length(dl) == 1) dl <- dl[[1]]
-  dl <- dl[lengths(dl) != 0]
+  if (simplify) return(do.call('rbind', dl))
   dl
 }
 
@@ -125,9 +129,11 @@ get_address_info_safe <-
 #' documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok) for
 #' further details (in Norwegian only).
 #'
-#' The function returns a data.frame or list by default. If you set
-#' `raw_response` to `TRUE`, the raw response from the API will be returned
-#' instead. Note that the response will then be returned silently.
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' @param x A vector or list with latitude and longitude coordinates.
 #' @param radius An integer value with the radius for the query, in whole
@@ -153,6 +159,7 @@ get_address_info_safe <-
 #'
 find_address_from_point <- function(x, radius = 50, crs = 4258,
                                     closest = FALSE, ...,
+                                    simplify = TRUE,
                                     raw_response = FALSE) {
   UseMethod('find_address_from_point')
 }
@@ -161,11 +168,14 @@ find_address_from_point <- function(x, radius = 50, crs = 4258,
 #' @export
 find_address_from_point.numeric <- function(x, radius = 50, crs = 4258,
                                             closest = FALSE, ...,
+                                            simplify = TRUE,
                                             raw_response = FALSE) {
+  common_info(simplify, raw_response)
   res <- find_address_from_point_safe(x, radius = radius, crs = crs,
                                       closest = closest,
                                       raw_response = raw_response)
   if (raw_response) return(invisible(res))
+  if (!simplify) return(list(res))
   res
 }
 
@@ -173,12 +183,12 @@ find_address_from_point.numeric <- function(x, radius = 50, crs = 4258,
 #' @export
 find_address_from_point.list <- function(x, radius = 50, crs = 4258,
                                          closest = FALSE, ...,
+                                         simplify = TRUE,
                                          raw_response = FALSE) {
   dl <- lapply(x, find_address_from_point.numeric, radius = radius, crs = crs,
                closest = closest, ..., raw_response = raw_response)
   if (raw_response) return(invisible(dl))
-  if (length(dl) == 1) dl <- dl[[1]]
-  dl <- dl[lengths(dl) != 0]
+  if (simplify) return(do.call('rbind', dl))
   dl
 }
 
