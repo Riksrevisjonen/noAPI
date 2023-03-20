@@ -113,27 +113,27 @@ response will be returned silently when <code>raw_response</code> is set to <cod
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get latest daily exchange rates</span></span></span>
 <span class="r-in"><span><span class="fu">get_exchange_rate</span><span class="op">(</span><span class="st">'EUR'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    currency frequency exch_rate decimals calculated unit_multiplier  date_from</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       EUR  Business   11.0365        4      false           Units 2023-03-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       EUR  Business    11.085        4      false           Units 2023-03-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       EUR  Business    11.061        4      false           Units 2023-03-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       EUR  Business   11.1109        4      false           Units 2023-03-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       EUR  Business   11.1935        4      false           Units 2023-03-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       EUR  Business   11.2205        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       EUR  Business   11.2715        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       EUR  Business     11.29        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       EUR  Business   11.3893        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      EUR  Business    11.335        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       EUR  Business   11.1109        4      false           Units 2023-03-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       EUR  Business   11.1935        4      false           Units 2023-03-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       EUR  Business   11.2205        4      false           Units 2023-03-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       EUR  Business   11.2715        4      false           Units 2023-03-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       EUR  Business     11.29        4      false           Units 2023-03-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       EUR  Business   11.3893        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       EUR  Business    11.335        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       EUR  Business     11.34        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       EUR  Business   11.4487        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      EUR  Business   11.4218        4      false           Units 2023-03-17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       date_to       date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-03-01 2023-03-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-03-02 2023-03-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-03-03 2023-03-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-03-06 2023-03-06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-03-07 2023-03-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-03-06 2023-03-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-03-07 2023-03-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-03-08 2023-03-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-03-09 2023-03-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-03-10 2023-03-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2023-03-17 2023-03-17</span>
 <span class="r-in"><span><span class="co"># Get monthly exchange rates for multiple currencies</span></span></span>
 <span class="r-in"><span><span class="fu">get_exchange_rate</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'EUR'</span>, <span class="st">'USD'</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="st">'monthly'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    currency frequency exch_rate decimals calculated unit_multiplier  date_from</span>
@@ -191,201 +191,201 @@ response will be returned silently when <code>raw_response</code> is set to <cod
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8        HRK  Business    138.65        2      false        Hundreds 2022-12-28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9        HRK  Business    139.99        2      false        Hundreds 2022-12-29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10       HRK  Business    139.51        2      false        Hundreds 2022-12-30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       AUD  Business    7.0225        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       AUD  Business    7.0601        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       AUD  Business    7.0281        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       AUD  Business    7.0891        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       AUD  Business    7.0614        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       BGN  Business     573.7        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       BGN  Business    576.31        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       BGN  Business    577.26        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       BGN  Business    582.33        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       BGN  Business    579.56        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       BRL  Business    2.0584        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22       BRL  Business    2.0795        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23       BRL  Business    2.0513        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24       BRL  Business    2.0245        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25       BRL  Business    2.0192        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       CAD  Business    7.7388        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27       CAD  Business     7.734        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       CAD  Business    7.7102        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29       CAD  Business    7.7242        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       CAD  Business    7.7167        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31       CHF  Business   1129.85        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32       CHF  Business   1137.27        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33       CHF  Business   1149.23        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34       CHF  Business   1168.13        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       CHF  Business   1158.52        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36       CNY  Business    153.05        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37       CNY  Business    153.32        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38       CNY  Business    153.41        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39       CNY  Business    155.14        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       CNY  Business    153.68        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41       CZK  Business    47.575        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42       CZK  Business    47.708        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43       CZK  Business    47.768        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44       CZK  Business    47.961        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45       CZK  Business    47.644        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46       DKK  Business    150.79        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47       DKK  Business    151.46        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48       DKK  Business     151.7        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49       DKK  Business    152.99        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50       DKK  Business    152.26        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51       EUR  Business   11.2205        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52       EUR  Business   11.2715        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53       EUR  Business     11.29        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54       EUR  Business   11.3893        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55       EUR  Business    11.335        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56       GBP  Business   12.5968        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57       GBP  Business   12.6911        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58       GBP  Business    12.792        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59       GBP  Business   12.8882        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60       GBP  Business   12.8728        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61       HKD  Business    1.3555        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62       HKD  Business    1.3605        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63       HKD  Business    1.3587        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64       HKD  Business    1.3565        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65       HKD  Business    1.3454        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66       HUF  Business    2.9538        4      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67       HUF  Business    2.9732        4      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68       HUF  Business    2.9428        4      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69       HUF  Business    2.9132        4      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70       HUF  Business    2.8953        4      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71       I44  Business    119.36        2       true           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72       I44  Business    119.81        2       true           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73       I44  Business     119.8        2       true           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74       I44  Business    120.58        2       true           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75       I44  Business    120.06        2       true           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76       IDR  Business  0.068877        6      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77       IDR  Business  0.069174        6      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78       IDR  Business  0.068829        6      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79       IDR  Business  0.069035        6      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80       IDR  Business  0.068726        6      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81       ILS  Business    2.9636        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82       ILS  Business      2.96        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83       ILS  Business    2.9619        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84       ILS  Business    2.9343        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85       ILS  Business    2.9111        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86       INR  Business    12.984        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87       INR  Business    13.012        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88       INR  Business    12.986        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89       INR  Business    12.936        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90       INR  Business    12.818        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91       JPY  Business    7.7543        4      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92       JPY  Business    7.8372        4      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93       JPY  Business    7.8023        4      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94       JPY  Business    8.0229        4      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95       JPY  Business    7.8666        4      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96       KRW  Business    0.8075        4      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97       KRW  Business     0.808        4      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98       KRW  Business    0.8074        4      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99       KRW  Business     0.814        4      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100      KRW  Business    0.8083        4      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101      MXN  Business     58.98        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102      MXN  Business     59.56        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103      MXN  Business     57.77        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104      MXN  Business      56.4        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105      MXN  Business     56.42        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 106      MYR  Business    2.3513        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 107      MYR  Business    2.3623        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 108      MYR  Business    2.3595        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109      MYR  Business    2.3656        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 110      MYR  Business    2.3528        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 111      NZD  Business    6.5077        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 112      NZD  Business     6.541        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 113      NZD  Business     6.529        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 114      NZD  Business    6.6121        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 115      NZD  Business    6.5909        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116      PHP  Business    19.221        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117      PHP  Business    19.355        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118      PHP  Business    19.332        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119      PHP  Business    19.346        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120      PHP  Business    19.168        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121      PKR  Business     3.814        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 122      PKR  Business      3.86        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 123      PKR  Business       3.8        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 124      PKR  Business     3.777        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125      PKR  Business     3.742        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126      PLN  Business       2.4        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127      PLN  Business    2.4092        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128      PLN  Business    2.4116        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129      PLN  Business    2.4261        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 130      PLN  Business     2.418        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 131      RON  Business    228.46        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 132      RON  Business    229.33        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 133      RON  Business    229.74        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 134      RON  Business    231.64        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 135      RON  Business     230.3        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 136      SEK  Business     99.44        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 137      SEK  Business     99.43        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 138      SEK  Business     99.11        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 139      SEK  Business     99.57        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 140      SEK  Business    100.42        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 141      SGD  Business    7.8636        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 142      SGD  Business    7.8938        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 143      SGD  Business    7.8681        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 144      SGD  Business    7.8873        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 145      SGD  Business    7.8563        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 146      THB  Business    30.324        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 147      THB  Business    30.409        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 148      THB  Business    30.419        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149      THB  Business    30.782        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 150      THB  Business    30.627        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 151      TRY  Business     56.19        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 152      TRY  Business     56.35        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 153      TRY  Business     56.24        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 154      TRY  Business     56.07        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 155      TRY  Business     55.64        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 156      TWD  Business    34.654        3      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 157      TWD  Business    34.683        3      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 158      TWD  Business    34.568        3      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 159      TWD  Business    34.839        3      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 160      TWD  Business    34.611        3      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 161      TWI  Business    130.06        2       true           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 162      TWI  Business     130.5        2       true           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 163      TWI  Business    130.52        2       true           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 164      TWI  Business    131.41        2       true           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 165      TWI  Business    131.09        2       true           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 166      USD  Business   10.6406        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 167      USD  Business   10.6798        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 168      USD  Business    10.665        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 169      USD  Business   10.6382        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 170      USD  Business    10.557        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 171      XDR  Business     14.09        5       true           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 172      XDR  Business  14.15358        5       true           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 173      XDR  Business  14.15635        5       true           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 174      XDR  Business  14.23446        5       true           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 175      XDR  Business  14.12882        5       true           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 176      ZAR  Business    0.5728        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 177      ZAR  Business    0.5734        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 178      ZAR  Business    0.5812        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 179      ZAR  Business    0.5854        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 180      ZAR  Business    0.5845        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 181      BYN  Business    4.2156        4      false           Units 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 182      BYN  Business    4.2303        4      false           Units 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 183      BYN  Business    4.2253        4      false           Units 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 184      BYN  Business    4.2147        4      false           Units 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 185      BYN  Business    4.1825        4      false           Units 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 186      BDT  Business     10.11        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 187      BDT  Business     10.13        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 188      BDT  Business     10.12        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 189      BDT  Business     10.09        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 190      BDT  Business        10        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 191      MMK  Business    0.5067        4      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 192      MMK  Business    0.5086        4      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 193      MMK  Business    0.5079        4      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 194      MMK  Business    0.5066        4      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 195      MMK  Business    0.5027        4      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 196      ISK  Business      7.49        2      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 197      ISK  Business      7.52        2      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 198      ISK  Business      7.52        2      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199      ISK  Business      7.55        2      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 200      ISK  Business       7.5        2      false        Hundreds 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 201      VND  Business    0.0449        4      false        Hundreds 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 202      VND  Business    0.0451        4      false        Hundreds 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 203      VND  Business     0.045        4      false        Hundreds 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 204      VND  Business    0.0451        4      false        Hundreds 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 205      VND  Business    0.0448        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       AUD  Business    7.0891        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       AUD  Business    7.0614        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       AUD  Business    7.1375        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       AUD  Business     7.186        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       AUD  Business    7.1953        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       BGN  Business    582.33        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       BGN  Business    579.56        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       BGN  Business    579.81        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       BGN  Business    585.37        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       BGN  Business       584        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       BRL  Business    2.0245        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       BRL  Business    2.0192        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       BRL  Business    2.0369        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24       BRL  Business    2.0442        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25       BRL  Business    2.0443        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26       CAD  Business    7.7242        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27       CAD  Business    7.7167        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       CAD  Business    7.8185        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       CAD  Business    7.8604        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       CAD  Business    7.8317        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31       CHF  Business   1168.13        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       CHF  Business   1158.52        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33       CHF  Business   1165.83        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       CHF  Business   1165.86        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35       CHF  Business   1158.63        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       CNY  Business    155.14        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       CNY  Business    153.68        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       CNY  Business    155.63        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39       CNY  Business    156.73        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       CNY  Business    156.21        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41       CZK  Business    47.961        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42       CZK  Business    47.644        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       CZK  Business    47.364        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44       CZK  Business    47.681        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       CZK  Business    47.694        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46       DKK  Business    152.99        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47       DKK  Business    152.26        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48       DKK  Business    152.33        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49       DKK  Business    153.72        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50       DKK  Business    153.42        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       EUR  Business   11.3893        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       EUR  Business    11.335        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       EUR  Business     11.34        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54       EUR  Business   11.4487        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       EUR  Business   11.4218        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       GBP  Business   12.8882        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57       GBP  Business   12.8728        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58       GBP  Business   12.9982        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       GBP  Business   13.0366        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       GBP  Business   13.0553        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61       HKD  Business    1.3565        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       HKD  Business    1.3454        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       HKD  Business    1.3696        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64       HKD  Business    1.3766        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65       HKD  Business    1.3697        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       HUF  Business    2.9132        4      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67       HUF  Business    2.8953        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68       HUF  Business    2.8528        4      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69       HUF  Business    2.8879        4      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70       HUF  Business    2.8848        4      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71       I44  Business    120.58        2       true           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72       I44  Business    120.06        2       true           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73       I44  Business    120.91        2       true           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74       I44  Business    121.84        2       true           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75       I44  Business    121.48        2       true           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76       IDR  Business  0.069035        6      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77       IDR  Business  0.068726        6      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78       IDR  Business  0.069347        6      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79       IDR  Business  0.069958        6      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80       IDR  Business  0.069935        6      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81       ILS  Business    2.9343        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82       ILS  Business    2.9111        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83       ILS  Business    2.9585        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84       ILS  Business    2.9439        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85       ILS  Business    2.9244        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86       INR  Business    12.936        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87       INR  Business    12.818        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88       INR  Business    12.988        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89       INR  Business     13.05        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90       INR  Business    13.011        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91       JPY  Business    8.0229        4      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92       JPY  Business    7.8666        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93       JPY  Business    8.1284        4      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94       JPY  Business    8.1671        4      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95       JPY  Business    8.1253        4      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96       KRW  Business     0.814        4      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97       KRW  Business    0.8083        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98       KRW  Business    0.8136        4      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99       KRW  Business    0.8246        4      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100      KRW  Business    0.8218        4      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101      MXN  Business      56.4        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102      MXN  Business     56.42        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103      MXN  Business     56.78        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104      MXN  Business     56.66        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105      MXN  Business     57.16        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106      MYR  Business    2.3656        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107      MYR  Business    2.3528        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108      MYR  Business    2.3977        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109      MYR  Business    2.3991        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110      MYR  Business    2.3971        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111      NZD  Business    6.6121        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 112      NZD  Business    6.5909        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 113      NZD  Business    6.6682        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114      NZD  Business    6.6756        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 115      NZD  Business    6.7132        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 116      PHP  Business    19.346        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 117      PHP  Business    19.168        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 118      PHP  Business    19.535        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 119      PHP  Business    19.675        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 120      PHP  Business    19.653        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121      PKR  Business     3.777        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 122      PKR  Business     3.742        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 123      PKR  Business     3.803        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 124      PKR  Business     3.828        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125      PKR  Business     3.816        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126      PLN  Business    2.4261        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127      PLN  Business     2.418        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128      PLN  Business    2.4128        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129      PLN  Business    2.4378        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 130      PLN  Business    2.4278        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 131      RON  Business    231.64        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 132      RON  Business     230.3        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 133      RON  Business     230.4        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 134      RON  Business    232.63        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 135      RON  Business    232.11        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 136      SEK  Business     99.57        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 137      SEK  Business    100.42        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 138      SEK  Business    101.23        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 139      SEK  Business    102.42        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 140      SEK  Business    101.98        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 141      SGD  Business    7.8873        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 142      SGD  Business    7.8563        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 143      SGD  Business    7.9607        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 144      SGD  Business    8.0195        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 145      SGD  Business    8.0086        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146      THB  Business    30.782        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147      THB  Business    30.627        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148      THB  Business    31.024        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149      THB  Business    31.421        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150      THB  Business    31.512        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 151      TRY  Business     56.07        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 152      TRY  Business     55.64        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 153      TRY  Business     56.62        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154      TRY  Business      56.9        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 155      TRY  Business     56.58        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 156      TWD  Business    34.839        3      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157      TWD  Business    34.611        3      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158      TWD  Business    34.982        3      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159      TWD  Business    35.319        3      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160      TWD  Business    35.142        3      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161      TWI  Business    131.41        2       true           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 162      TWI  Business    131.09        2       true           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 163      TWI  Business    131.84        2       true           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164      TWI  Business    133.02        2       true           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 165      TWI  Business    132.63        2       true           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 166      USD  Business   10.6382        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 167      USD  Business    10.557        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 168      USD  Business   10.7498        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 169      USD  Business   10.8058        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 170      USD  Business    10.752        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171      XDR  Business  14.23446        5       true           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 172      XDR  Business  14.12882        5       true           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 173      XDR  Business  14.30903        5       true           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174      XDR  Business  14.40244        5       true           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175      XDR  Business  14.35143        5       true           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176      ZAR  Business    0.5854        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177      ZAR  Business    0.5845        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178      ZAR  Business     0.584        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179      ZAR  Business    0.5878        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180      ZAR  Business    0.5858        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181      BYN  Business    4.2147        4      false           Units 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182      BYN  Business    4.1825        4      false           Units 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183      BYN  Business    4.2589        4      false           Units 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184      BYN  Business     4.281        4      false           Units 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185      BYN  Business    4.2597        4      false           Units 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186      BDT  Business     10.09        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187      BDT  Business        10        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188      BDT  Business     10.19        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189      BDT  Business     10.08        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190      BDT  Business     10.03        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191      MMK  Business    0.5066        4      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192      MMK  Business    0.5027        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193      MMK  Business    0.5119        4      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194      MMK  Business    0.5146        4      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195      MMK  Business     0.512        4      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196      ISK  Business      7.55        2      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197      ISK  Business       7.5        2      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198      ISK  Business      7.54        2      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199      ISK  Business      7.63        2      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200      ISK  Business      7.65        2      false        Hundreds 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201      VND  Business    0.0451        4      false        Hundreds 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202      VND  Business    0.0448        4      false        Hundreds 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203      VND  Business    0.0456        4      false        Hundreds 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204      VND  Business    0.0458        4      false        Hundreds 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205      VND  Business    0.0456        4      false        Hundreds 2023-03-17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        date_to       date</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   2022-02-23 2022-02-23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2022-02-24 2022-02-24</span>
@@ -397,201 +397,201 @@ response will be returned silently when <code>raw_response</code> is set to <cod
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   2022-12-28 2022-12-28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   2022-12-29 2022-12-29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10  2022-12-30 2022-12-30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95  2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96  2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97  2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98  2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99  2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 106 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 107 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 108 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 110 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 111 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 112 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 113 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 114 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 115 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 122 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 123 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 124 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 130 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 131 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 132 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 133 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 134 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 135 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 136 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 137 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 138 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 139 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 140 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 141 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 142 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 143 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 144 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 145 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 146 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 147 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 148 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 149 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 150 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 151 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 152 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 153 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 154 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 155 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 156 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 157 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 158 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 159 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 160 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 161 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 162 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 163 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 164 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 165 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 166 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 167 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 168 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 169 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 170 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 171 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 172 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 173 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 174 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 175 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 176 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 177 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 178 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 179 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 180 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 181 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 182 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 183 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 184 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 185 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 186 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 187 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 188 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 189 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 190 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 191 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 192 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 193 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 194 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 195 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 196 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 197 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 198 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 200 2023-03-14 2023-03-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 201 2023-03-08 2023-03-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 202 2023-03-09 2023-03-09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 203 2023-03-10 2023-03-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 204 2023-03-13 2023-03-13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 205 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95  2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96  2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97  2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98  2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99  2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 112 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 113 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 115 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 116 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 117 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 118 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 119 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 120 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 122 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 123 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 124 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 130 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 131 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 132 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 133 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 134 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 135 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 136 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 137 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 138 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 139 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 140 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 141 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 142 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 143 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 144 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 145 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 151 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 152 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 153 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 155 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 156 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 162 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 163 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 165 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 166 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 167 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 168 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 169 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 170 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 172 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 173 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200 2023-03-17 2023-03-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201 2023-03-13 2023-03-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202 2023-03-14 2023-03-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203 2023-03-15 2023-03-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204 2023-03-16 2023-03-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205 2023-03-17 2023-03-17</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
