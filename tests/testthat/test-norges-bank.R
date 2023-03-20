@@ -46,10 +46,24 @@ test_that('get_exchange_rate() caps number of observations to 20', {
   expect_equal(max(table(df$currency)), 20)
 })
 
+test_that('get_exchange_rate() works when simplify = FALSE', {
+  skip_on_cran()
+  skip_if(check_api(brreg_url))
+
+  res <- get_exchange_rate(
+    c('AAA', 'EUR', 'USD'), frequency = 'monthly', simplify = FALSE)
+  expect_identical(class(res), 'list')
+  expect_equal(length(res), 3L)
+  expect_null(res[[1]])
+  expect_gte(nrow(res[[2]]), 1)
+  expect_gte(nrow(res[[3]]), 1)
+})
+
+
 test_that('get_exchange_rate() works when raw_response = TRUE', {
   skip_on_cran()
 
-  res <- get_exchange_rate('USD', raw_response = TRUE)
+  res <- suppressMessages(get_exchange_rate('USD', raw_response = TRUE))
   expect_true(is.list(res))
   expect_true(is.list(res[[1]]))
   expect_equal(names(res[[1]]), c('url', 'status', 'content', 'response'))

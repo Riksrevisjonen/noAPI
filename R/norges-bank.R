@@ -25,9 +25,11 @@
 #' exchange rates for a specific time period by setting the arguments `start`
 #' and `end`. Both arguments accept a date in the format `%Y-%m-%d` (_YYYY-MM-DD_).
 #'
-#' The function returns a data.frame by default. If you set `raw_response` to
-#' `TRUE`, the raw response from the API will be returned instead. Note that the
-#' response will be returned silently when `raw_response` is set to `TRUE`.
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' @return data.frame or list
 #'
@@ -42,15 +44,16 @@
 #'
 get_exchange_rate <- function(currency, frequency = c('daily', 'monthly', 'annual'),
                               n_obs = 10, start = NULL, end = NULL,
-                              raw_response = FALSE) {
+                              simplify = TRUE, raw_response = FALSE) {
+  common_info(simplify, raw_response)
   frequency <- match.arg(frequency)
   dynamic <- if (any(is.null(start), is.null(end))) TRUE else FALSE
-  dl <- lapply(toupper(currency), get_exchange_rate_single,
+  dl <- lapply(toupper(currency), get_exchange_rate_safe,
     frequency = frequency, start = start,
     end = end, dynamic = dynamic, n_obs = n_obs, raw_response = raw_response
   )
   if (raw_response) return(invisible(dl))
-  dl <- do.call(rbind, dl)
+  if (simplify) return(do.call('rbind', dl))
   dl
 }
 
@@ -94,3 +97,9 @@ get_exchange_rate_single <- function(currency, frequency, dynamic, n_obs, start,
   }
   return(out)
 }
+
+#' Get brreg (safe method)
+#' @inheritParams get_exchange_rate_single
+#' @noRd
+get_exchange_rate_safe <-
+  purrr::possibly(get_exchange_rate_single, otherwise = NULL, quiet = FALSE)

@@ -10,6 +10,7 @@ get_exchange_rate(
   n_obs = 10,
   start = NULL,
   end = NULL,
+  simplify = TRUE,
   raw_response = FALSE
 )
 }
@@ -24,6 +25,9 @@ daily.}
 \item{start}{The first date to fetch data for.}
 
 \item{end}{The last date to fetch data for.}
+
+\item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
+if \code{raw_response} is set to \code{TRUE}.}
 
 \item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
@@ -49,9 +53,11 @@ of observations by setting \code{n_obs} to a positive integer. You can also fetc
 exchange rates for a specific time period by setting the arguments \code{start}
 and \code{end}. Both arguments accept a date in the format \verb{\%Y-\%m-\%d} (\emph{YYYY-MM-DD}).
 
-The function returns a data.frame by default. If you set \code{raw_response} to
-\code{TRUE}, the raw response from the API will be returned instead. Note that the
-response will be returned silently when \code{raw_response} is set to \code{TRUE}.
+The function returns a data.frame by default. If you prefer the the output
+as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
+programmatically track of failed queries. If you set \code{raw_response}
+to \code{TRUE}, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.
 }
 \examples{
 # Get latest daily exchange rates
