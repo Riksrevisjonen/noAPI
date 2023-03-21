@@ -94,6 +94,7 @@ get_exchange_rate_single <- function(currency, frequency, dynamic, n_obs, start,
     out <- make_api_object(resp, parsed)
   } else {
     out <- parse_sdmx(parsed)
+    out$exch_rate <- as.numeric(out$exch_rate)
   }
   return(out)
 }
