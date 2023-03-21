@@ -37,7 +37,7 @@ get_municipalities <- function(
 
   common_info(simplify, raw_response)
 
-  dl <- lapply(year, get_klass_codes_single, type = 'municipality',
+  dl <- lapply(year, get_klass_codes_safe, type = 'municipality',
                include_notes = include_notes, raw_response = raw_response)
   if (raw_response) return(dl)
   if (simplify) return(do.call('rbind', dl))
@@ -50,7 +50,7 @@ get_counties <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
     raw_response = FALSE) {
   common_info(simplify, raw_response)
-  dl <- lapply(year, get_klass_codes_single, type = 'county',
+  dl <- lapply(year, get_klass_codes_safe, type = 'county',
                include_notes = include_notes, raw_response = raw_response)
   if (raw_response) return(dl)
   if (simplify) return(do.call('rbind', dl))
@@ -61,7 +61,7 @@ get_counties <- function(
 #' @export
 get_adm_units <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE) {
-  dl <- lapply(year, get_klass_codes_single, type = 'both',
+  dl <- lapply(year, get_klass_codes_safe, type = 'both',
                include_notes = include_notes, raw_response = FALSE)
   if (simplify) return(do.call('rbind', dl))
   dl
@@ -104,7 +104,7 @@ get_countries <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
     raw_response = FALSE) {
   common_info(simplify, raw_response)
-  dl <- lapply(year, get_klass_codes_single, type = 'country',
+  dl <- lapply(year, get_klass_codes_safe, type = 'country',
                include_notes = include_notes, raw_response = raw_response)
   if (raw_response) return(dl)
   if (simplify) return(do.call('rbind', dl))
@@ -143,3 +143,10 @@ get_klass_codes_single <- function(
   }
   parsed
 }
+
+#' Get klass (safe method)
+#' @inheritParams get_klass_codes_single
+#' @noRd
+get_klass_codes_safe <-
+  purrr::possibly(get_klass_codes_single, otherwise = NULL, quiet = FALSE)
+
