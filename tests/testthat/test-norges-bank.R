@@ -73,8 +73,13 @@ test_that('get_exchange_rate() works when raw_response = TRUE', {
 })
 
 test_that('get_exchange_rate() returns error if wrong currency is given', {
-  expect_error(get_exchange_rate('EURR')) # internal error
-
+  expect_message(expect_null(get_exchange_rate('EURR'))) # internal error
   skip_on_cran()
-  expect_error(get_exchange_rate('ERR'))  # API error
+  expect_message(expect_null(get_exchange_rate('ERR')))  # API error
+})
+
+test_that('get_exchange_rate_single() fails correctly', {
+  expect_error(get_exchange_rate_single('EURR'))
+  skip_on_cran()
+  expect_error(get_exchange_rate_single('ERR'))
 })

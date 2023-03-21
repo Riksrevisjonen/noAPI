@@ -120,7 +120,8 @@ test_that('get_entity() returns NULL on failures', {
   expect_null(suppressMessages(get_entity(99999)))
   expect_null(suppressMessages(get_entity(12345678)))
   expect_null(suppressMessages(get_entity(123456789)))
-  # Name not found (internal warning)
+  # Name not found
+  skip_on_cran()
   skip_if(check_api(brreg_url))
   expect_warning(expect_null(get_entity('QW124')))
 })
