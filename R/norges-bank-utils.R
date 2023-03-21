@@ -31,7 +31,7 @@ parse_sdmx_single <- function(index, series, currency, frequency, str) {
   dates <- sapply(dates_idx, \(i) dates_values[[i]]$id, USE.NAMES = FALSE)
   dates_from <- sapply(dates_idx, \(i) dates_values[[i]]$start, USE.NAMES = FALSE)
   dates_to <- sapply(dates_idx, \(i) dates_values[[i]]$end, USE.NAMES = FALSE)
-  values <- series$observations |> unlist() |> unname()
+  values <- series$observations |> unlist() |> unname() |> as.numeric()
   # Create data.frame
   df <- data.frame(
     currency = rep(currency, length(values)),

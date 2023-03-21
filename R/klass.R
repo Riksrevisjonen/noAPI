@@ -1,84 +1,70 @@
-#' Get municipalities
+#' Get municipalities and counties
 #'
-#' Get all Norwegian municipalities and municipality codes for a given year.
+#' Get all Norwegian municipalities or counties, and their respective codes,
+#' for a given year.
 #'
-#' Fetches all Norwegian municipalities and municipality codes for a given year.
-#' All years from 1977 until present are supported. The function will default to
-#' the current year. The function will return a data.frame with all municipalities.
+#' `get_municipalities()` supports all years from 1977, while `get_counties()`
+#' supports all years from 1972. `get_adm_units()` is a wrapper function to get
+#' both municipality and county codes in the same function call. All three
+#' functions default to the current year.
 #'
-#' If more than one year is given, a single data.frame will be returned with all
-#' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list of the same length of the input will be returned instead. If `raw_response`
-#' is set to `TRUE`, a parsed data.frame will be returned along with each raw
-#' response from the API. It is not possible to return a single data.frame when
-#' `raw_response` is set to `TRUE`.
-#'
-#' You can add county numbers and names for each municipality by setting `add_county`
-#' to `TRUE`.
+#' The functions returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
 #'
 #' @inheritParams get_entity
 #' @param year The year for which the codes should be valid for
-#' @param add_county If set to `TRUE`, add county name and number
 #' @param include_notes If notes should be included or not
-#' @param simplify If `TRUE` (default), a single data.frame is returned.
 #'
 #' @return data.frame or list
-#'
-#' @seealso `get_counties()` for county codes and names
 #'
 #' @export
+#' @examples
+#'
+#' # Get municipality codes
+#' get_municipalities()
+#'
+#' # Get county codes
+#' get_municipalities()
+#'
+#' # Get both
+#' get_adm_units()
 get_municipalities <- function(
-    year = format(Sys.Date(), '%Y'), add_county = FALSE, include_notes = FALSE,
-    simplify = TRUE, raw_response = FALSE)
-{
-  if (add_county) {
-    if (raw_response) {
-      raw_response <- FALSE
-      cli::cli_warn('If add_county is set to `TRUE`, raw data cannot be returned')
-    }
-    x <- lapply(year, get_klass_codes_single, type = 'both',
-                include_notes = include_notes, raw_response = raw_response)
-  } else {
-    x <- lapply(year, get_klass_codes_single, type = 'municipality',
-                include_notes = include_notes, raw_response = raw_response)
-  }
-  if (!raw_response & simplify) {
-    x <- do.call('rbind', x)
-  }
-  x
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE,
+    simplify = TRUE, raw_response = FALSE) {
+
+  common_info(simplify, raw_response)
+
+  dl <- lapply(year, get_klass_codes_single, type = 'municipality',
+               include_notes = include_notes, raw_response = raw_response)
+  if (raw_response) return(dl)
+  if (simplify) return(do.call('rbind', dl))
+  dl
 }
 
-#' Get counties
-#'
-#' Get all Norwegian counties and county codes for a given year.
-#'
-#' Fetches all Norwegian counties and county codes for a given year. All years
-#' from 1972 until present are supported. The function will default to
-#' the current year. The function will return a data.frame with all counties.
-#'
-#' If more than one year is given, a single data.frame will be returned with all
-#' codes and names for the given years, unless `simplify` is set to `FALSE`, then
-#' a list of the same length of the input will be returned instead. If `raw_response`
-#' is set to `TRUE`, a parsed data.frame will be returned along with each raw
-#' response from the API. It is not possible to return a single data.frame when
-#' `raw_response` is set to `TRUE`.
-#'
-#' @inheritParams get_municipalities
-#'
-#' @return data.frame or list
-#'
-#' @seealso `get_municipalities()` for municipality codes and names
-#'
+#' @rdname get_municipalities
 #' @export
 get_counties <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
-    raw_response = FALSE)
-{
-  x <- lapply(year, get_klass_codes_single, type = 'county', include_notes = include_notes, raw_response = raw_response)
-  if (!raw_response & simplify) {
-    x <- do.call('rbind', x)
-  }
-  x
+    raw_response = FALSE) {
+  common_info(simplify, raw_response)
+  dl <- lapply(year, get_klass_codes_single, type = 'county',
+               include_notes = include_notes, raw_response = raw_response)
+  if (raw_response) return(dl)
+  if (simplify) return(do.call('rbind', dl))
+  dl
+}
+
+#' @rdname get_municipalities
+#' @export
+get_adm_units <- function(
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE) {
+  dl <- lapply(year, get_klass_codes_single, type = 'both',
+               include_notes = include_notes, raw_response = FALSE)
+  if (simplify) return(do.call('rbind', dl))
+  dl
 }
 
 #' Get countries
@@ -91,14 +77,8 @@ get_counties <- function(
 #' citizenship and stateless persons, respectively. These codes are used in official
 #' statistics from Statistics Norway.
 #'
-#' All years from 1974 until present are supported. The function will default to
-#' the current year. The function will return a data.frame with all countries and
-#' all country codes. If more than one year is given, a single data.frame will be
-#' returned with all codes and names for the given years, unless `simplify` is set
-#' to `FALSE`, then a list of the same length of the input will be returned instead.
-#' If `raw_response` is set to `TRUE`, a parsed data.frame will be returned along
-#' with each raw response from the API. It is not possible to return a single
-#' data.frame when `raw_response` is set to `TRUE`.
+#' All years from 1974 until present are supported. The function defaults to
+#' the current year.
 #'
 #' If notes are enables with `include_notes`, a column `note` will be added to the
 #' data.frame. Notes are stated with a code reference that has the following order
@@ -106,21 +86,29 @@ get_counties <- function(
 #' [Statistics Norway's webpage](https://www.ssb.no/klass/klassifikasjoner/552) for
 #' more information on the code specification.
 #'
+#' The function returns a data.frame by default. If you prefer the the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
+#'
 #' @inheritParams get_municipalities
 #'
 #' @return data.frame or list
 #'
 #' @export
+#' @examples
+#' # Get country for current year
+#' get_countries()
 get_countries <- function(
     year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
-    raw_response = FALSE)
-{
-  x <- lapply(year, get_klass_codes_single, type = 'country',
-              include_notes = include_notes, raw_response = raw_response)
-  if (!raw_response & simplify) {
-    x <- do.call('rbind', x)
-  }
-  x
+    raw_response = FALSE) {
+  common_info(simplify, raw_response)
+  dl <- lapply(year, get_klass_codes_single, type = 'country',
+               include_notes = include_notes, raw_response = raw_response)
+  if (raw_response) return(dl)
+  if (simplify) return(do.call('rbind', dl))
+  dl
 }
 
 #' get_klass_codes_single
