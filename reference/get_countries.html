@@ -67,11 +67,12 @@ for data from Statistics Norway.</p>
 
 
 <dt>simplify</dt>
-<dd><p>If <code>TRUE</code> (default), a single data.frame is returned.</p></dd>
+<dd><p>If <code>TRUE</code> (default), a single data.frame is returned. Ignored
+if <code>raw_response</code> is set to <code>TRUE</code>.</p></dd>
 
 
 <dt>raw_response</dt>
-<dd><p>If TRUE a list of class <code>noAPI</code> is
+<dd><p>If <code>TRUE</code> a list of class <code>noAPI</code> is
 returned, including the raw <code>httr2_response</code>.</p></dd>
 
 </dl></div>
@@ -87,21 +88,279 @@ returned, including the raw <code>httr2_response</code>.</p></dd>
 ISO 3166-1 standard. The list includes special codes XUK and XXX for unknown
 citizenship and stateless persons, respectively. These codes are used in official
 statistics from Statistics Norway.</p>
-<p>All years from 1974 until present are supported. The function will default to
-the current year. The function will return a data.frame with all countries and
-all country codes. If more than one year is given, a single data.frame will be
-returned with all codes and names for the given years, unless <code>simplify</code> is set
-to <code>FALSE</code>, then a list of the same length of the input will be returned instead.
-If <code>raw_response</code> is set to <code>TRUE</code>, a parsed data.frame will be returned along
-with each raw response from the API. It is not possible to return a single
-data.frame when <code>raw_response</code> is set to <code>TRUE</code>.</p>
+<p>All years from 1974 until present are supported. The function defaults to
+the current year.</p>
 <p>If notes are enables with <code>include_notes</code>, a column <code>note</code> will be added to the
 data.frame. Notes are stated with a code reference that has the following order
 (alpha-2, alpha-3, num-3, SSB-3), for example Norway (NO, NOR, 578, 000). See
 <a href="https://www.ssb.no/klass/klassifikasjoner/552" class="external-link">Statistics Norway's webpage</a> for
 more information on the code specification.</p>
+<p>The function returns a data.frame by default. If you prefer the the output
+as a list you can set <code>simplify</code> to <code>FALSE</code>. This can be useful to keep
+programmatically track of failed queries. If you set <code>raw_response</code>
+to <code>TRUE</code>, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get country for current year</span></span></span>
+<span class="r-in"><span><span class="fu">get_countries</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     year code                                        name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   2023  ABW                                       Aruba</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2023  AFG                                 Afghanistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   2023  AGO                                      Angola</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   2023  AIA                                    Anguilla</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2023  ALA                                       Åland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2023  ALB                                     Albania</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2023  AND                                     Andorra</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2023  ARE                De forente arabiske emirater</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2023  ARG                                   Argentina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  2023  ARM                                     Armenia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2023  ASM                            Amerikansk Samoa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  2023  ATA                                   Antarktis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  2023  ATF                   De franske sørterritorier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2023  ATG                          Antigua og Barbuda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  2023  AUS                                   Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2023  AUT                                   Østerrike</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  2023  AZE                                Aserbajdsjan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  2023  BDI                                     Burundi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  2023  BEL                                      Belgia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  2023  BEN                                       Benin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  2023  BES             Bonaire, Sint Eustatius og Saba</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  2023  BFA                                Burkina Faso</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  2023  BGD                                  Bangladesh</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  2023  BGR                                    Bulgaria</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  2023  BHR                                     Bahrain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  2023  BHS                                     Bahamas</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  2023  BIH                          Bosnia-Hercegovina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  2023  BLM                            Saint-Barthélemy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  2023  BLR                                     Belarus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  2023  BLZ                                      Belize</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  2023  BMU                                     Bermuda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  2023  BOL                                     Bolivia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  2023  BRA                                      Brasil</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  2023  BRB                                    Barbados</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  2023  BRN                                      Brunei</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  2023  BTN                                      Bhutan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  2023  BVT                                   Bouvetøya</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  2023  BWA                                    Botswana</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  2023  CAF             Den sentralafrikanske republikk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  2023  CAN                                      Canada</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41  2023  CCK                                  Kokosøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42  2023  CHE                                      Sveits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  2023  CHL                                       Chile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  2023  CHN                                        Kina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  2023  CIV                            Elfenbeinskysten</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  2023  CMR                                     Kamerun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  2023  COD                                       Kongo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  2023  COG                         Kongo - Brazzaville</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  2023  COK                                   Cookøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  2023  COL                                    Colombia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  2023  COM                                    Komorene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  2023  CPV                                  Kapp Verde</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  2023  CRI                                  Costa Rica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54  2023  CUB                                        Cuba</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55  2023  CUW                                     Curaçao</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56  2023  CXR                                Christmasøya</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  2023  CYM                                 Caymanøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  2023  CYP                                      Kypros</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  2023  CZE                                    Tsjekkia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  2023  DEU                                    Tyskland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  2023  DJI                                    Djibouti</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  2023  DMA                                    Dominica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  2023  DNK                                     Danmark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64  2023  DOM                  Den dominikanske republikk</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65  2023  DZA                                     Algerie</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  2023  ECU                                     Ecuador</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67  2023  EGY                                       Egypt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  2023  ERI                                     Eritrea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69  2023  ESH                                 Vest-Sahara</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70  2023  ESP                                      Spania</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71  2023  EST                                     Estland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72  2023  ETH                                     Etiopia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73  2023  FIN                                     Finland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74  2023  FJI                                        Fiji</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75  2023  FLK                              Falklandsøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76  2023  FRA                                   Frankrike</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77  2023  FRO                                    Færøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78  2023  FSM                      Mikronesiaføderasjonen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79  2023  GAB                                       Gabon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80  2023  GBR                               Storbritannia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81  2023  GEO                                     Georgia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82  2023  GGY                                    Guernsey</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83  2023  GHA                                       Ghana</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84  2023  GIB                                   Gibraltar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85  2023  GIN                                      Guinea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86  2023  GLP                                  Guadeloupe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87  2023  GMB                                      Gambia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88  2023  GNB                               Guinea-Bissau</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89  2023  GNQ                           Ekvatorial-Guinea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90  2023  GRC                                      Hellas</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91  2023  GRD                                     Grenada</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92  2023  GRL                                    Grønland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93  2023  GTM                                   Guatemala</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94  2023  GUF                               Fransk Guyana</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95  2023  GUM                                        Guam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96  2023  GUY                                      Guyana</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97  2023  HKG                                    Hongkong</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98  2023  HMD                     Heard- og McDonaldøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99  2023  HND                                    Honduras</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100 2023  HRV                                     Kroatia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101 2023  HTI                                       Haiti</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102 2023  HUN                                      Ungarn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103 2023  IDN                                   Indonesia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 2023  IMN                                         Man</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105 2023  IND                                       India</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106 2023  IOT       Det britiske territorium i Indiahavet</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 107 2023  IRL                                      Irland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 108 2023  IRN                                        Iran</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 2023  IRQ                                        Irak</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 2023  ISL                                      Island</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 111 2023  ISR                                      Israel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 112 2023  ITA                                      Italia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 113 2023  JAM                                     Jamaica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114 2023  JEY                                      Jersey</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 115 2023  JOR                                      Jordan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 116 2023  JPN                                       Japan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 117 2023  KAZ                                  Kasakhstan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 118 2023  KEN                                       Kenya</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 119 2023  KGZ                                 Kirgisistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 120 2023  KHM                                   Kambodsja</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121 2023  KIR                                    Kiribati</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 122 2023  KNA                          St. Kitts og Nevis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 123 2023  KOR                                   Sør-Korea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 124 2023  KWT                                      Kuwait</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125 2023  LAO                                        Laos</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126 2023  LBN                                     Libanon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127 2023  LBR                                     Liberia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128 2023  LBY                                       Libya</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129 2023  LCA                                   St. Lucia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 130 2023  LIE                               Liechtenstein</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 131 2023  LKA                                   Sri Lanka</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 132 2023  LSO                                     Lesotho</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 133 2023  LTU                                     Litauen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 134 2023  LUX                                  Luxembourg</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 135 2023  LVA                                      Latvia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 136 2023  MAC                                       Macao</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 137 2023  MAF                           Saint-Martin (FR)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 138 2023  MAR                                     Marokko</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 139 2023  MCO                                      Monaco</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 140 2023  MDA                                     Moldova</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 141 2023  MDG                                  Madagaskar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 142 2023  MDV                                   Maldivene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 143 2023  MEX                                      Mexico</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 144 2023  MHL                               Marshalløyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 145 2023  MKD                              Nord-Makedonia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146 2023  MLI                                        Mali</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147 2023  MLT                                       Malta</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148 2023  MMR                                     Myanmar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149 2023  MNE                                  Montenegro</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150 2023  MNG                                    Mongolia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 151 2023  MNP                              Nord-Marianene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 152 2023  MOZ                                    Mosambik</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 153 2023  MRT                                  Mauritania</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154 2023  MSR                                  Montserrat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 155 2023  MTQ                                  Martinique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 156 2023  MUS                                   Mauritius</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 157 2023  MWI                                      Malawi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 158 2023  MYS                                    Malaysia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 159 2023  MYT                                     Mayotte</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160 2023  NAM                                     Namibia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161 2023  NCL                                Ny-Caledonia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 162 2023  NER                                       Niger</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 163 2023  NFK                                  Norfolkøya</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164 2023  NGA                                     Nigeria</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 165 2023  NIC                                   Nicaragua</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 166 2023  NIU                                        Niue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 167 2023  NLD                                   Nederland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 168 2023  NOR                                       Norge</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 169 2023  NPL                                       Nepal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 170 2023  NRU                                       Nauru</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171 2023  NZL                                 New Zealand</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 172 2023  OMN                                        Oman</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 173 2023  PAK                                    Pakistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174 2023  PAN                                      Panama</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175 2023  PCN                                    Pitcairn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176 2023  PER                                        Peru</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177 2023  PHL                                 Filippinene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178 2023  PLW                                       Palau</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179 2023  PNG                             Papua Ny-Guinea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180 2023  POL                                       Polen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181 2023  PRI                                 Puerto Rico</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182 2023  PRK                                  Nord-Korea</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183 2023  PRT                                    Portugal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184 2023  PRY                                    Paraguay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185 2023  PSE                                   Palestina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186 2023  PYF                            Fransk Polynesia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187 2023  QAT                                       Qatar</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188 2023  REU                                     Réunion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189 2023  ROU                                     Romania</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190 2023  RUS                                    Russland</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191 2023  RWA                                      Rwanda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192 2023  SAU                                Saudi-Arabia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193 2023  SDN                                       Sudan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194 2023  SEN                                     Senegal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195 2023  SGP                                   Singapore</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196 2023  SGS            Sør-Georgia og Sør-Sandwichøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197 2023  SHN Sankt Helena, Ascension og Tristan da Cunha</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198 2023  SJM                       Svalbard og Jan Mayen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199 2023  SLB                                Salomonøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200 2023  SLE                                Sierra Leone</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201 2023  SLV                                 El Salvador</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202 2023  SMR                                  San Marino</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203 2023  SOM                                     Somalia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204 2023  SPM                    Saint-Pierre-et-Miquelon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205 2023  SRB                                      Serbia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 206 2023  SSD                                   Sør-Sudan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 207 2023  STP                        São Tomé og Príncipe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 208 2023  SUR                                     Surinam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 209 2023  SVK                                    Slovakia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210 2023  SVN                                    Slovenia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211 2023  SWE                                     Sverige</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212 2023  SWZ                                    Eswatini</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213 2023  SXM                           Sint Maarten (NL)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214 2023  SYC                                 Seychellene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 215 2023  SYR                                       Syria</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 216 2023  TCA                       Turks- og Caicosøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 217 2023  TCD                                       Tsjad</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 218 2023  TGO                                        Togo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 219 2023  THA                                    Thailand</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 220 2023  TJK                                Tadsjikistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 221 2023  TKL                                     Tokelau</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 222 2023  TKM                                Turkmenistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 223 2023  TLS                                   Øst-Timor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 224 2023  TON                                       Tonga</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 225 2023  TTO                          Trinidad og Tobago</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 226 2023  TUN                                     Tunisia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 227 2023  TUR                                      Tyrkia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 228 2023  TUV                                      Tuvalu</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 229 2023  TWN                                      Taiwan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 230 2023  TZA                                    Tanzania</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 231 2023  UGA                                      Uganda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 232 2023  UKR                                     Ukraina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 233 2023  UMI                           USAs ytre småøyer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 234 2023  URY                                     Uruguay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 235 2023  USA                                         USA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 236 2023  UZB                                  Usbekistan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 237 2023  VAT                               Vatikanstaten</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 238 2023  VCT                  St. Vincent og Grenadinene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 239 2023  VEN                                   Venezuela</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 240 2023  VGB                      De britiske Jomfruøyer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 241 2023  VIR                   De amerikanske Jomfruøyer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 242 2023  VNM                                     Vietnam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 243 2023  VUT                                     Vanuatu</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 244 2023  WLF                      Wallis- og Futunaøyene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 245 2023  WSM                                       Samoa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 246 2023  XUK                                    Uoppgitt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 247 2023  XXK                                      Kosovo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 248 2023  XXX                                    Statsløs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249 2023  YEM                                       Jemen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250 2023  ZAF                                  Sør-Afrika</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 251 2023  ZMB                                      Zambia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 252 2023  ZWE                                    Zimbabwe</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

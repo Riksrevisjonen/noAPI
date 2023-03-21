@@ -51,7 +51,7 @@ on the organisation number.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_roles</span><span class="op">(</span><span class="va">entity</span>, raw_response <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_roles</span><span class="op">(</span><span class="va">entity</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span>, raw_response <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,8 +60,13 @@ on the organisation number.</p>
 <dd><p>A Norwegian organisation number.</p></dd>
 
 
+<dt>simplify</dt>
+<dd><p>If <code>TRUE</code> (default), a single data.frame is returned. Ignored
+if <code>raw_response</code> is set to <code>TRUE</code>.</p></dd>
+
+
 <dt>raw_response</dt>
-<dd><p>If TRUE a list of class <code>noAPI</code> is
+<dd><p>If <code>TRUE</code> a list of class <code>noAPI</code> is
 returned, including the raw <code>httr2_response</code>.</p></dd>
 
 </dl></div>
@@ -73,10 +78,11 @@ returned, including the raw <code>httr2_response</code>.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function returns a list with two data frames by default, one for
-individual roles and one for entity based roles.  If you set <code>raw_response</code>
-to <code>TRUE</code>, the raw response from the API will be returned instead. Note that the
-response will then be returned silently.</p>
+    <p>The function returns a data.frame by default. If you prefer the the output
+as a list you can set <code>simplify</code> to <code>FALSE</code>. This can be useful to keep
+programmatically track of failed queries. If you set <code>raw_response</code>
+to <code>TRUE</code>, the raw response from the API will be returned together with the
+parsed response. Note that the response will then be returned silently.</p>
 <p>See the
 <a href="https://data.brreg.no/enhetsregisteret/api/docs/index.html" class="external-link">API documentation</a>
 for further details (in Norwegian only).</p>
