@@ -36,6 +36,7 @@ test_that('get_exchange_rate() returns expected time periods', {
   expect_true(min(df$date_from) == '2022-12-01')
   expect_true(max(df$date_from) == '2022-12-15')
   expect_equal(format(min(df$date_from), '%u'), '4') # Thursday
+  expect_true(is.numeric(df$exch_rate))
 })
 
 test_that('get_exchange_rate() caps number of observations to 20', {
