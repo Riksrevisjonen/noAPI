@@ -8,15 +8,15 @@
 #' both municipality and county codes in the same function call. All three
 #' functions default to the current year.
 #'
-#' The functions returns a data.frame by default. If you prefer the the output
+#' The functions returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the
 #' parsed response. Note that the response will then be returned silently.
 #'
 #' @inheritParams get_entity
-#' @param year The year for which the codes should be valid for
-#' @param include_notes If notes should be included or not
+#' @param year The year for which the codes should be valid for.
+#' @param include_notes If notes should be included or not.
 #'
 #' @return data.frame or list
 #'
@@ -86,7 +86,7 @@ get_adm_units <- function(
 #' [Statistics Norway's webpage](https://www.ssb.no/klass/klassifikasjoner/552) for
 #' more information on the code specification.
 #'
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the

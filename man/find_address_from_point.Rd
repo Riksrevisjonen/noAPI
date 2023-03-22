@@ -53,7 +53,7 @@ parameters. For a list of all accepted query parameters see
 \code{\link[=create_params_kv_punktsok]{create_params_kv_punktsok()}} or refer to the \href{https://ws.geonorge.no/adresser/v1/#/default/get_sok}{API documentation} for
 further details (in Norwegian only).
 
-The function returns a data.frame by default. If you prefer the the output
+The function returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
 programmatically track of failed queries. If you set \code{raw_response}
 to \code{TRUE}, the raw response from the API will be returned together with the

@@ -11,6 +11,7 @@
     get_municipalities <<- memoise::memoise(get_municipalities, cache = cm)
     get_counties <<- memoise::memoise(get_counties, cache = cm)
     get_countries <<- memoise::memoise(get_countries, cache = cm)
+    get_adm_units <<- memoise::memoise(get_adm_units, cache = cm)
   }
 }
 

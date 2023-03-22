@@ -6,7 +6,7 @@
 #'
 #' @details
 #'
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the
@@ -49,7 +49,7 @@ get_entity <- function(entity, simplify = TRUE, raw_response = FALSE) {
 #' on the organisation number.
 #'
 #' @details
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the

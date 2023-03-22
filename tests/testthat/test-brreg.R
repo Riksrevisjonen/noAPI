@@ -92,7 +92,9 @@ test_that('get_entity() works when simplify = FALSE', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  res <- get_entity(c(999999999, 974760843, 971524960), simplify = FALSE)
+  res <- suppressMessages(
+    get_entity(c(999999999, 974760843, 971524960), simplify = FALSE)
+  )
   expect_identical(class(res), 'list')
   expect_equal(length(res), 3L)
   expect_null(res[[1]])
@@ -164,7 +166,9 @@ test_that('get_roles() works when simplify = FALSE', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  res <- get_roles(c(999999999, 974760843, 971524960), simplify = FALSE)
+  res <- suppressMessages(
+    get_roles(c(999999999, 974760843, 971524960), simplify = FALSE)
+  )
   expect_identical(class(res), 'list')
   expect_equal(length(res), 3L)
   expect_null(res[[1]])
