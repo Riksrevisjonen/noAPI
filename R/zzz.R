@@ -11,6 +11,8 @@
     get_municipalities <<- memoise::memoise(get_municipalities, cache = cm)
     get_counties <<- memoise::memoise(get_counties, cache = cm)
     get_countries <<- memoise::memoise(get_countries, cache = cm)
+    # UDIR NSR functions
+    get_schools <<- memoise::memoise(get_schools, cache = cm)
   }
 }
 
