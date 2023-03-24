@@ -12,9 +12,9 @@ get_countries(
 )
 }
 \arguments{
-\item{year}{The year for which the codes should be valid for}
+\item{year}{The year for which the codes should be valid for.}
 
-\item{include_notes}{If notes should be included or not}
+\item{include_notes}{If notes should be included or not.}
 
 \item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
 if \code{raw_response} is set to \code{TRUE}.}
@@ -44,7 +44,7 @@ data.frame. Notes are stated with a code reference that has the following order
 \href{https://www.ssb.no/klass/klassifikasjoner/552}{Statistics Norway's webpage} for
 more information on the code specification.
 
-The function returns a data.frame by default. If you prefer the the output
+The function returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
 programmatically track of failed queries. If you set \code{raw_response}
 to \code{TRUE}, the raw response from the API will be returned together with the

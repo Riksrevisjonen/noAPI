@@ -16,7 +16,7 @@
 #' [API documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok)
 #' for further details (in Norwegian only).
 #'
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the
@@ -86,7 +86,7 @@ get_address_info_single <- function(search = NULL, crs = 4258,
   }
 
   # Parse results again (and check for remaining results)
-  res <- parse_kartverket(resp, parsed, crs = crs, ...)
+  res <- parse_kartverket(resp, parsed, search = search, crs = crs, ...)
   res <- kv_flatten_res(res)
 
   # Add input to result
@@ -129,7 +129,7 @@ get_address_info_safe <-
 #' documentation](https://ws.geonorge.no/adresser/v1/#/default/get_sok) for
 #' further details (in Norwegian only).
 #'
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the
@@ -218,7 +218,7 @@ find_address_from_point_single <- function(x, radius, crs, closest, ...,
   }
 
   # Parse results again (and check for remaining results)
-  res <- parse_kartverket(resp, parsed, x, radius, crs, ...)
+  res <- parse_kartverket(resp, parsed, x = x, radius = radius, crs = crs, ...)
   res <- kv_flatten_res(res, x)
 
   # Add input to result

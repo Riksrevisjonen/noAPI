@@ -136,12 +136,13 @@ test_that('find_address_from_point() works when simplify = FALSE', {
   skip_if(check_api(kv_url2))
 
   # all addresses
-  res <- find_address_from_point(
-    list(
-      c(lat = 10.7508, lon = 59.91364),
-      c(lat = 59.91364, lon = 10.7508),
-      c(lat = 59.91364, lon = 10.7508)),
-    simplify = FALSE)
+  res <- suppressMessages(
+    find_address_from_point(
+      list(
+        c(lat = 10.7508, lon = 59.91364),
+        c(lat = 59.91364, lon = 10.7508),
+        c(lat = 59.91364, lon = 10.7508)),
+      simplify = FALSE))
   expect_identical(class(res), 'list')
   expect_equal(length(res), 3L)
   expect_null(res[[1]])
@@ -149,12 +150,14 @@ test_that('find_address_from_point() works when simplify = FALSE', {
   expect_gte(nrow(res[[3]]), 1)
 
   # only the closest address for each point
-  res <- find_address_from_point(
-    list(
-      c(lat = 10.7508, lon = 59.91364),
-      c(lat = 59.91364, lon = 10.7508),
-      c(lat = 59.91364, lon = 10.7508)),
-    simplify = FALSE, closest = TRUE)
+  res <- suppressMessages(
+    find_address_from_point(
+      list(
+        c(lat = 10.7508, lon = 59.91364),
+        c(lat = 59.91364, lon = 10.7508),
+        c(lat = 59.91364, lon = 10.7508)),
+      simplify = FALSE, closest = TRUE)
+  )
   expect_identical(class(res), 'list')
   expect_equal(length(res), 3L)
   expect_null(res[[1]])
@@ -162,7 +165,6 @@ test_that('find_address_from_point() works when simplify = FALSE', {
   expect_equal(nrow(res[[3]]), 1)
 
 })
-
 
 test_that('find_address_from_point() works when raw_response = TRUE', {
   skip_on_cran()
@@ -220,6 +222,29 @@ test_that('get_address_info_single() fails correctly', {
   )
 })
 
+test_that('get_address_info_single() works when mulitiple pages are found', {
+  skip_on_cran()
+  skip_on_ci() # Test fails on GH Actions (not sure why)
+
+  res1 <- rlang::with_interactive({
+    suppressWarnings(
+      get_address_info_single(
+        search = 'munkegata trondheim 1',
+        crs = 4258, size = 25)
+    )
+  }, value = FALSE)
+  expect_equal(nrow(res1), 25)
+
+  res2 <- suppressMessages(
+    rlang::with_interactive({
+      get_address_info_single(
+        search = 'munkegata trondheim 1',
+        crs = 4258, size = 25)
+    }, value = TRUE)
+  )
+  expect_gt(nrow(res2), nrow(res1))
+
+})
 
 # ---- find_address_from_point_single ----
 

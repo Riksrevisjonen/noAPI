@@ -185,13 +185,14 @@ create_params_kv_punktsok <- function(
 
 #' parse_kartverket
 #' @noRd
-parse_kartverket <- function(resp, parsed, x, radius, crs, ...) {
+parse_kartverket <- function(resp, parsed, search = NULL, x = NULL, radius, crs, ...) {
   parsed_adresser <- parsed$adresser
+  parsed$metadata$side
   n_total <- parsed$metadata$totaltAntallTreff
   n <- nrow(parsed_adresser)
   if (n_total > n) {
     msg <- 'Found more addresses than was returned on the first page by the API.'
-    if (rlang::is_interactive()) { #interactive()
+    if (rlang::is_interactive()) {
       cli::cli_alert_warning(msg)
       user_yes <- kv_ask()
       if (user_yes) {
@@ -200,13 +201,24 @@ parse_kartverket <- function(resp, parsed, x, radius, crs, ...) {
         tmp_parsed <- vector('list', iter+1)
         tmp_resp[[1]] <- resp
         tmp_parsed[[1]] <- parsed
-        for (i in seq_len(iter)) {
-          tmp_resp[[i+1]] <-
-            request_kartverket(
-              'punktsok', lat = x[1], lon = x[2], radius = radius,
-              crs = crs, page = i, ...)
-          tmp_parsed[[i+1]] <-
-            parse_response(tmp_resp[[i+1]], simplifyVector = TRUE)
+        if (!is.null(search)) {
+          # sok endpoint
+          for (i in seq_len(iter)) {
+            tmp_resp[[i+1]] <-
+              request_kartverket('sok', search, crs = crs, page = i, ...)
+            tmp_parsed[[i+1]] <-
+              parse_response(tmp_resp[[i+1]], simplifyVector = TRUE)
+          }
+        } else if (!is.null(x)){
+          # punktsok endpoint
+          for (i in seq_len(iter)) {
+            tmp_resp[[i+1]] <-
+              request_kartverket(
+                'punktsok', lat = x[1], lon = x[2], radius = radius,
+                crs = crs, page = i, ...)
+            tmp_parsed[[i+1]] <-
+              parse_response(tmp_resp[[i+1]], simplifyVector = TRUE)
+          }
         }
         resp <- tmp_resp
         parsed_adresser <- purrr::map_df(tmp_parsed, function(x) x$adresser)
