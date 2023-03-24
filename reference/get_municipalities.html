@@ -72,11 +72,11 @@ for a given year.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>year</dt>
-<dd><p>The year for which the codes should be valid for</p></dd>
+<dd><p>The year for which the codes should be valid for.</p></dd>
 
 
 <dt>include_notes</dt>
-<dd><p>If notes should be included or not</p></dd>
+<dd><p>If notes should be included or not.</p></dd>
 
 
 <dt>simplify</dt>
@@ -101,7 +101,7 @@ returned, including the raw <code>httr2_response</code>.</p></dd>
 supports all years from 1972. <code>get_adm_units()</code> is a wrapper function to get
 both municipality and county codes in the same function call. All three
 functions default to the current year.</p>
-<p>The functions returns a data.frame by default. If you prefer the the output
+<p>The functions returns a data.frame by default. If you prefer the output
 as a list you can set <code>simplify</code> to <code>FALSE</code>. This can be useful to keep
 programmatically track of failed queries. If you set <code>raw_response</code>
 to <code>TRUE</code>, the raw response from the API will be returned together with the
