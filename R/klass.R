@@ -110,10 +110,49 @@ get_countries <- function(
   dl
 }
 
+#' Get Standard Industrial Classification (SIC)
+#'
+#' Get all Standard Industrial Classification (SIC) based on the NACE standard.
+#'
+#' Standard Industrial Classification (SIC) is primarily a statistical standard
+#' and is the basis for coding units according to the most important activities
+#' in Statistics Norway's Business register and in the Central Coordinating
+#' Register for Legal Entities. SIC2007 is based on NACE Rev. 2. See
+#' [Statistics Norway's webpage](https://www.ssb.no/klass/klassifikasjoner/6) for
+#' more information on the code specification.
+#'
+#' All years from 1994 until present are supported. The function defaults to the
+#' current year.
+#'
+#' If notes are enables with `include_notes`, a column `note` will be added to the
+#' data.frame. The function returns a data.frame by default. If you prefer the output
+#' as a list you can set `simplify` to `FALSE`. This can be useful to keep
+#' programmatically track of failed queries. If you set `raw_response`
+#' to `TRUE`, the raw response from the API will be returned together with the
+#' parsed response. Note that the response will then be returned silently.
+#'
+#' @inheritParams get_municipalities
+#'
+#' @return data.frame or list
+#'
+#' @seealso [get_entity()]
+#'
+#' @export
+get_industrial_codes <- function(
+    year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE,
+    raw_response = FALSE) {
+  common_info(simplify, raw_response)
+  dl <- lapply(year, get_klass_codes_safe, type = 'sic',
+               include_notes = include_notes, raw_response = raw_response)
+  if (raw_response) return(dl)
+  if (simplify) return(do.call('rbind', dl))
+  dl
+}
+
 #' get_klass_codes_single
 #' @noRd
 get_klass_codes_single <- function(
-    year, type = c('municipality', 'county', 'country', 'both'),
+    year, type = c('municipality', 'county', 'country', 'sic', 'both'),
     include_notes = FALSE, raw_response = FALSE)
 {
   if (type == 'both') {
@@ -129,7 +168,8 @@ get_klass_codes_single <- function(
     type,
     'municipality' = klass_municipalities,
     'county' = klass_counties,
-    'country' = klass_countries)
+    'country' = klass_countries,
+    'sic' = klass_sic)
   endpoint <- get_klass_api_endpoint(
     year, type = type, links = x$endpoint, from = x$valid_from, to = x$valid_to
   )
