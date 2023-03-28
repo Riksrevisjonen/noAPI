@@ -40,7 +40,7 @@ parse_klass <- function(resp, type, year, include_notes) {
       read.csv2()
     cols <- if (include_notes) c('code', 'name', 'notes') else c('code', 'name')
     parsed <- parsed[, cols]
-    fmt <- switch(type, 'municipality' = '%04s', 'county' = '%02s', 'country' = '%s')
+    fmt <- switch(type, 'municipality' = '%04d', 'county' = '%02d', 'country' = '%s')
     parsed$code <- sprintf(fmt, parsed$code)
     parsed <- cbind(year = year, parsed)
   } else {
