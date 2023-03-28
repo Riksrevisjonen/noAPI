@@ -59,8 +59,7 @@ get_counties <- function(
 
 #' @rdname get_municipalities
 #' @export
-get_adm_units <- function(
-    year = format(Sys.Date(), '%Y'), include_notes = FALSE, simplify = TRUE) {
+get_adm_units <- function(year = format(Sys.Date(), '%Y'), simplify = TRUE) {
   dl <- lapply(year, get_klass_codes_safe, type = 'both',
                include_notes = include_notes, raw_response = FALSE)
   if (simplify) return(do.call('rbind', dl))
