@@ -2,7 +2,7 @@
 % Please edit documentation in R/klass.R
 \name{get_industrial_codes}
 \alias{get_industrial_codes}
-\title{Get standard industrial codes (SIC)}
+\title{Get Standard Industrial Classification (SIC)}
 \usage{
 get_industrial_codes(
   year = format(Sys.Date(), "\%Y"),
@@ -26,16 +26,26 @@ returned, including the raw \code{httr2_response}.}
 data.frame or list
 }
 \description{
-Get all standard industrial codes (SIC) based on the NACE standard.
+Get all Standard Industrial Classification (SIC) based on the NACE standard.
 }
 \details{
-All years from 1994 until present are supported. The function defaults to the
-current year.
+Standard Industrial Classification (SIC) is primarily a statistical standard
+and is the basis for coding units according to the most important activities
+in Statistics Norway's Business register and in the Central Coordinating
+Register for Legal Entities. SIC2007 is based on NACE Rev. 2. See
+\href{https://www.ssb.no/klass/klassifikasjoner/6}{Statistics Norway's webpage} for
+more information on the code specification.
 
-If notes are enables with \code{include_notes}, a column \code{note} will be added to the
-data.frame. The function returns a data.frame by default. If you prefer the output
+All years from 1994 until present are supported. The function defaults to the
+current year. If notes are enabled with \code{include_notes}, a column \code{note} will
+be added to the data.frame.
+
+The function returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
 programmatically track of failed queries. If you set \code{raw_response}
 to \code{TRUE}, the raw response from the API will be returned together with the
 parsed response. Note that the response will then be returned silently.
+}
+\seealso{
+\code{\link[=get_entity]{get_entity()}}
 }

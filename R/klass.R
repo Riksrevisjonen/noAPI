@@ -61,7 +61,7 @@ get_counties <- function(
 #' @export
 get_adm_units <- function(year = format(Sys.Date(), '%Y'), simplify = TRUE) {
   dl <- lapply(year, get_klass_codes_safe, type = 'both',
-               include_notes = include_notes, raw_response = FALSE)
+               include_notes = FALSE, raw_response = FALSE)
   if (simplify) return(do.call('rbind', dl))
   dl
 }
@@ -79,7 +79,7 @@ get_adm_units <- function(year = format(Sys.Date(), '%Y'), simplify = TRUE) {
 #' All years from 1974 until present are supported. The function defaults to
 #' the current year.
 #'
-#' If notes are enables with `include_notes`, a column `note` will be added to the
+#' If notes are enabled with `include_notes`, a column `note` will be added to the
 #' data.frame. Notes are stated with a code reference that has the following order
 #' (alpha-2, alpha-3, num-3, SSB-3), for example Norway (NO, NOR, 578, 000). See
 #' [Statistics Norway's webpage](https://www.ssb.no/klass/klassifikasjoner/552) for
@@ -122,10 +122,10 @@ get_countries <- function(
 #' more information on the code specification.
 #'
 #' All years from 1994 until present are supported. The function defaults to the
-#' current year.
+#' current year. If notes are enabled with `include_notes`, a column `note` will
+#' be added to the data.frame.
 #'
-#' If notes are enables with `include_notes`, a column `note` will be added to the
-#' data.frame. The function returns a data.frame by default. If you prefer the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the

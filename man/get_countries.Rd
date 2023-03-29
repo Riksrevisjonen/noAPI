@@ -38,7 +38,7 @@ statistics from Statistics Norway.
 All years from 1974 until present are supported. The function defaults to
 the current year.
 
-If notes are enables with \code{include_notes}, a column \code{note} will be added to the
+If notes are enabled with \code{include_notes}, a column \code{note} will be added to the
 data.frame. Notes are stated with a code reference that has the following order
 (alpha-2, alpha-3, num-3, SSB-3), for example Norway (NO, NOR, 578, 000). See
 \href{https://www.ssb.no/klass/klassifikasjoner/552}{Statistics Norway's webpage} for
