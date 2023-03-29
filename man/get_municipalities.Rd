@@ -20,11 +20,7 @@ get_counties(
   raw_response = FALSE
 )
 
-get_adm_units(
-  year = format(Sys.Date(), "\%Y"),
-  include_notes = FALSE,
-  simplify = TRUE
-)
+get_adm_units(year = format(Sys.Date(), "\%Y"), simplify = TRUE)
 }
 \arguments{
 \item{year}{The year for which the codes should be valid for.}
