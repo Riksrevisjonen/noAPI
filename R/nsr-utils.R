@@ -33,30 +33,47 @@ request_nsr <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL){
   send_query(req)
 }
 
-#' get_schools_api_endpoint
+#' check_digits
 #' @noRd
-get_schools_api_endpoint <- function(county, municipality) {
-  if (is.null(county) && is.null(municipality)) {
-    type <- 'alle'
-    unit <- NULL
-  } else if (!is.null(county) && is.null(municipality)) {
-    type <- 'fylke'
-    unit <- county
-  } else if (is.null(county) && !is.null(municipality)) {
-    type <- 'kommune'
-    unit <- municipality
+check_digits <- function(x) {
+  x <- as.integer(x)
+  x <- floor(log10(x))+1
+  if (all(x %in% c(3,4))) {
+    out <- 'kommune'
+  } else if (all(x %in% c(1,2))) {
+    out <- 'fylke'
   } else {
-    msg <- 'You cannot retrive data for counties and municipalities at the same time'
+    msg <- 'You cannot retrive data for counties and municipalities at the same time.'
     cli::cli_abort(
       c(msg,
-        'x' = 'You cannot set both county and municipality equal to not NULL',
-        'i' = 'You provided county: {county} and municipality: {municipality}'
+        'x' = 'You provided both county (1-2 digits) and municipal (3-4 digits) in the same function call.',
+        'i' = 'Please clean your data or make seperate queries.'
       )
     )
   }
-  list(type = type, unit = unit)
+  out
 }
 
+#' get_schools_api_endpoint
+#' @noRd
+get_schools_api_endpoint <- function(x) {
+  if (length(x) > 1 & any(grepl('all', x))) {
+    msg <- "You cannot use 'all' and unit codes at the same time."
+    cli::cli_abort(
+      c(msg,
+        'i' = 'Please clean your data or make seperate queries.'
+      )
+    )
+  }
+  if (x[1] == 'all') {
+    type <- 'alle'
+    unit <- NULL
+  } else {
+    type <- check_digits(x)
+    unit <- x
+  }
+  list(type = type, unit = unit)
+}
 
 #' parse_nsr
 #' @noRd

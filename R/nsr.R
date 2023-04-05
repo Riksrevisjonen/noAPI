@@ -13,25 +13,24 @@
 #' [API documentation](https://www.udir.no/om-udir/data/nxr/l)
 #' for further details (in Norwegian only).
 #'
-#' @param county A Norwegian county code
-#' @param municipality A Norwegian municipality code
+#' @param x A Norwegian county or municipality code. Use 'all' to retrieve all
+#'    schools.
 #' @inheritParams get_entity
 #' @export
 #' @examples
 #' # Get schools by county
-#' get_schools(county = 11)
+#' get_schools(11)
 #'
 #' # Get schools by municipality
-#' get_schools(municipality = 1101)
+#' get_schools(1101)
 #'
 #' \dontrun{
 #' # Get all schools
-#' df <- get_schools()
+#' df <- get_schools('all')
 #' }
-get_schools <- function(county = NULL, municipality = NULL,
-                        simplify = TRUE, raw_response = FALSE) {
+get_schools <- function(x, simplify = TRUE, raw_response = FALSE) {
   common_info(simplify, raw_response)
-  l <- get_schools_api_endpoint(county, municipality)
+  l <- get_schools_api_endpoint(x)
   if (l$type == 'alle') {
     dl <- get_schools_safe(type = 'alle', raw_response = raw_response)
     if (raw_response) return(invisible(dl))
@@ -55,6 +54,8 @@ get_schools_single <- function(unit = NULL,
   if (raw_response) {
     out <- make_api_object(resp, parsed)
   } else {
+    # Early return for 200, but empty responses
+    if (length(parsed) == 0) return(NULL)
     out <- parsed
   }
   out

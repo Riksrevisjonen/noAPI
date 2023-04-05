@@ -4,17 +4,11 @@
 \alias{get_schools}
 \title{Get schools}
 \usage{
-get_schools(
-  county = NULL,
-  municipality = NULL,
-  simplify = TRUE,
-  raw_response = FALSE
-)
+get_schools(x, simplify = TRUE, raw_response = FALSE)
 }
 \arguments{
-\item{county}{A Norwegian county code}
-
-\item{municipality}{A Norwegian municipality code}
+\item{x}{A Norwegian county or municipality code. Use 'all' to retrieve all
+schools.}
 
 \item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
 if \code{raw_response} is set to \code{TRUE}.}
@@ -38,13 +32,13 @@ for further details (in Norwegian only).
 }
 \examples{
 # Get schools by county
-get_schools(county = 11)
+get_schools(11)
 
 # Get schools by municipality
-get_schools(municipality = 1101)
+get_schools(1101)
 
 \dontrun{
 # Get all schools
-df <- get_schools()
+df <- get_schools('all')
 }
 }
