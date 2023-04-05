@@ -16,6 +16,18 @@ test_that('get_schools() works', {
   expect_gte(nrow(df), 1)
   expect_equal(ncol(df), 16)
 
+  # check that 1 digit county codes work
+  df <- get_schools(1)
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 1)
+  expect_equal(ncol(df), 16)
+
+  # check that 3 digit municipality codes work
+  df <- get_schools(301)
+  expect_identical(class(df), 'data.frame')
+  expect_gte(nrow(df), 1)
+  expect_equal(ncol(df), 16)
+
   # all
   skip("get_schools's default method is too extensive to test every time")
   df <- get_schools('all')

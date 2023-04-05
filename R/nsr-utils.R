@@ -4,24 +4,14 @@ request_nsr <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL){
   type <- match.arg(type)
   req <- request(nsr_url)
   if (type == 'kommune') {
-    if (nchar(unit) != 4 && !grepl('\\d{4}', unit, fixed = TRUE)) {
-      cli::cli_abort(
-        c('Invalid municipality code',
-          'x' = 'A municipality code must be four digits',
-          'i' = 'You provided {unit}')
-      )
-    }
+    if (is.numeric(unit)) unit <- sprintf('%04d', unit)
+    if (is.character(unit)) unit <- sprintf('%04s', unit)
     req <- req |>
       req_url_path_append('kommune') |>
       req_url_path_append(unit)
   } else if (type == 'fylke') {
-    if (nchar(unit) != 2 && !grepl('\\d{2}', unit, fixed = TRUE)) {
-      cli::cli_abort(
-        c('Invalid county code',
-          'x' = 'A county code must be two digits',
-          'i' = 'You provided {unit}')
-      )
-    }
+    if (is.numeric(unit)) unit <- sprintf('%02d', unit)
+    if (is.character(unit)) unit <- sprintf('%02s', unit)
     req <- req |>
       req_url_path_append('fylke') |>
       req_url_path_append(unit)
