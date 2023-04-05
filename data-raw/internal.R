@@ -41,6 +41,14 @@ vcountries <- request(ssb_url) %>%
 
 klass_countries <- parse_versions(vcountries$versions)
 
+vsic <- request(ssb_url) %>%
+  req_url_path_append('klass/v1/classifications/6') %>%
+  req_url_query(includeFuture = 'true') %>%
+  req_perform() %>%
+  resp_body_json()
+
+klass_sic <- parse_versions(vsic$versions)
+
 usethis::use_data(
   user_agent,
   brreg_url,
@@ -51,6 +59,7 @@ usethis::use_data(
   klass_municipalities,
   klass_counties,
   klass_countries,
+  klass_sic,
   internal = TRUE,
   overwrite = TRUE)
 

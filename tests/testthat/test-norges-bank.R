@@ -51,8 +51,10 @@ test_that('get_exchange_rate() works when simplify = FALSE', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  res <- get_exchange_rate(
-    c('AAA', 'EUR', 'USD'), frequency = 'monthly', simplify = FALSE)
+  res <- suppressMessages(
+    get_exchange_rate(
+      c('AAA', 'EUR', 'USD'), frequency = 'monthly', simplify = FALSE)
+  )
   expect_identical(class(res), 'list')
   expect_equal(length(res), 3L)
   expect_null(res[[1]])

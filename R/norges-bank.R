@@ -1,6 +1,6 @@
 #' Get exchange rate
 #'
-#' Fetch exchange rates from \emph{Norges Bank}.
+#' Fetch exchange rates from _Norges Bank_.
 #'
 #' @inheritParams get_entity
 #' @param currency The currency to fetch data for.
@@ -25,7 +25,7 @@
 #' exchange rates for a specific time period by setting the arguments `start`
 #' and `end`. Both arguments accept a date in the format `%Y-%m-%d` (_YYYY-MM-DD_).
 #'
-#' The function returns a data.frame by default. If you prefer the the output
+#' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
 #' programmatically track of failed queries. If you set `raw_response`
 #' to `TRUE`, the raw response from the API will be returned together with the

@@ -20,16 +20,12 @@ get_counties(
   raw_response = FALSE
 )
 
-get_adm_units(
-  year = format(Sys.Date(), "\%Y"),
-  include_notes = FALSE,
-  simplify = TRUE
-)
+get_adm_units(year = format(Sys.Date(), "\%Y"), simplify = TRUE)
 }
 \arguments{
-\item{year}{The year for which the codes should be valid for}
+\item{year}{The year for which the codes should be valid for.}
 
-\item{include_notes}{If notes should be included or not}
+\item{include_notes}{If notes should be included or not.}
 
 \item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
 if \code{raw_response} is set to \code{TRUE}.}
@@ -50,7 +46,7 @@ supports all years from 1972. \code{get_adm_units()} is a wrapper function to ge
 both municipality and county codes in the same function call. All three
 functions default to the current year.
 
-The functions returns a data.frame by default. If you prefer the the output
+The functions returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
 programmatically track of failed queries. If you set \code{raw_response}
 to \code{TRUE}, the raw response from the API will be returned together with the
