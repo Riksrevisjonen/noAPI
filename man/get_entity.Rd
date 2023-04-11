@@ -4,10 +4,17 @@
 \alias{get_entity}
 \title{Get entity}
 \usage{
-get_entity(entity, simplify = TRUE, raw_response = FALSE)
+get_entity(
+  entity,
+  type = c("both", "main", "sub"),
+  simplify = TRUE,
+  raw_response = FALSE
+)
 }
 \arguments{
 \item{entity}{A Norwegian organisation number or company name.}
+
+\item{type}{Type of entity to query. Either a main, sub or both (default).}
 
 \item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
 if \code{raw_response} is set to \code{TRUE}.}
@@ -24,6 +31,12 @@ Fetch information about an entity from the
 based on the entity's name or organisation number.
 }
 \details{
+By default \code{get_entity()} queries information from both the registry for
+\emph{main entities} and the registry for \emph{sub-entities} in Enhetsregisteret.
+This will however in some cases cause the function to make multiple API
+calls for the same entity number. To disable this behavior you can use the
+\code{type} parameter to query only for main \emph{or} sub entities.
+
 The function returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
 programmatically track of failed queries. If you set \code{raw_response}
@@ -44,4 +57,6 @@ df <- get_entity('Riksrevisjonen')
 # Get multiple entities
 df <- get_entity(c(974760843, 971524960))
 
+# Only look for sub-entities
+df <- get_entity(999178197, type = 'sub')
 }

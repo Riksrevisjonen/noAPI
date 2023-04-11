@@ -5,6 +5,11 @@
 #' based on the entity's name or organisation number.
 #'
 #' @details
+#' By default `get_entity()` queries information from both the registry for
+#' _main entities_ and the registry for _sub-entities_ in Enhetsregisteret.
+#' This will however in some cases cause the function to make multiple API
+#' calls for the same entity number. To disable this behavior you can use the
+#' `type` parameter to query only for main _or_ sub entities.
 #'
 #' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
@@ -17,8 +22,7 @@
 #' for further details (in Norwegian only).
 #'
 #' @param entity A Norwegian organisation number or company name.
-#' @param type Type of entity to query. Either main entity or sub-entity or both
-#'  (default).
+#' @param type Type of entity to query. Either a main, sub or both (default).
 #' @param simplify If `TRUE` (default), a single data.frame is returned. Ignored
 #'   if `raw_response` is set to `TRUE`.
 #' @param raw_response  If `TRUE` a list of class `noAPI` is
@@ -35,6 +39,8 @@
 #' # Get multiple entities
 #' df <- get_entity(c(974760843, 971524960))
 #'
+#' # Only look for sub-entities
+#' df <- get_entity(999178197, type = 'sub')
 get_entity <- function(entity, type = c('both', 'main', 'sub'),
                        simplify = TRUE, raw_response = FALSE) {
   type <- match.arg(type)
@@ -73,10 +79,10 @@ get_entity <- function(entity, type = c('both', 'main', 'sub'),
 #'   the first call.
 #' @examples
 #' # Get roles for a single entity
-#' res <- get_roles(974760843)
+#' df <- get_roles(974760843)
 #'
 #' # Get roles for a mulitiple enities
-#' res <- get_roles(c(974760843, 971524960))
+#' df <- get_roles(c(974760843, 971524960))
 #'
 get_roles <- function(entity, simplify = TRUE, raw_response = FALSE) {
   common_info(simplify, raw_response)
