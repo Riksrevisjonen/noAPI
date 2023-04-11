@@ -1,6 +1,6 @@
 Package: noAPI
 Title: R Client For Public Norwegian APIs
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person("Ove Haugland", "Jakobsen", role = c("aut", "cre"), email = "ohj@riksrevisjonen.no"),
     person("Aleksander", "Eilertsen", role = "aut", email = "ale@riksrevisjonen.no"),

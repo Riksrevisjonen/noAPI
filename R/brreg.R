@@ -17,6 +17,8 @@
 #' for further details (in Norwegian only).
 #'
 #' @param entity A Norwegian organisation number or company name.
+#' @param type Type of entity to query. Either main entity or sub-entity or both
+#'  (default).
 #' @param simplify If `TRUE` (default), a single data.frame is returned. Ignored
 #'   if `raw_response` is set to `TRUE`.
 #' @param raw_response  If `TRUE` a list of class `noAPI` is
@@ -33,10 +35,12 @@
 #' # Get multiple entities
 #' df <- get_entity(c(974760843, 971524960))
 #'
-get_entity <- function(entity, simplify = TRUE, raw_response = FALSE) {
+get_entity <- function(entity, type = c('both', 'main', 'sub'),
+                       simplify = TRUE, raw_response = FALSE) {
+  type <- match.arg(type)
   common_info(simplify, raw_response)
   dl <- lapply(entity, function(x)
-    get_brreg_safe(x, type = 'enheter', raw_response))
+    get_brreg_safe(x, type, brreg_type = 'enheter', raw_response))
   if (raw_response) return(invisible(dl))
   if (simplify) return(do.call('rbind', dl))
   dl
@@ -77,7 +81,7 @@ get_entity <- function(entity, simplify = TRUE, raw_response = FALSE) {
 get_roles <- function(entity, simplify = TRUE, raw_response = FALSE) {
   common_info(simplify, raw_response)
   dl <- lapply(entity, function(x)
-    get_brreg_safe(x, type = 'roller', raw_response))
+    get_brreg_safe(x, type = NULL, brreg_type = 'roller', raw_response))
   if (raw_response) return(invisible(dl))
   if (simplify) return(do.call('rbind', dl))
   dl
@@ -86,17 +90,17 @@ get_roles <- function(entity, simplify = TRUE, raw_response = FALSE) {
 #' Get brreg (single method)
 #' @inheritParams get_entity
 #' @noRd
-get_brreg_single <- function(entity,
-                             type = c('enheter', 'roller'),
+get_brreg_single <- function(entity, type = NULL,
+                             brreg_type = c('enheter', 'roller'),
                              raw_response = FALSE) {
-  type <- match.arg(type)
-  resp <- request_brreg(type, entity)
+  brreg_type <- match.arg(brreg_type)
+  resp <- request_brreg(brreg_type, entity, type)
   parsed <- parse_response(resp, simplifyVector = FALSE)
   if (raw_response) {
     out <- make_api_object(resp, parsed)
   }
   else {
-    if (type == 'enheter') {
+    if (brreg_type == 'enheter') {
       out <- parse_brreg_entity(parsed)
     } else {
       out <- parse_brreg_roles(parsed, entity)
