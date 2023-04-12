@@ -5,11 +5,15 @@
 #' based on the entity's name or organisation number.
 #'
 #' @details
-#' By default `get_entity()` queries information from both the registry for
-#' _main entities_ and the registry for _sub-entities_ in Enhetsregisteret.
-#' This will however in some cases cause the function to make multiple API
-#' calls for the same entity number. To disable this behavior you can use the
-#' `type` parameter to query only for main _or_ sub entities.
+#' Users should be aware that queries for entity names and numbers are handled
+#' somewhat differently. By default (`type = NULL`) queries for _numbers_
+#' will first send requests to the registry for _main entities_, but will then
+#' also query the registry for _sub-entities_ in case no information is found
+#' in the first query. This ensures that any entity number still in use
+#' will return a valid response. For _names_ however `get_entity()` will only
+#' query the registry for _main entities_, unless `type` is explicitly set to
+#' `sub`. Further information on the use of sub-entities can be found
+#' [here](https://www.brreg.no/bedrift/underenhet/).
 #'
 #' The function returns a data.frame by default. If you prefer the output
 #' as a list you can set `simplify` to `FALSE`. This can be useful to keep
@@ -22,7 +26,8 @@
 #' for further details (in Norwegian only).
 #'
 #' @param entity A Norwegian organisation number or company name.
-#' @param type Type of entity to query. Either a main, sub or both (default).
+#' @param type Optional. Type entity to query. Either main, sub or NULL
+#'  (default). See details.
 #' @param simplify If `TRUE` (default), a single data.frame is returned. Ignored
 #'   if `raw_response` is set to `TRUE`.
 #' @param raw_response  If `TRUE` a list of class `noAPI` is
@@ -39,14 +44,18 @@
 #' # Get multiple entities
 #' df <- get_entity(c(974760843, 971524960))
 #'
-#' # Only look for sub-entities
-#' df <- get_entity(999178197, type = 'sub')
-get_entity <- function(entity, type = c('both', 'main', 'sub'),
+#' # Get information on sub-entities (number)
+#' df <- get_entity(999178197)
+#'
+#' #' # Get information on sub-entities (name)
+#' df <- get_entity('Kuben Yrkesarena', type = 'sub')
+#'
+get_entity <- function(entity, type = NULL,
                        simplify = TRUE, raw_response = FALSE) {
-  type <- match.arg(type)
   common_info(simplify, raw_response)
+  if (!is.null(type)) type <- match.arg(type, c('main', 'sub'))
   dl <- lapply(entity, function(x)
-    get_brreg_safe(x, type, brreg_type = 'enheter', raw_response))
+    get_brreg_safe(x, type = type, brreg_type = 'enheter', raw_response))
   if (raw_response) return(invisible(dl))
   if (simplify) return(do.call('rbind', dl))
   dl

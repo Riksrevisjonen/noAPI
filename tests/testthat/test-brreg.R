@@ -50,10 +50,19 @@ test_that('get_entity() works for sub-entities', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
 
-  df1 <- get_entity(999178197, type = 'both')
+  # numbers
+  df1 <- get_entity(999178197)
   df2 <- get_entity(999178197, type = 'sub')
   expect_equal(df1, df2)
   expect_message(expect_null(get_entity(999178197, type = 'main')))
+
+  # names
+  df1 <- get_entity('KUBEN YRKESARENA')
+  expect_false('KUBEN YRKESARENA' %in% df1$navn)
+  df2 <- get_entity('KUBEN YRKESARENA', type = 'main')
+  expect_equal(df1, df2)
+  df3 <- get_entity('KUBEN YRKESARENA', type = 'sub')
+  expect_true('KUBEN YRKESARENA' %in% df3$navn)
 
 })
 

@@ -4,17 +4,13 @@
 \alias{get_entity}
 \title{Get entity}
 \usage{
-get_entity(
-  entity,
-  type = c("both", "main", "sub"),
-  simplify = TRUE,
-  raw_response = FALSE
-)
+get_entity(entity, type = NULL, simplify = TRUE, raw_response = FALSE)
 }
 \arguments{
 \item{entity}{A Norwegian organisation number or company name.}
 
-\item{type}{Type of entity to query. Either a main, sub or both (default).}
+\item{type}{Optional. Type entity to query. Either main, sub or NULL
+(default). See details.}
 
 \item{simplify}{If \code{TRUE} (default), a single data.frame is returned. Ignored
 if \code{raw_response} is set to \code{TRUE}.}
@@ -31,11 +27,15 @@ Fetch information about an entity from the
 based on the entity's name or organisation number.
 }
 \details{
-By default \code{get_entity()} queries information from both the registry for
-\emph{main entities} and the registry for \emph{sub-entities} in Enhetsregisteret.
-This will however in some cases cause the function to make multiple API
-calls for the same entity number. To disable this behavior you can use the
-\code{type} parameter to query only for main \emph{or} sub entities.
+Users should be aware that queries for entity names and numbers are handled
+somewhat differently. By default (\code{type = NULL}) queries for \emph{numbers}
+will first send requests to the registry for \emph{main entities}, but will then
+also query the registry for \emph{sub-entities} in case no information is found
+in the first query. This ensures that any entity number still in use
+will return a valid response. For \emph{names} however \code{get_entity()} will only
+query the registry for \emph{main entities}, unless \code{type} is explicitly set to
+\code{sub}. Further information on the use of sub-entities can be found
+\href{https://www.brreg.no/bedrift/underenhet/}{here}.
 
 The function returns a data.frame by default. If you prefer the output
 as a list you can set \code{simplify} to \code{FALSE}. This can be useful to keep
@@ -57,6 +57,10 @@ df <- get_entity('Riksrevisjonen')
 # Get multiple entities
 df <- get_entity(c(974760843, 971524960))
 
-# Only look for sub-entities
-df <- get_entity(999178197, type = 'sub')
+# Get information on sub-entities (number)
+df <- get_entity(999178197)
+
+#' # Get information on sub-entities (name)
+df <- get_entity('Kuben Yrkesarena', type = 'sub')
+
 }

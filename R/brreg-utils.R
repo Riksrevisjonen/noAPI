@@ -15,7 +15,7 @@ request_brreg <- function(brreg_type = c('enheter', 'roller'), entity = NULL, ty
     if (is_number) {
       verify_entity_number(entity)
       if (brreg_type == 'enheter') {
-        if (type == 'both') {
+        if (is.null(type)) {
           req <- req |>
             req_url_path_append('enheter') |>
             req_url_path_append(entity)
@@ -43,9 +43,15 @@ request_brreg <- function(brreg_type = c('enheter', 'roller'), entity = NULL, ty
           req_url_path_append('roller')
       }
     } else {
-      req <- req |>
-        req_url_path_append('enheter') |>
-        req_url_query('navn' = entity)
+      if (is.null(type) || type == 'main') {
+        req <- req |>
+          req_url_path_append('enheter') |>
+          req_url_query('navn' = entity)
+      } else if (type == 'sub') {
+        req <- req |>
+          req_url_path_append('underenheter') |>
+          req_url_query('navn' = entity)
+      }
     }
   }
   send_query(req)
@@ -58,7 +64,8 @@ parse_brreg_entity <- function(parsed) {
   if ('organisasjonsnummer' %in% names(parsed)) {
     df <- parse_brreg_entity_single(parsed)
   } else if ('_embedded' %in% names(parsed)) {
-    dl <- lapply(parsed$`_embedded`$enheter, parse_brreg_entity_single)
+    name <- names(parsed$`_embedded`) # "enheter" or "underenheter"
+    dl <- lapply(parsed$`_embedded`[[name]], parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
     cli::cli_warn('No entities found.')
