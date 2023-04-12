@@ -10,12 +10,15 @@
 #' parsed response. Note that the response will then be returned silently.
 #'
 #' See the
-#' [API documentation](https://www.udir.no/om-udir/data/nxr/l)
+#' [API documentation](https://www.udir.no/om-udir/data/nxr/)
 #' for further details (in Norwegian only).
 #'
 #' @param x A Norwegian county or municipality code. Use 'all' to retrieve all
-#'    schools.
+#'   schools.
 #' @inheritParams get_entity
+#' @seealso [get_counties()] for retrieving county codes, and [get_municipalities()]
+#'   for retrieving municipality codes.
+#' @return data.frame or list
 #' @export
 #' @examples
 #' # Get schools by county

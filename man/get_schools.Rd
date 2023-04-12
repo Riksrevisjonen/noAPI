@@ -16,6 +16,9 @@ if \code{raw_response} is set to \code{TRUE}.}
 \item{raw_response}{If \code{TRUE} a list of class \code{noAPI} is
 returned, including the raw \code{httr2_response}.}
 }
+\value{
+data.frame or list
+}
 \description{
 Fetch information from the National School Registry (NSR).
 }
@@ -27,7 +30,7 @@ to \code{TRUE}, the raw response from the API will be returned together with the
 parsed response. Note that the response will then be returned silently.
 
 See the
-\href{https://www.udir.no/om-udir/data/nxr/l}{API documentation}
+\href{https://www.udir.no/om-udir/data/nxr/}{API documentation}
 for further details (in Norwegian only).
 }
 \examples{
@@ -41,4 +44,8 @@ get_schools(1101)
 # Get all schools
 df <- get_schools('all')
 }
+}
+\seealso{
+\code{\link[=get_counties]{get_counties()}} for retrieving county codes, and \code{\link[=get_municipalities]{get_municipalities()}}
+for retrieving municipality codes.
 }
