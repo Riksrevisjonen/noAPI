@@ -23,27 +23,6 @@ request_nbr <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL){
   send_query(req)
 }
 
-#' check_digits
-#' @noRd
-check_digits <- function(x) {
-  x <- as.integer(x)
-  x <- floor(log10(x))+1
-  if (all(x %in% c(3,4))) {
-    out <- 'kommune'
-  } else if (all(x %in% c(1,2))) {
-    out <- 'fylke'
-  } else {
-    msg <- 'You cannot retrive data for counties and municipalities at the same time.'
-    cli::cli_abort(
-      c(msg,
-        'x' = 'You provided both county (1-2 digits) and municipal (3-4 digits) in the same function call.',
-        'i' = 'Please clean your data or make seperate queries.'
-      )
-    )
-  }
-  out
-}
-
 #' get_kindergartens_api_endpoint
 #' @noRd
 get_kindergartens_api_endpoint <- function(x) {
