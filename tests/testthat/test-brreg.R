@@ -46,6 +46,26 @@ test_that('get_entity() works for single id queries', {
 
 })
 
+test_that('get_entity() works for sub-entities', {
+  skip_on_cran()
+  skip_if(check_api(brreg_url))
+
+  # numbers
+  df1 <- get_entity(999178197)
+  df2 <- get_entity(999178197, type = 'sub')
+  expect_equal(df1, df2)
+  expect_message(expect_null(get_entity(999178197, type = 'main')))
+
+  # names
+  df1 <- get_entity('KUBEN YRKESARENA')
+  expect_false('KUBEN YRKESARENA' %in% df1$navn)
+  df2 <- get_entity('KUBEN YRKESARENA', type = 'main')
+  expect_equal(df1, df2)
+  df3 <- get_entity('KUBEN YRKESARENA', type = 'sub')
+  expect_true('KUBEN YRKESARENA' %in% df3$navn)
+
+})
+
 test_that('get_entity() works for multitiple id queries', {
   skip_on_cran()
   skip_if(check_api(brreg_url))
@@ -203,19 +223,19 @@ test_that('get_roles() returns NULL on failures', {
 
 test_that('get_brreg_single() fails correctly', {
   # Not valid 9-digit number (internal error)
-  expect_error(get_brreg_single(99999, type = 'enheter'))
-  expect_error(get_brreg_single(12345678, type = 'enheter'))
-  expect_error(get_brreg_single(123456789, type = 'enheter'))
+  expect_error(get_brreg_single(99999, brreg_type = 'enheter'))
+  expect_error(get_brreg_single(12345678, brreg_type = 'enheter'))
+  expect_error(get_brreg_single(123456789, brreg_type = 'enheter'))
 
   # Not valid 9-digit number (internal error)
-  expect_error(get_brreg_single(99999, type = 'roller'))
-  expect_error(get_brreg_single(12345678, type = 'roller'))
-  expect_error(get_brreg_single(123456789, type = 'roller'))
+  expect_error(get_brreg_single(99999, brreg_type = 'roller'))
+  expect_error(get_brreg_single(12345678, brreg_type = 'roller'))
+  expect_error(get_brreg_single(123456789, brreg_type = 'roller'))
 
   # Name not found (internal warning)
   skip_on_cran()
   skip_if(check_api(brreg_url))
-  expect_warning(get_brreg_single('QW124', type = 'enheter'))
+  expect_warning(get_brreg_single('QW124', brreg_type = 'enheter'))
 })
 
 test_that('get_brreg_single() works when raw_response = TRUE', {
@@ -223,14 +243,14 @@ test_that('get_brreg_single() works when raw_response = TRUE', {
   skip_if(check_api(brreg_url))
 
   # Entities
-  res <- get_brreg_single(974760843, type = 'enheter', raw_response = TRUE)
+  res <- get_brreg_single(974760843, brreg_type = 'enheter', type = 'both', raw_response = TRUE)
   expect_true(is.list(res))
   expect_equal(names(res), c('url', 'status', 'content', 'response'))
   expect_identical(class(res), "noAPI")
   expect_true(is.list(res$content))
 
   # Roles
-  res <- get_brreg_single(974760843, type = 'roller', raw_response = TRUE)
+  res <- get_brreg_single(974760843, brreg_type = 'roller', raw_response = TRUE)
   expect_true(is.list(res))
   expect_equal(names(res), c('url', 'status', 'content', 'response'))
   expect_identical(class(res), "noAPI")

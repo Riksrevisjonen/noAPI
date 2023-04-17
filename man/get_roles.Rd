@@ -36,10 +36,10 @@ for further details (in Norwegian only).
 }
 \examples{
 # Get roles for a single entity
-res <- get_roles(974760843)
+df <- get_roles(974760843)
 
 # Get roles for a mulitiple enities
-res <- get_roles(c(974760843, 971524960))
+df <- get_roles(c(974760843, 971524960))
 
 }
 \seealso{
