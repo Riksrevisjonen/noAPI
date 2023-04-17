@@ -16,7 +16,21 @@ test_that("Caching is enabled by default", {
   expect_true(tmp)
   tmp <- r$run(function() memoise::is.memoised(find_address_from_point))
   expect_true(tmp)
-  # ...
+  # SSB Klass functions
+  tmp <- r$run(function() memoise::is.memoised(get_municipalities))
+  expect_true(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_counties))
+  expect_true(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_countries))
+  expect_true(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_adm_units))
+  expect_true(tmp)
+  # UDIR NSR functions
+  tmp <- r$run(function() memoise::is.memoised(get_schools))
+  expect_true(tmp)
+  tmp <- r$run(function() memoise::is.memoised(get_kindergartens))
+  expect_true(tmp)
+  # Stop
   r$kill()
 })
 
