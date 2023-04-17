@@ -6,25 +6,52 @@ null2na <- function(x, na_value = NA_character_ ) {
 
 #' request_brreg
 #' @noRd
-request_brreg <- function(type = c('enheter', 'roller'), entity = NULL) {
-  type <- match.arg(type)
+request_brreg <- function(brreg_type = c('enheter', 'roller'), entity = NULL, type = NULL) {
+  brreg_type <- match.arg(brreg_type)
   req <- request(brreg_url)
-  if (type %in% c('enheter', 'roller')) {
+  if (brreg_type %in% c('enheter', 'roller')) {
     entity <- clean_entity_input(entity)
     is_number <- grepl('\\d+', entity) && !grepl('\\D', entity)
     if (is_number) {
       verify_entity_number(entity)
-      req <- req |>
-        req_url_path_append('enheter') |>
-        req_url_path_append(entity)
-      if (type == 'roller')  {
+      if (brreg_type == 'enheter') {
+        if (is.null(type)) {
+          req <- req |>
+            req_url_path_append('enheter') |>
+            req_url_path_append(entity)
+          # Query for main entity
+          resp <- send_query(req, throttle_rate = 2)
+          # If 404 -> retry as subentity
+          if (resp$status_code == 404) {
+            req$url <- sub('enheter', 'underenheter', req$url)
+            resp <- send_query(req, throttle_rate = 2)
+          }
+          return(resp)
+        } else if (type == 'main') {
+          req <- req |>
+            req_url_path_append('enheter') |>
+            req_url_path_append(entity)
+        } else if (type == 'sub') {
+          req <- req |>
+            req_url_path_append('underenheter') |>
+            req_url_path_append(entity)
+        }
+      } else if (brreg_type == 'roller')  {
         req <- req |>
+          req_url_path_append('enheter') |>
+          req_url_path_append(entity) |>
           req_url_path_append('roller')
       }
     } else {
-      req <- req |>
-        req_url_path_append('enheter') |>
-        req_url_query('navn' = entity)
+      if (is.null(type) || type == 'main') {
+        req <- req |>
+          req_url_path_append('enheter') |>
+          req_url_query('navn' = entity)
+      } else if (type == 'sub') {
+        req <- req |>
+          req_url_path_append('underenheter') |>
+          req_url_query('navn' = entity)
+      }
     }
   }
   send_query(req)
@@ -37,7 +64,8 @@ parse_brreg_entity <- function(parsed) {
   if ('organisasjonsnummer' %in% names(parsed)) {
     df <- parse_brreg_entity_single(parsed)
   } else if ('_embedded' %in% names(parsed)) {
-    dl <- lapply(parsed$`_embedded`$enheter, parse_brreg_entity_single)
+    name <- names(parsed$`_embedded`) # "enheter" or "underenheter"
+    dl <- lapply(parsed$`_embedded`[[name]], parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
     cli::cli_warn('No entities found.')
@@ -49,15 +77,19 @@ parse_brreg_entity <- function(parsed) {
 #' parse_brreg_entity_single
 #' @noRd
 parse_brreg_entity_single <- function(p) {
+
+  al <- brreg_address(p)
+
   # Create data.frame
   data.frame(
     organisasjonsnummer = p$organisasjonsnummer,
     navn = p$navn,
     organisasjonsform_kode = null2na(p$organisasjonsform$kode),
     organisasjonsform_beskrivelse = null2na(p$organisasjonsform$beskrivelse),
-    forretningsadresse = null2na(paste_brreg_address(p$forretningsadresse)),
-    kommune = null2na(p$forretningsadresse$kommune),
-    land = null2na(p$forretningsadresse$land),
+    forretningsadresse = al$forretningsadresse,
+    beliggenhetsadresse = al$beliggenhetsadresse,
+    kommune = al$kommune,
+    land = al$land,
     postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
     antall_ansatte = null2na(p$antallAnsatte),
@@ -187,4 +219,42 @@ paste_brreg_address <- function(x) {
   }
   out <- gsub('\\s+', ' ', out)
   out
+}
+
+#' brreg_address
+#' @noRd
+brreg_address <- function(p){
+  # forretningsadresse
+  if (!is.null(p$forretningsadresse)) {
+    forretningsadresse <- paste_brreg_address(p$forretningsadresse)
+    beliggenhetsadresse <- NA_character_
+  } else if (!is.null(p$beliggenhetsadresse)) {
+    forretningsadresse <- NA_character_
+    beliggenhetsadresse <- paste_brreg_address(p$beliggenhetsadresse)
+  } else {
+    forretningsadresse <- NA_character_
+    beliggenhetsadresse <- NA_character_
+  }
+  # kommune
+  if (!is.null(p$forretningsadresse$kommune)) {
+    kommune <- p$forretningsadresse$kommune
+  } else if (!is.null(p$beliggenhetsadresse$kommune)) {
+    kommune <- p$beliggenhetsadresse$kommune
+  } else {
+    kommune <- NA_character_
+  }
+  # land
+  if (!is.null(p$forretningsadresse$land)) {
+    land <- p$forretningsadresse$land
+  } else if (!is.null(p$beliggenhetsadresse$land)) {
+    land <- p$beliggenhetsadresse$land
+  } else {
+    land <- NA_character_
+  }
+  list(
+    forretningsadresse = forretningsadresse,
+    beliggenhetsadresse = beliggenhetsadresse,
+    kommune = kommune,
+    land = land
+  )
 }
