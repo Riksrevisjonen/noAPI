@@ -51,13 +51,18 @@ based on the entity's name or organisation number.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_entity</span><span class="op">(</span><span class="va">entity</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span>, raw_response <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_entity</span><span class="op">(</span><span class="va">entity</span>, type <span class="op">=</span> <span class="cn">NULL</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span>, raw_response <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>entity</dt>
 <dd><p>A Norwegian organisation number or company name.</p></dd>
+
+
+<dt>type</dt>
+<dd><p>Optional. Type entity to query. Either main, sub or NULL
+(default). See details.</p></dd>
 
 
 <dt>simplify</dt>
@@ -78,7 +83,16 @@ returned, including the raw <code>httr2_response</code>.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function returns a data.frame by default. If you prefer the output
+    <p>Users should be aware that queries for entity names and numbers are handled
+somewhat differently. By default (<code>type = NULL</code>) queries for <em>numbers</em>
+will first send requests to the registry for <em>main entities</em>, but will then
+also query the registry for <em>sub-entities</em> in case no information is found
+in the first query. This ensures that any entity number still in use
+will return a valid response. For <em>names</em> however <code>get_entity()</code> will only
+query the registry for <em>main entities</em>, unless <code>type</code> is explicitly set to
+<code>sub</code>. Further information on the use of sub-entities can be found
+<a href="https://www.brreg.no/bedrift/underenhet/" class="external-link">here</a>.</p>
+<p>The function returns a data.frame by default. If you prefer the output
 as a list you can set <code>simplify</code> to <code>FALSE</code>. This can be useful to keep
 programmatically track of failed queries. If you set <code>raw_response</code>
 to <code>TRUE</code>, the raw response from the API will be returned together with the
@@ -98,6 +112,12 @@ for further details (in Norwegian only).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get multiple entities</span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">get_entity</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">974760843</span>, <span class="fl">971524960</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get information on sub-entities (number)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">get_entity</span><span class="op">(</span><span class="fl">999178197</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#' # Get information on sub-entities (name)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">get_entity</span><span class="op">(</span><span class="st">'Kuben Yrkesarena'</span>, type <span class="op">=</span> <span class="st">'sub'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
