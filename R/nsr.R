@@ -33,7 +33,7 @@
 #' }
 get_schools <- function(x, simplify = TRUE, raw_response = FALSE) {
   common_info(simplify, raw_response)
-  l <- get_schools_api_endpoint(x)
+  l <- get_udir_api_endpoint(x)
   if (l$type == 'alle') {
     dl <- get_schools_safe(type = 'alle', raw_response = raw_response)
     if (raw_response) return(invisible(dl))
@@ -52,8 +52,8 @@ get_schools_single <- function(unit = NULL,
                                type = c('kommune', 'fylke', 'alle'),
                                raw_response = FALSE) {
   type <- match.arg(type)
-  resp <- request_nsr(type, unit)
-  parsed <- parse_nsr(type, resp)
+  resp <- request_udir(type, unit, api_type = 'skole')
+  parsed <- parse_udir(type, resp)
   if (raw_response) {
     out <- make_api_object(resp, parsed)
   } else {
