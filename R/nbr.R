@@ -1,6 +1,6 @@
-#' Get schools
+#' Get kindergartens
 #'
-#' Fetch information from the National School Registry (NSR).
+#' Fetch information from the National Kindergarten Registry (NBR).
 #'
 #' @details
 #' The function returns a data.frame by default. If you prefer the output
@@ -14,7 +14,7 @@
 #' for further details (in Norwegian only).
 #'
 #' @param x A Norwegian county or municipality code. Use 'all' to retrieve all
-#'   schools.
+#'   kindergartens
 #' @inheritParams get_entity
 #' @seealso [get_counties()] for retrieving county codes, and [get_municipalities()]
 #'   for retrieving municipality codes.
@@ -22,37 +22,37 @@
 #' @export
 #' @examples
 #' # Get schools by county
-#' get_schools(11)
+#' get_kindergartens(11)
 #'
 #' # Get schools by municipality
-#' get_schools(1101)
+#' get_kindergartens(1101)
 #'
 #' \dontrun{
 #' # Get all schools
-#' df <- get_schools('all')
+#' df <- get_kindergartens('all')
 #' }
-get_schools <- function(x, simplify = TRUE, raw_response = FALSE) {
+get_kindergartens <- function(x, simplify = TRUE, raw_response = FALSE) {
   common_info(simplify, raw_response)
   l <- get_udir_api_endpoint(x)
   if (l$type == 'alle') {
-    dl <- get_schools_safe(type = 'alle', raw_response = raw_response)
+    dl <- get_kindergartens_safe(type = 'alle', raw_response = raw_response)
     if (raw_response) return(invisible(dl))
     if (!simplify) return(list(dl))
   } else {
-    dl <- lapply(l$unit, get_schools_safe, type = l$type, raw_response = raw_response)
+    dl <- lapply(l$unit, get_kindergartens_safe, type = l$type, raw_response = raw_response)
     if (raw_response) return(invisible(dl))
     if (simplify) return(do.call('rbind', dl))
   }
   dl
 }
 
-#' get_schools_single
+#' get_kindergartens_single
 #' @noRd
-get_schools_single <- function(unit = NULL,
+get_kindergartens_single <- function(unit = NULL,
                                type = c('kommune', 'fylke', 'alle'),
                                raw_response = FALSE) {
   type <- match.arg(type)
-  resp <- request_udir(type, unit, api_type = 'skole')
+  resp <- request_udir(type, unit, api_type = 'barnehage')
   parsed <- parse_udir(type, resp)
   if (raw_response) {
     out <- make_api_object(resp, parsed)
@@ -64,8 +64,8 @@ get_schools_single <- function(unit = NULL,
   out
 }
 
-#' get_schools_safe
-#' @inheritParams get_schools_single
+#' get_kindergartens_safe
+#' @inheritParams get_kindergartens_single
 #' @noRd
-get_schools_safe <-
-  purrr::possibly(get_schools_single, otherwise = NULL, quiet = FALSE)
+get_kindergartens_safe <-
+  purrr::possibly(get_kindergartens_single, otherwise = NULL, quiet = FALSE)

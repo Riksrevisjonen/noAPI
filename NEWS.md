@@ -7,6 +7,8 @@
 ## New features
 
 * Add new function `get_schools()` (#33)
+* Add new function `get_kindergartens()` (#34)
+
 
 # noAPI 0.1.0 (March 29 2023)
 

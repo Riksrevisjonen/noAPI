@@ -6,6 +6,7 @@ nbank_url <- 'https://data.norges-bank.no/api/'
 kv_url <- 'https://ws.geonorge.no/adresser/'
 ssb_url <- 'https://data.ssb.no/api/'
 nsr_url <- 'https://data-nsr.udir.no/v3/enheter/'
+nbr_url <- 'https://data-nbr.udir.no/v3/enheter/'
 
 versions <- request(ssb_url) %>%
   req_url_path_append('klass/v1/classifications/131') %>%
@@ -56,6 +57,7 @@ usethis::use_data(
   kv_url,
   ssb_url,
   nsr_url,
+  nbr_url,
   klass_municipalities,
   klass_counties,
   klass_countries,

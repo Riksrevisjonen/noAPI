@@ -1,8 +1,11 @@
-#' request_nsr
+#' request_udir
 #' @noRd
-request_nsr <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL){
+request_udir <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL,
+                         api_type = c('skole', 'barnehage')){
   type <- match.arg(type)
-  req <- request(nsr_url)
+  api_type <- match.arg(api_type)
+  if (api_type == 'skole') u <- nsr_url else u <- nbr_url
+  req <- request(u)
   if (type == 'kommune') {
     if (is.numeric(unit)) unit <- sprintf('%04d', unit)
     if (is.character(unit)) unit <- sprintf('%04s', unit)
@@ -23,9 +26,40 @@ request_nsr <- function(type = c('kommune', 'fylke', 'alle'), unit = NULL){
   send_query(req)
 }
 
-#' check_digits
+#' get_udir_api_endpoint
 #' @noRd
-check_digits <- function(x) {
+get_udir_api_endpoint <- function(x) {
+  if (length(x) > 1 & any(grepl('all', x))) {
+    msg <- "You cannot use 'all' and unit codes at the same time."
+    cli::cli_abort(
+      c(msg,
+        'i' = 'Please clean your data or make seperate queries.'
+      )
+    )
+  }
+  if (x[1] == 'all') {
+    type <- 'alle'
+    unit <- NULL
+  } else {
+    type <- check_digits_udir(x)
+    unit <- x
+  }
+  list(type = type, unit = unit)
+}
+
+#' parse_udir
+#' @noRd
+parse_udir <- function(type = c('kommune', 'fylke', 'alle'), resp) {
+  type <- match.arg(type)
+  parsed <- resp_body_json(resp, simplifyVector = TRUE)
+  if (type == 'alle') parsed <- parsed$Enheter
+  parsed
+}
+
+
+#' check_digits_udir
+#' @noRd
+check_digits_udir <- function(x) {
   x <- as.integer(x)
   x <- floor(log10(x))+1
   if (all(x %in% c(3,4))) {
@@ -42,34 +76,4 @@ check_digits <- function(x) {
     )
   }
   out
-}
-
-#' get_schools_api_endpoint
-#' @noRd
-get_schools_api_endpoint <- function(x) {
-  if (length(x) > 1 & any(grepl('all', x))) {
-    msg <- "You cannot use 'all' and unit codes at the same time."
-    cli::cli_abort(
-      c(msg,
-        'i' = 'Please clean your data or make seperate queries.'
-      )
-    )
-  }
-  if (x[1] == 'all') {
-    type <- 'alle'
-    unit <- NULL
-  } else {
-    type <- check_digits(x)
-    unit <- x
-  }
-  list(type = type, unit = unit)
-}
-
-#' parse_nsr
-#' @noRd
-parse_nsr <- function(type = c('kommune', 'fylke', 'alle'), resp) {
-  type <- match.arg(type)
-  parsed <- resp_body_json(resp, simplifyVector = TRUE)
-  if (type == 'alle') parsed <- parsed$Enheter
-  parsed
 }

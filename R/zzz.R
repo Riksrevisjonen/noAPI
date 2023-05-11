@@ -14,6 +14,7 @@
     get_adm_units <<- memoise::memoise(get_adm_units, cache = cm)
     # UDIR NSR functions
     get_schools <<- memoise::memoise(get_schools, cache = cm)
+    get_kindergartens <<- memoise::memoise(get_kindergartens, cache = cm)
   }
 }
 
