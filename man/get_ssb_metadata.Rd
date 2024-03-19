@@ -5,10 +5,7 @@
 \alias{get_ssb_metadata_tags}
 \title{Get SSB table meta data}
 \usage{
-get_ssb_metadata(
-  url = "https://data.ssb.no/api/v0/dataset/list.csv?lang=no",
-  data_tag = NULL
-)
+get_ssb_metadata(data_tag = NULL)
 
 get_ssb_metadata_tags()
 }
@@ -33,13 +30,13 @@ See the \href{https://data.ssb.no/api/}{API documentation} for further details (
 }
 \examples{
 # Get data frame of all meta data
-get_ssb_metadata()
+ssb_metadata <- get_ssb_metadata()
 
 # Get a subset of meta data which contains certain tags
-get_ssb_metadata(data_tag = "arbeidskraft")
+ssb_metadata_arbeidskraft <- get_ssb_metadata(data_tag = 'arbeidskraft')
 
 # Get data frame of all tags used in the meta data, along with the number of times the tag has been used.
-get_ssb_metadata_tags()
+tag_list <- get_ssb_metadata_tags()
 }
 \seealso{
 \code{\link[=get_ssb_metadata_tags]{get_ssb_metadata_tags()}} to view all meta data tags, and \code{\link[=get_ssb_table]{get_ssb_table()}}

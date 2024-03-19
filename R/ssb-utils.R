@@ -1,47 +1,30 @@
-#' extract_table
+#' request_ssb
 #' @noRd
-extract_table <- function(url){
-  resp <- tryCatch({
-    GET(url, config(ssl_verifypeer = 0L))
-  }, error = function(e) {
-    message("Error in GET request: ", e)
-    return(NULL)
-  })
+request_ssb <- function(url) {
 
-  content <- httr::content(resp, "text")
+  resp <- url |>
+    request() |>
+    send_query()
 
-  data <- read.csv2(text = content, dec = ",")
+  ssb_data <- read.csv2(textConnection(httr2::resp_body_string(resp), encoding = 'UTF-8'), encoding = 'UTF-8')
 
-  return(data)
+  ssb_data <- clean_column_names(ssb_data)
+
 }
 
 #' clean_table
 #' @noRd
-clean_table <- function(df) {
+clean_column_names <- function(x) {
 
-  column_names <- colnames(df)
+  column_names <- colnames(x)
 
-  # Convert to lower case
-  column_names <- tolower(column_names)
+  column_names <- column_names|>
+    tolower() |>
+    gsub('([^[:alnum:]])', ' ', x = _) |>
+    trimws() |>
+    gsub('\\s+', '_', x = _)
 
-  # Remove leading or trailing spaces
-  column_names <- trimws(column_names)
+  colnames(x) <- column_names
 
-  # Replace non-alphanumeric characters with empty string
-  column_names <- gsub("[^[:alnum:]_]", " ", column_names)
-
-  # Remove leading digits
-  column_names <- gsub("^\\d+", "", column_names)
-
-  # Replace empty column names with "unnamed"
-  column_names[column_names == ""] <- "unnamed"
-
-  # Replace spaces with underscores
-  column_names <- gsub(" ", "_", column_names)
-
-  # Assign the cleaned names back to the data frame
-  colnames(df) <- column_names
-
-  # Return the data frame
-  return(df)
+  return(x)
 }

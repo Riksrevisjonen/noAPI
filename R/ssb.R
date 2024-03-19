@@ -18,20 +18,22 @@
 #' @export
 #' @examples
 #' # Get data frame of all meta data
-#' get_ssb_metadata()
+#' ssb_metadata <- get_ssb_metadata()
 #'
 #' # Get a subset of meta data which contains certain tags
-#' get_ssb_metadata(data_tag = "arbeidskraft")
+#' ssb_metadata_arbeidskraft <- get_ssb_metadata(data_tag = 'arbeidskraft')
 #'
-get_ssb_metadata <- function(url = "https://data.ssb.no/api/v0/dataset/list.csv?lang=no", data_tag = NULL) {
+get_ssb_metadata <- function(data_tag = NULL) {
 
-  ssb_metadata <- extract_table(url)
+  metadata_url <- paste0(ssb_url, 'v0/dataset/list.csv?lang=no')
+
+  ssb_metadata <- request_ssb(metadata_url)
 
   ssb_metadata[] <- lapply(ssb_metadata, function(x) if(is.integer(x)) as.character(x) else x)
 
   if (!is.null(data_tag)){
     ssb_metadata <- subset(ssb_metadata, grepl(data_tag, tags))
-    ssb_metadata$tabell_nummer <- sapply(strsplit(ssb_metadata$tags, " "), '[', 1)
+    ssb_metadata$table_number <- sapply(strsplit(ssb_metadata$tags, ' '), '[', 1)
   }
 
   return(ssb_metadata)
@@ -49,12 +51,12 @@ get_ssb_metadata <- function(url = "https://data.ssb.no/api/v0/dataset/list.csv?
 #'
 #' @examples
 #' # Get data frame of all tags used in the meta data, along with the number of times the tag has been used.
-#' get_ssb_metadata_tags()
+#' tag_list <- get_ssb_metadata_tags()
 get_ssb_metadata_tags <- function(){
 
   ssb_data <- get_ssb_metadata()
 
-  words_list <- strsplit(ssb_data$tags, " ")
+  words_list <- strsplit(ssb_data$tags, ' ')
 
   words_df <- data.frame(word = unlist(words_list))
 
@@ -90,23 +92,12 @@ get_ssb_metadata_tags <- function(){
 #' # Get data frame of all meta data
 #' ssb_metadata <- get_ssb_metadata()
 #'
-#' # Get data frame of table with ID "1104"
-#' table_1104 <- get_ssb_table("1104")
+#' # Get data frame of table with ID '1104'
+#' table_1104 <- get_ssb_table('1104')
 get_ssb_table <- function(id) {
+    table_url <- paste0(ssb_url, 'v0/dataset/', id,'.csv?lang=no')
 
-  df <- get_ssb_metadata()
+    ssb_data <- request_ssb(table_url)
 
-  filtered_df <- df[df$id == id, ]
-
-  if (nrow(filtered_df) == 0) {
-    stop("No data found for id")
+    return(ssb_data)
   }
-
-  url <- filtered_df[["csvURI"]]
-
-  ssb_table <- extract_table(url)
-
-  ssb_table <- ssb_table |> clean_table()
-
-  return(ssb_table)
-}

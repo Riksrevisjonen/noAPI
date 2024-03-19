@@ -29,6 +29,6 @@ See the \href{https://data.ssb.no/api/}{API documentation} for further details (
 # Get data frame of all meta data
 ssb_metadata <- get_ssb_metadata()
 
-# Get data frame of table with ID "1104"
-table_1104 <- get_ssb_table("1104")
+# Get data frame of table with ID '1104'
+table_1104 <- get_ssb_table('1104')
 }
