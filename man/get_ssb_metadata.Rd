@@ -2,46 +2,36 @@
 % Please edit documentation in R/ssb.R
 \name{get_ssb_metadata}
 \alias{get_ssb_metadata}
-\alias{get_ssb_metadata_tags}
-\title{Get SSB table meta data}
+\title{Get SSB table metadata}
 \usage{
 get_ssb_metadata(data_tag = NULL)
-
-get_ssb_metadata_tags()
+}
+\arguments{
+\item{data_tag}{Optional. Data tag to filter on.}
 }
 \value{
 data.frame
-
-data.frame
 }
 \description{
-Fetch meta data of ready-made tables from Statistics Norway (SSB).
-
-Fetch av overview of all tags used in the meta data
+Fetch metadata for ready-made tables from Statistics Norway (SSB).
 }
 \details{
-The function returns a data.frame with an overview (meta data) of all the available ready-made
+The function returns an overview of all the available ready-made
 tables produced by Statistics Norway.
 
-Note that the meta data is updated daily at 05.00 and 11.30 AM, which can lead to all tables
-being unavailable for up to five minutes.
+Note that the metadata is updated daily at 05.00 and 11.30 AM, which can lead
+to the API being unavailable for up to five minutes.
 
-See the \href{https://data.ssb.no/api/}{API documentation} for further details (in Norwegian only).
+See the \href{https://data.ssb.no/api/}{API documentation} for further details.
 }
 \examples{
-# Get data frame of all meta data
+# Get all metadata
 ssb_metadata <- get_ssb_metadata()
 
-# Get a subset of meta data which contains certain tags
+# Get a subset containing certain tags
 ssb_metadata_arbeidskraft <- get_ssb_metadata(data_tag = 'arbeidskraft')
 
-# Get data frame of all tags used in the meta data, along with the number of times the tag has been used.
-tag_list <- get_ssb_metadata_tags()
 }
 \seealso{
-\code{\link[=get_ssb_metadata_tags]{get_ssb_metadata_tags()}} to view all meta data tags, and \code{\link[=get_ssb_table]{get_ssb_table()}}
-to retrieve the actual tables.
-
-\code{\link[=get_ssb_metadata]{get_ssb_metadata()}} to view all meta data, and \code{\link[=get_ssb_table]{get_ssb_table()}}
-to retrieve the actual tables.
+\code{\link[=get_ssb_table]{get_ssb_table()}} to retrieve the actual tables.
 }

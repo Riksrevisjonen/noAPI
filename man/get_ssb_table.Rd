@@ -7,7 +7,7 @@
 get_ssb_table(id)
 }
 \arguments{
-\item{id}{The table ID corresponding with the ID variable in the meta data.}
+\item{id}{The table ID. Corresponds to the ID variable in the metadata.}
 }
 \value{
 data.frame
@@ -16,19 +16,18 @@ data.frame
 Fetch ready-made tables from Statistics Norway (SSB).
 }
 \details{
-The function returns a ready-made table produced by Statistics Norway, based on a
-provided table ID. A list of all available IDs can be found by running
-the function \code{\link[=get_ssb_metadata]{get_ssb_metadata()}}.
+The function returns a ready-made table produced by Statistics Norway, based on the
+provided table ID. A list of all available IDs can be found with \code{\link[=get_ssb_metadata]{get_ssb_metadata()}}.
 
-Note that the meta data is updated daily at 05.00 and 11.30 AM, which can lead to all tables
-being unavailable for up to five minutes.
+Note that the metadata is updated daily at 05.00 and 11.30 AM, which can lead
+to the API being unavailable for up to five minutes.
 
-See the \href{https://data.ssb.no/api/}{API documentation} for further details (in Norwegian only).
+See the \href{https://data.ssb.no/api/}{API documentation} for further details.
 }
 \examples{
-# Get data frame of all meta data
-ssb_metadata <- get_ssb_metadata()
-
-# Get data frame of table with ID '1104'
-table_1104 <- get_ssb_table('1104')
+# Get table with ID '1104'
+df <- get_ssb_table('1104')
+}
+\seealso{
+\code{\link[=get_ssb_metadata]{get_ssb_metadata()}} to view the metadata.
 }
