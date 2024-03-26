@@ -92,6 +92,7 @@ parse_brreg_entity_single <- function(p) {
     forretningsadresse = al$forretningsadresse,
     beliggenhetsadresse = al$beliggenhetsadresse,
     kommune = al$kommune,
+    kommunenummer = al$kommunenummer,
     land = al$land,
     postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
@@ -238,26 +239,30 @@ brreg_address <- function(p){
     forretningsadresse <- NA_character_
     beliggenhetsadresse <- NA_character_
   }
-  # kommune
-  if (!is.null(p$forretningsadresse$kommune)) {
-    kommune <- p$forretningsadresse$kommune
-  } else if (!is.null(p$beliggenhetsadresse$kommune)) {
-    kommune <- p$beliggenhetsadresse$kommune
-  } else {
-    kommune <- NA_character_
-  }
-  # land
-  if (!is.null(p$forretningsadresse$land)) {
-    land <- p$forretningsadresse$land
-  } else if (!is.null(p$beliggenhetsadresse$land)) {
-    land <- p$beliggenhetsadresse$land
-  } else {
-    land <- NA_character_
-  }
+  kommune <- get_address_value(p, 'kommune')
+  kommunenummer <- get_address_value(p, 'kommunenummer', NA_integer_)
+  land <- get_address_value(p, 'land')
+
   list(
     forretningsadresse = forretningsadresse,
     beliggenhetsadresse = beliggenhetsadresse,
     kommune = kommune,
+    kommunenummer = kommunenummer,
     land = land
   )
+}
+
+
+
+
+#' get_address_value
+#' @noRd
+get_address_value <- function(p, field, default = NA_character_) {
+  if (!is.null(p$forretningsadresse[[field]])) {
+    return(p$forretningsadresse[[field]])
+  } else if (!is.null(p$beliggenhetsadresse[[field]])) {
+    return(p$beliggenhetsadresse[[field]])
+  } else {
+    return(default)
+  }
 }
