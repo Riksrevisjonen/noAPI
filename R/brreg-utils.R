@@ -68,7 +68,8 @@ parse_brreg_entity <- function(parsed) {
     dl <- lapply(parsed$`_embedded`[[name]], parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
-    cli::cli_warn('No entities found.')
+    x <- gsub('.*=', '', parsed$`_links`$self$href)
+    cli::cli_warn('No data found for \'{x}\'')
     return(invisible(NULL))
   }
   df <- df[order(df$organisasjonsnummer),]
