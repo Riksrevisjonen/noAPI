@@ -16,6 +16,9 @@
     <loc>https://riksrevisjonen.github.io/noAPI/news/index.html</loc>
   </url>
   <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/count_ssb_tags.html</loc>
+  </url>
+  <url>
     <loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_punktsok.html</loc>
   </url>
   <url>
@@ -50,6 +53,12 @@
   </url>
   <url>
     <loc>https://riksrevisjonen.github.io/noAPI/reference/get_schools.html</loc>
+  </url>
+  <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_metadata.html</loc>
+  </url>
+  <url>
+    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_table.html</loc>
   </url>
   <url>
     <loc>https://riksrevisjonen.github.io/noAPI/reference/index.html</loc>
