@@ -71,6 +71,8 @@ parse_brreg_entity <- function(parsed) {
     cli::cli_warn('No entities found.')
     return(invisible(NULL))
   }
+  df <- df[order(df$organisasjonsnummer),]
+  rownames(df) <- NULL
   df
 }
 
@@ -92,7 +94,7 @@ parse_brreg_entity_single <- function(p) {
     land = al$land,
     postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
-    antall_ansatte = null2na(p$antallAnsatte),
+    antall_ansatte = null2na(p$antallAnsatte, NA_integer_),
     registeringsdato = null2na(p$registreringsdatoEnhetsregisteret),
     naeringskode_kode = null2na(p$naeringskode1$kode),
     naeringskode_beskrivelse = null2na(p$naeringskode1$beskrivelse),
@@ -103,8 +105,8 @@ parse_brreg_entity_single <- function(p) {
     registrert_stiftelsesregisteret = null2na(p$registrertIStiftelsesregisteret),
     registrert_frivillinghetsregisteret = null2na(p$registrertIFrivillighetsregisteret),
     overordnet_enhet = null2na(p$overordnetEnhet),
-    konkurs = null2na(p$konkurs),
-    under_avvikling = null2na(p$underAvvikling)
+    konkurs = null2na(p$konkurs, NA),
+    under_avvikling = null2na(p$underAvvikling, NA)
   )
 }
 
@@ -149,8 +151,8 @@ parse_brreg_roles_single <- function(p, entity) {
       organisasjonsform_kode = null2na(p$enhet$organisasjonsform$kode),
       organisasjonsform_beskrivelse = null2na(p$enhet$organisasjonsform$beskrivelse),
       er_slettet = null2na(p$enhet$erSlettet, NA),
-      fratraadt = null2na(p$fratraadt),
-      rekkefolge = null2na(p$rekkefolge)
+      fratraadt = null2na(p$fratraadt, NA),
+      rekkefolge = null2na(p$rekkefolge, NA_integer_)
     )
   }
 }
