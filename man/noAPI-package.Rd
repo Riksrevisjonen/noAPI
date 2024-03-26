@@ -13,8 +13,9 @@ Retrive data from public Norwegian APIs through easy-to-use functions.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/Riksrevisjonen/noAPI}
   \item \url{https://riksrevisjonen.github.io/noAPI/}
-  \item Report bugs at \url{https://riksrevisjonen.github.io/noAPI/issues}
+  \item Report bugs at \url{https://github.com/Riksrevisjonen/noAPI/issues}
 }
 
 }
@@ -28,6 +29,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Joachim Sandnes \email{jsn@riksrevisjonen.no} [contributor]
   \item  Riksrevisjonen [copyright holder]
 }
 

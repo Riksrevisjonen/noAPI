@@ -14,8 +14,8 @@ Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://riksrevisjonen.github.io/noAPI/
-BugReports: https://riksrevisjonen.github.io/noAPI/issues
+URL: https://github.com/Riksrevisjonen/noAPI, https://riksrevisjonen.github.io/noAPI/
+BugReports: https://github.com/Riksrevisjonen/noAPI/issues
 Suggests:
     bench,
     covr,
@@ -36,4 +36,4 @@ Imports:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends:
-    R (>= 4.1)
+    R (>= 4.3)
