@@ -15,6 +15,9 @@
     # UDIR NSR functions
     get_schools <<- memoise::memoise(get_schools, cache = cm)
     get_kindergartens <<- memoise::memoise(get_kindergartens, cache = cm)
+    # SSB ready-made dataset functions
+    get_ssb_metadata <<- memoise::memoise(get_ssb_metadata, cache = cm)
+    get_ssb_table <<- memoise::memoise(get_ssb_table, cache = cm)
   }
 }
 
