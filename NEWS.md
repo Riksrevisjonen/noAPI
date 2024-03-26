@@ -8,6 +8,7 @@
 
 * Add new function `get_schools()` (#33)
 * Add new function `get_kindergartens()` (#34)
+* Add functionality to fetch data from Statistics Norway's ready-made datasets (#56)
 
 
 # noAPI 0.1.0 (March 29 2023)
