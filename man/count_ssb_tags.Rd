@@ -6,6 +6,9 @@
 \usage{
 count_ssb_tags(metadata)
 }
+\arguments{
+\item{metadata}{A data frame with SSB metadata.}
+}
 \value{
 data.frame
 }

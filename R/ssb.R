@@ -38,6 +38,7 @@ get_ssb_metadata <- function(data_tag = NULL) {
 #'
 #' Count the number of times a tag has been used.
 #'
+#' @param metadata A data frame with SSB metadata.
 #' @return data.frame
 #' @export
 #'
@@ -49,7 +50,7 @@ get_ssb_metadata <- function(data_tag = NULL) {
 count_ssb_tags <- function(metadata){
   words_list <- strsplit(metadata$tags, ' ')
   words_df <- data.frame(word = unlist(words_list))
-  words_df$tag_count <- ave(seq_along(words_df$word), words_df$word, FUN = length)
+  words_df$tag_count <- stats::ave(seq_along(words_df$word), words_df$word, FUN = length)
   words_df <- words_df[order(-words_df$tag_count),]
   words_df <- words_df[!duplicated(words_df$word),]
   return(words_df)
