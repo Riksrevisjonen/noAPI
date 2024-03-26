@@ -50,10 +50,6 @@ parse_response <- function(resp, simplifyVector = TRUE){
   }
   if (type == 'application/json') {
     parsed <- resp_body_json(resp, simplifyVector = simplifyVector)
-
-  } else if (type == "text/plain") {
-       #parsed <- read.csv2(textConnection(httr2::resp_body_string(resp), encoding = "UTF-8"), encoding = "UTF-8")
-
   } else {
     cli::cli_abort(c(
       'The API returned an unknown content type',
