@@ -229,7 +229,7 @@ test_that('get_address_info_single() works when mulitiple pages are found', {
   res1 <- rlang::with_interactive({
     suppressWarnings(
       get_address_info_single(
-        search = 'munkegata trondheim 1',
+        search = 'munkegata trondheim',
         crs = 4258, size = 25)
     )
   }, value = FALSE)
@@ -238,7 +238,7 @@ test_that('get_address_info_single() works when mulitiple pages are found', {
   res2 <- suppressMessages(
     rlang::with_interactive({
       get_address_info_single(
-        search = 'munkegata trondheim 1',
+        search = 'munkegata trondheim',
         crs = 4258, size = 25)
     }, value = TRUE)
   )

@@ -3,6 +3,7 @@
 ## Enhancements
 
 * Add functionality to retrieve sub-entities from the _Central Coordinating Register for Legal Entities_ to `get_entity()` (#47)
+* Add municipality number to the response from `get_entity()`
 
 ## New features
 
@@ -10,6 +11,9 @@
 * Add new function `get_kindergartens()` (#34)
 * Add functionality to fetch data from Statistics Norway's ready-made datasets (#56)
 
+## Bug fixes
+
+* Improve warning message for `get_entity()` when a name query fails (#51)
 
 # noAPI 0.1.0 (March 29 2023)
 
@@ -36,4 +40,3 @@ SSB:
 Norges Bank:
 
 * `get_exchange_rate()`
-

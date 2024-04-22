@@ -36,4 +36,4 @@ Imports:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends:
-    R (>= 4.3)
+    R (>= 4.2)

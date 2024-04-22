@@ -68,9 +68,12 @@ parse_brreg_entity <- function(parsed) {
     dl <- lapply(parsed$`_embedded`[[name]], parse_brreg_entity_single)
     df <- do.call('rbind', dl)
   } else if (length(names(parsed) == 2)) { # "_links" "page"
-    cli::cli_warn('No entities found.')
+    x <- gsub('.*=', '', parsed$`_links`$self$href)
+    cli::cli_warn('No data found for \'{x}\'')
     return(invisible(NULL))
   }
+  df <- df[order(df$organisasjonsnummer),]
+  rownames(df) <- NULL
   df
 }
 
@@ -89,10 +92,11 @@ parse_brreg_entity_single <- function(p) {
     forretningsadresse = al$forretningsadresse,
     beliggenhetsadresse = al$beliggenhetsadresse,
     kommune = al$kommune,
+    kommunenummer = al$kommunenummer,
     land = al$land,
     postadresse = null2na(paste_brreg_address(p$postadresse)),
     internettadresse = null2na(p$hjemmeside),
-    antall_ansatte = null2na(p$antallAnsatte),
+    antall_ansatte = null2na(p$antallAnsatte, NA_integer_),
     registeringsdato = null2na(p$registreringsdatoEnhetsregisteret),
     naeringskode_kode = null2na(p$naeringskode1$kode),
     naeringskode_beskrivelse = null2na(p$naeringskode1$beskrivelse),
@@ -103,8 +107,8 @@ parse_brreg_entity_single <- function(p) {
     registrert_stiftelsesregisteret = null2na(p$registrertIStiftelsesregisteret),
     registrert_frivillinghetsregisteret = null2na(p$registrertIFrivillighetsregisteret),
     overordnet_enhet = null2na(p$overordnetEnhet),
-    konkurs = null2na(p$konkurs),
-    under_avvikling = null2na(p$underAvvikling)
+    konkurs = null2na(p$konkurs, NA),
+    under_avvikling = null2na(p$underAvvikling, NA)
   )
 }
 
@@ -149,8 +153,8 @@ parse_brreg_roles_single <- function(p, entity) {
       organisasjonsform_kode = null2na(p$enhet$organisasjonsform$kode),
       organisasjonsform_beskrivelse = null2na(p$enhet$organisasjonsform$beskrivelse),
       er_slettet = null2na(p$enhet$erSlettet, NA),
-      fratraadt = null2na(p$fratraadt),
-      rekkefolge = null2na(p$rekkefolge)
+      fratraadt = null2na(p$fratraadt, NA),
+      rekkefolge = null2na(p$rekkefolge, NA_integer_)
     )
   }
 }
@@ -235,26 +239,30 @@ brreg_address <- function(p){
     forretningsadresse <- NA_character_
     beliggenhetsadresse <- NA_character_
   }
-  # kommune
-  if (!is.null(p$forretningsadresse$kommune)) {
-    kommune <- p$forretningsadresse$kommune
-  } else if (!is.null(p$beliggenhetsadresse$kommune)) {
-    kommune <- p$beliggenhetsadresse$kommune
-  } else {
-    kommune <- NA_character_
-  }
-  # land
-  if (!is.null(p$forretningsadresse$land)) {
-    land <- p$forretningsadresse$land
-  } else if (!is.null(p$beliggenhetsadresse$land)) {
-    land <- p$beliggenhetsadresse$land
-  } else {
-    land <- NA_character_
-  }
+  kommune <- get_address_value(p, 'kommune')
+  kommunenummer <- get_address_value(p, 'kommunenummer', NA_integer_)
+  land <- get_address_value(p, 'land')
+
   list(
     forretningsadresse = forretningsadresse,
     beliggenhetsadresse = beliggenhetsadresse,
     kommune = kommune,
+    kommunenummer = kommunenummer,
     land = land
   )
+}
+
+
+
+
+#' get_address_value
+#' @noRd
+get_address_value <- function(p, field, default = NA_character_) {
+  if (!is.null(p$forretningsadresse[[field]])) {
+    return(p$forretningsadresse[[field]])
+  } else if (!is.null(p$beliggenhetsadresse[[field]])) {
+    return(p$beliggenhetsadresse[[field]])
+  } else {
+    return(default)
+  }
 }
