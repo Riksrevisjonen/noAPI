@@ -1,6 +1,6 @@
 Package: noAPI
 Title: R Client For Public Norwegian APIs
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person("Ove Haugland", "Jakobsen", role = c("aut", "cre"), email = "ohj@riksrevisjonen.no"),
     person("Aleksander", "Eilertsen", role = "aut", email = "ale@riksrevisjonen.no"),
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: https://github.com/Riksrevisjonen/noAPI, https://riksrevisjonen.github.io/noAPI/
 BugReports: https://github.com/Riksrevisjonen/noAPI/issues
 Suggests:
