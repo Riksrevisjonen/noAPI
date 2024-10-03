@@ -1,69 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/404.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/index.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/count_ssb_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_punktsok.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_sok.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/find_address_from_point.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_address_info.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_countries.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_entity.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_exchange_rate.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_industrial_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_kindergartens.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_municipalities.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_roles.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_schools.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_table.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://riksrevisjonen.github.io/noAPI/reference/noAPI-package.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://riksrevisjonen.github.io/noAPI/404.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/LICENSE-text.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/authors.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/index.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/news/index.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/count_ssb_tags.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_punktsok.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/create_params_kv_sok.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/find_address_from_point.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_address_info.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_countries.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_entity.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_exchange_rate.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_industrial_codes.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_kindergartens.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_municipalities.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_roles.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_schools.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_metadata.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/get_ssb_table.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/index.html</loc></url>
+<url><loc>https://riksrevisjonen.github.io/noAPI/reference/noAPI-package.html</loc></url>
 </urlset>
+
