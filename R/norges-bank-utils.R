@@ -1,23 +1,29 @@
 #' request_sdmx_latest
 #' @noRd
 request_sdmx_latest <- function(currency, frequency, n_obs) {
-  api_path <- sprintf(
-    'data/EXR/%s.%s.NOK.SP?format=sdmx-json&lastNObservations=%s&locale=en',
-    frequency, currency, n_obs
-  )
-  req <- request(nbank_url) |> req_url_path_append(api_path)
+  api_path <- sprintf("data/EXR/%s.%s.NOK.SP", frequency, currency)
+  req <- request(nbank_url) |>
+    req_url_path_append(api_path) |>
+    req_url_query(
+      "format" = "sdmx-json",
+      "lastNObservations" = as.integer(n_obs),
+      "locale" = "en"
+    )
   send_query(req)
 }
 
 #' request_sdmx
 #' @noRd
 request_sdmx <- function(currency, frequency, start, end) {
-  api_path <- sprintf(
-    'data/EXR/%s.%s.NOK.SP?format=sdmx-json&startPeriod=%s&endPeriod=%s&locale=en',
-    frequency, currency, start, end
-  )
+  api_path <- sprintf("data/EXR/%s.%s.NOK.SP", frequency, currency)
   req <- request(nbank_url) |>
-    req_url_path_append(api_path)
+    req_url_path_append(api_path) |>
+    req_url_query(
+      "format" = "sdmx-json",
+      "startPeriod" = start,
+      "endPeriod" = end,
+      "locale" = "en"
+    )
   send_query(req)
 }
 
@@ -40,8 +46,8 @@ parse_sdmx_single <- function(index, series, currency, frequency, str) {
     decimals = as.integer(rep(attrs[[1]]$values[[attr_idx[1]]]$id, length(values))),
     calculated = rep(attrs[[2]]$values[[attr_idx[2]]]$id, length(values)),
     unit_multiplier = rep(attrs[[3]]$values[[attr_idx[3]]]$name, length(values)),
-    date_from = as.Date(dates_from, format = '%Y-%m-%dT%H:%M:%S'),
-    date_to = as.Date(dates_to, format = '%Y-%m-%dT%H:%M:%S'),
+    date_from = as.Date(dates_from, format = "%Y-%m-%dT%H:%M:%S"),
+    date_to = as.Date(dates_to, format = "%Y-%m-%dT%H:%M:%S"),
     date = dates
   )
   df
