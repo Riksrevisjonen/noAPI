@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Riksrevisjonen/noAPI/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Riksrevisjonen/noAPI/blob/v0.1.2/DESCRIPTION)
 
 Jakobsen O, Eilertsen A (2026). *noAPI: R Client For Public Norwegian
 APIs*. R package version 0.1.2,
